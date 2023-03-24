@@ -6,7 +6,7 @@ const globalSection = document.querySelector('#globalSection');
   globalSection.addEventListener("scroll", scrollFunction);
 
   function scrollFunction() {
-    if (globalSection.scrollTop > 315) {
+    if (globalSection.scrollTop > 500) {
       document.getElementById('logo').style.opacity = 1;
       document.getElementById('header').style.backgroundColor = 'black';
 
