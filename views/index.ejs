@@ -1,0 +1,308 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/Img/logo3.ico" />
+    <meta content="Looking to improve your listening skills in another language? Look no further than our website! We offer a wide range of engaging and informative videos that you can transcribe to improve your listening and comprehension abilities. Whether you're a beginner or an advanced learner, we have videos suitable for your level. Let us help you achieve your language learning goals." name="description">
+    <meta content="Looking to improve your listening skills in another language? Look no further than our website!" property="og:title">
+    <meta content="Looking to improve your listening skills in another language? Look no further than our website! We offer a wide range of engaging and informative videos that you can transcribe to improve your listening and comprehension abilities. Whether you're a beginner or an advanced learner, we have videos suitable for your level. Let us help you achieve your language learning goals." property="og:description">
+    <meta content="/static/ogImage.png" property="og:image">
+    <title>Oralora</title>
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <script src="/assets/js/script.js" defer></script>
+    <script src="/assets/js/youtubeApi.js" defer></script>
+    
+
+</head>
+
+<body>
+
+    <%- include('header.ejs') %>
+
+        <div id="globalSection">
+
+            <section id="homeSection">
+
+
+
+                <div id="globalTitle">
+                    <div id="title">ORALORA</div>
+                    <div id="hook">The best way to learn a language.</div>
+
+                    <button onclick="scrollToInput()" id="try">TRY</button>
+                </div>
+
+            </section>
+
+            <section id="inputSection">
+
+                <div id="inputLoadingDiv">
+                    <input placeholder="Enter Youtube URL" autocomplete="off" type="text" id="urlInput" name="urlInput">
+                    <span id="invalidURL"></span>
+                    <div id="loading"></div>
+                </div>
+            </section>
+
+            <section id="videoSection">
+
+                <div id="player"></div>
+
+            </section>
+
+            <section id="guessSection">
+
+                <div id="allGuess">
+                    <div id="parentScore">
+                    <div>Score :</div>
+                        <div id="currentScore"></div>
+                        <div id="totalWords"></div>
+                    </div>
+
+                    <div id="foundArea"></div>
+                        <div id="parentGuess">
+                        <textarea id="guessArea"></textarea>
+                        <div id='parentGuessButton'>
+                        <button onclick="guessButton()" id="guessButton">GUESS</button>
+                        </div>
+                        </div>
+                    <div id="command">
+                        <div><img class="playRepeat" id="repeat" onclick="repeatVideo()" src="/assets/Img/Repeat.png"><span class="shortcut"></span></div>
+                        <div><img class="playRepeat" onclick="pauseVideo()" src="/assets/Img/playButton.png"><span class="shortcut"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+               <!--  <script>
+
+
+
+                    //console.log(getLang().foro);
+                    var inputUrl = document.getElementById("urlInput");
+
+                    //let obj = new oui();
+
+                    let clean;
+                    const output = document.getElementById("foundArea");
+                    const input = document.getElementById("guessArea");
+                    const scoreDiv = document.getElementById('currentScore');
+                    
+
+                    inputUrl.addEventListener("keydown", async function (event) {
+                        if (event.key === "Enter") {
+                            //event.preventDefault();
+                            let loading = 'loading';
+                            let loadingSpinner = 'loadingSpinner';
+                            let spinner = document.getElementById('loading');
+                            let videoSection = document.getElementById("videoSection");
+                            let guessSection = document.getElementById("guessSection");
+                            spinner.id = loadingSpinner;
+                            var getIDYTB = setIframeSource();
+                            console.log(getIDYTB);
+                            if (getIDYTB === "URL Invalid") {
+                                inputUrl.value = "";
+                                spinner.id = loading;
+                                return;
+                            }
+                            try {
+                                var getHTTPTranscript = await fetch("/id", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: getIDYTB,
+                                }).then((response) => response.json())
+                                    .then((transcript) => transcript)
+                                    .catch(error => {
+                                        console.error(error);
+                                        document.getElementById("invalidURL").innerHTML = "No subtitles are available for this video or it is intended for kids.";
+                                        spinner.id = loading;
+                                        inputUrl.value = "";
+                                        throw new Error('Error T');
+                                    });
+
+                            } catch (error) {
+                                console.error(error);
+                                spinner.id = loading;
+                                inputUrl.value = "";
+                                return;
+                            }
+                            videoSection.style.display = "flex";
+                            guessSection.style.display = "flex";
+                            spinner.id = loading;
+                            inputUrl.value = "";
+                            clean = cleanTranscript(getHTTPTranscript);
+                            clean =  JSON.stringify(clean);
+                            clean = JSON.parse(clean);
+                            var startBy = clean[0].offset;
+                            console.log(getHTTPTranscript);
+                            loadAPIPls(getIDYTB, startBy);
+                            //toDoOnStart(startBy);
+                            console.log(clean);
+                            countScore(clean);
+                            const scrollTo = document.querySelector("#guessSection");
+                            scrollTo.scrollIntoView();
+                        }
+                    },{passive:true}
+                    );
+
+                    getLang();
+
+                    document.addEventListener("keydown", function (event) {
+                        if (event.key === "n") {
+                            console.log(3);
+                        }
+                    }); 
+                    
+
+                    let indexObject = 0;
+                    let indexWord = 0;
+                    let indexLetter = 0;
+                    let score = 0;
+                    
+                    
+
+                    input.addEventListener("input", function(event) {
+                        //var inputValue = input.value;
+                        
+                        //console.log("c parti2");
+
+                        var string = clean[indexObject].text;//'lets go to a place'
+                        var stringList = string.split(" "); // ["lets", "go", "to", "a", "place"]
+                        //console.log(p.split());
+                        var currentWord = stringList[indexWord];
+                        var letter = string[indexLetter]; //'l'
+                        //console.log(z);
+                        var inputData = event.data; //'f'
+                        
+                        //console.log(t);
+                        if (inputData === letter) {
+                            indexLetter++;
+                            
+                        } else {
+                            setTimeout(() => {input.value = input.value.slice(0, indexLetter) + input.value.slice(indexLetter + 2)}, 100); 
+                            //input.value = texte.slice(0, b);
+                        }
+
+                       if (input.value === currentWord) {
+                        output.innerHTML += currentWord + ' ';
+                        currentWord = '';
+                        indexWord++;
+                        indexLetter = 0;
+                        input.value = '';
+                        scoreDiv.innerHTML = score + 1;
+
+                       }
+                        });
+
+                       /* var currentTranscriptIndex = 0; // Index de l'objet transcript actuellement en cours
+                    var currentWordIndex = 0; // Index du mot actuellement en cours dans l'objet transcript courant
+                    var currentLetterIndex = 0; // Index de la lettre actuellement en cours dans le mot courant
+                    var currentWord = ''; // Le mot actuellement en cours */
+
+
+
+                    // Récupération des éléments du DOM
+                   /*  var input = document.getElementById('guessArea');
+                    var output = document.getElementById('foundArea');
+                    let currentWordIndex = 0;
+                    let currentLetterIndex = 0;
+                    let currentTimeout;
+                    
+
+                    // Fonction pour afficher le mot courant dans la div de sortie
+                    function displayCurrentWord() {
+                        output.innerHTML += currentWord + ' ';
+                        currentWord = '';
+                        currentWordIndex++;
+                        currentLetterIndex = 0;
+                        input.value = '';
+                    }
+
+                    // Fonction pour vérifier si la lettre entrée correspond à la lettre attendue
+                    function checkLetter(currentWord) {
+                        const currentLetter = currentWord.charAt(currentLetterIndex);
+                        const enteredLetter = input.value.charAt(input.value.length - 1);
+
+                        if (currentLetter === enteredLetter) {
+                            currentLetterIndex++;
+                        } else {
+                            input.value = input.value.slice(0, -1);
+                        }
+
+                        // Vérification si le mot est complet
+                        if (currentLetterIndex === currentWord.length) {
+                            clearTimeout(currentTimeout);
+                            displayCurrentWord();
+                        }
+                    }
+
+                    
+                    
+
+                    input.addEventListener('input',  () => {
+                        
+                        console.log('ntm si' + clean);
+                        console.log(currentWordIndex);
+
+                   
+                        var currentWord = clean[5].text;
+                        console.log(currentWord);
+                    
+                        if (currentWordIndex < clean.length) {
+                            // Vérification si le mot est complet
+                            if (currentLetterIndex === currentWord.length) {
+                                clearTimeout(currentTimeout);
+                                displayCurrentWord();
+                            } else {
+                                currentTimeout = setTimeout(() => {
+                                    checkLetter(currentWord);
+                                }, 1000);
+                            }
+                        }
+                    }, {passive:true}); */
+
+                    // Ajout d'un listener pour la saisie dans le textarea
+                    /* textArea.addEventListener('input', function (event) {
+                        
+                         
+                        console.log(clean2);
+                        
+                        
+                        /*
+
+                        var typedLetter = event.data; // La lettre qui vient d'être saisie
+                        var expectedLetter = currentWord[currentLetterIndex]; // La lettre attendue dans le mot courant
+
+                        // Vérification de la lettre saisie
+                        if (typedLetter === expectedLetter) {
+                            currentLetterIndex++; // On passe à la lettre suivante dans le mot courant
+                            textarea.value += typedLetter; // On ajoute la lettre saisie dans le textarea
+                        } else {
+                            textarea.value = textarea.value.slice(0, -1); // On supprime la lettre saisie du textarea
+                        }
+
+                        // Vérification de la fin du mot courant
+                        if (currentLetterIndex === currentWord.length) {
+                            currentWordIndex++; // On passe au mot suivant dans l'objet transcript courant
+                            currentLetterIndex = 0; // On réinitialise l'index de la lettre pour le nouveau mot
+                            currentWord = clean2[currentTranscriptIndex].text.split(' ')[currentWordIndex]; // On récupère le nouveau mot courant
+                        }
+
+                        // Vérification de la fin de l'objet transcript courant
+                        if (currentWordIndex === clean2[currentTranscriptIndex].text.split(' ').length) {
+                            currentTranscriptIndex++; // On passe à l'objet transcript suivant
+                            currentWordIndex = 0; // On réinitialise l'index du mot pour le nouvel objet transcript
+                            currentLetterIndex = 0; // On réinitialise l'index de la lettre pour le nouveau mot
+                            currentWord = clean2[currentTranscriptIndex].text.split(' ')[currentWordIndex]; // On récupère le nouveau mot courant
+                        } 
+                    }); */
+
+
+                </script> -->
+            </section>
+        </div>
+</body>
+
+</html>

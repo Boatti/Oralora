@@ -1,0 +1,413 @@
+body {
+    background-color: #120731;
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: GolosRegular;
+}
+
+:root {
+    --accent-gradient: linear-gradient(45deg, rgb(125, 147, 245), #93ff78);
+}
+
+#header {
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    height: 62px;
+    z-index: 1;
+}
+
+#challengeDropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 50px;
+}
+
+#challengeDropdownContent {
+    width: 150px;
+    height: 150px;
+    border-radius: 50px;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    left: -30px;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+#challengeDropdownContent a {
+    background: black;
+    
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#challengeDropdownContent a:hover {
+    background-color: #f1f1f1;
+
+}
+
+#challengeDropdown:hover #challengeDropdownContent {
+    display: flex;
+  }
+
+
+#inputLoadingDiv {
+    position: relative;
+}
+#loadingSpinner {
+    display: flex;
+    position: absolute;
+    top: 10vw;
+    transition: opacity 0.75s, visibility 0.75s;
+}
+
+#loeadingSpinnerHidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+#loadingSpinner::after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    border: 7px solid #c1c1c1;
+    border-top-color: rgb(3, 38, 54);
+    border-radius: 50%;
+    animation: loading 0.7s cubic-bezier(0, 0, 0.45, 0.85) infinite;
+}
+
+
+@keyframes loading {
+    from {
+        transform: rotate(0turn);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+#header>div {
+    align-items: center;
+    display: flex;
+}
+
+#boxForTabs {
+    gap: 1vw;
+    font-family: GolosBold;
+    margin-right: 3vw;
+}
+
+#logo {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    font-family: GolosBlack;
+    font-size: 2em;
+    margin-left: 3vw;
+}
+
+#parentScore{
+    display: flex;
+    gap: 3px;
+}
+
+#parentGuess {
+    display: flex;
+    position: relative;
+}
+
+#guessButton {
+    font-family: GolosBold;
+    border: 2px solid lightblue;
+    cursor: pointer;
+    border-radius: 30px;
+    width: 7vw;
+    height: 3vw;
+}
+
+
+
+#guessButton {
+    border: 2px solid lightblue;
+    cursor: pointer;
+    border-radius: 30px;
+    width: 7vw;
+    height: 3vw;
+
+    position: absolute;
+    right: -8vw;
+    top: 2.5vw;
+}
+
+.guessWords {
+    color: rgb(182, 2, 2);
+}
+
+
+.tabs:hover {
+    color: blueviolet;
+
+}
+
+iframe {
+    width: 40vw;
+    height: 22.5vw;
+}
+
+#header {
+    text-align: center;
+}
+
+#globalTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1vw;
+    font-family: GolosMedium;
+    font-size: 1.2em;
+}
+
+#title {
+    font-family: GolosBlack;
+    font-size: 5em;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#try {
+    text-align: center;
+    margin-top: 3vw;
+    width: 9vw;
+    height: 4vw;
+    font-family: GolosExtraBold;
+    font-size: 1.2rem;
+    border-radius: 100px;
+    border: 0px solid white;
+    cursor: pointer;
+    color: white;
+    background-image: var(--accent-gradient);
+    transition: all 0.3s ease-in-out;
+    background-size: 200% auto;
+}
+
+#try:hover {
+    background-position: right center;
+}
+
+
+
+#inputSection,
+#homeSection {
+    display: flex;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#inputSection>div {
+    display: flex;
+    position: relative;
+    margin-bottom: 20vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#invalidURL {
+    position: absolute;
+    background: linear-gradient(45deg, #950000, #c50000);
+    top: 5vw;
+    font-size: 1vw;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: GolosBold;
+}
+
+#allGuess {
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.playRepeat {
+    cursor: pointer;
+    width: 3.5vw;
+}
+
+#repeat{
+    
+}
+
+#command {
+    display: flex;
+
+    justify-content: center;
+}
+
+#command div {
+    min-width: -webkit-fill-available;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.shortcut {
+    position: absolute;
+    top: 4vw;
+    font-size: 0.8em;
+    font-family: GolosRegular;
+}
+
+#urlInput {
+    border: none;
+    padding-left: 20px;
+    width: 55vw;
+    height: 4.3vw;
+    border-radius: 100px;
+    border: 3px solid #D9D9D9;
+    transition: color, outline, background-color 0.5s ease-in-out;
+    background-color: #D9D9D9;
+    font-size: 1.05em;
+    font-family: GolosBold;
+
+}
+
+#urlInput:focus {
+    outline: rgb(230, 230, 230);
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
+#urlInput::placeholder {
+    transition: color 0.3s ease-in-out;
+    color: rgb(154, 154, 154);
+    font-family: GolosSemiBold;
+}
+
+#urlInput:focus::placeholder {
+    color: transparent;
+}
+
+
+
+#foundArea {
+    border-radius: 33px;
+    width: 58vw;
+    height: 12vw;
+    padding: 16;
+    background-color: #D9D9D9;
+    font-size: 1.2em;
+    color: rgb(0, 0, 53);
+    overflow-y: scroll;
+}
+
+#guessArea {
+    resize: none;
+    font-family: GolosRegular;
+    border-radius: 23px;
+    width: 40vw;
+    height: 8vw;
+    padding: 12 0 0 15;
+    background-color: #D9D9D9;
+    font-size: 1.2em;
+    border: 0;
+}
+
+#guessArea:focus {
+    outline: none !important;
+}
+
+#globalSection section {
+
+    height: 100vh;
+    scroll-snap-align: start;
+    scroll-behavior: smooth;
+}
+
+#globalSection {
+    margin-top: 105px;
+    scroll-behavior: smooth;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+    -webkit-tap-highlight-color: transparent;
+    color: inherit;
+    scroll-behavior: smooth;
+    text-decoration: none;
+}
+
+@font-face {
+    font-family: "GolosBlack";
+    src: url("../Font/GOLOS/GolosText-Black.ttf");
+}
+
+@font-face {
+    font-family: "GolosExtraBold";
+    src: url("../Font/GOLOS/GolosText-ExtraBold.ttf");
+}
+
+@font-face {
+    font-family: "GolosBold";
+    src: url("../Font/GOLOS/GolosText-Bold.ttf");
+}
+
+@font-face {
+    font-family: "GolosSemiBold";
+    src: url("../Font/GOLOS/GolosText-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: "GolosMedium";
+    src: url("../Font/GOLOS/GolosText-Medium.ttf");
+}
+
+@font-face {
+    font-family: "GolosRegular";
+    src: url("../Font/GOLOS/GolosText-Regular.ttf");
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #120731;
+}
