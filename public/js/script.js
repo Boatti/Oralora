@@ -6,7 +6,7 @@ const globalSection = document.querySelector('#globalSection');
   globalSection.addEventListener("scroll", scrollFunction);
 
   function scrollFunction() {
-    if (globalSection.scrollTop > 500) {
+    if (globalSection.scrollTop > 315) {
       document.getElementById('logo').style.opacity = 1;
       document.getElementById('header').style.backgroundColor = 'black';
 
@@ -134,6 +134,8 @@ const inputUrl = document.getElementById("urlInput");
 
 inputUrl.addEventListener("keydown", async function (event) {
     if (event.key === "Enter") {
+
+      
         //event.preventDefault();
         let loading = 'loading';
         let loadingSpinner = 'loadingSpinner';
@@ -184,32 +186,146 @@ inputUrl.addEventListener("keydown", async function (event) {
         //toDoOnStart(startBy);
         console.log(clean);
         countScore(clean);
+        inputUrl.blur(); //Unfocus the input
         const scrollTo = document.querySelector("#guessSection");
         scrollTo.scrollIntoView();
+
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "n") {
+              console.log(3);
+          }
+      }); 
+      //var iframe = document.querySelector("iframe#player");
+       
     }
-},{passive:true}
-);
+},{passive:true});
 
 getLang();
 
-document.addEventListener("keydown", function (event) {
-    if (event.key === "n") {
-        console.log(3);
-    }
-}); 
 
+
+/* const myVariable = new Proxy({ value: false }, {
+  set(target, prop, value) {
+    target[prop] = value;
+    if (prop === 'value') {
+      console.log(`La variable a changé de valeur de ${!target[prop]} à ${target[prop]} !`);
+      
+
+    }
+    return true;
+  }
+}); */
+
+/* let myVariable = false;
+console.log(myVariable);
+
+Object.defineProperty(window, 'myVariable', {
+  get: function() {
+    return myVariable;
+  },
+  set: function(value) {
+    if (value !== myVariable) {
+      console.log('La variable a changé de valeur de', myVariable, 'à', value, '!');
+      myVariable = value;
+    }
+  }
+}); */
+
+
+/* // Récupère la div parent qui contiendra la vidéo
+const parentDiv = document.getElementById('player');
+
+// Crée le MutationObserver qui observe les modifications de l'attribut "src" de la balise "video"
+const observer = new MutationObserver(function(mutationsList) {
+  console.log("aahhaahha");
+  for(let mutation of mutationsList) {
+    console.log("ouiiiiiiii");
+    if (mutation.type === 'attributes' && mutation.attributeName === 'src') {
+      try {
+        console.log("haaaaa");
+        const video = parentDiv.querySelector('video');
+        if(video && video.currentTime >= 5) {
+          video.currentTime = 0;
+          video.pause();
+        }
+      } catch(error) {
+        console.error(error);
+      }
+    }
+  }
+});
+
+// Configure le MutationObserver pour observer les modifications de l'attribut "src" de la balise "video"
+observer.observe(parentDiv, { attributes: true, childList: false, subtree: false }); */
+
+// Observe les modifications apportées au noeud body
+/* var observer = new MutationObserver(function(mutations) {
+  console.log("aahhaahha");
+  mutations.forEach(function(mutation) {
+console.log("ouiiiiiiii");
+    console.log(mutation);
+    
+      // Vérifie si un noeud enfant a été ajouté à body
+      if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+        console.log("nonnnnnnnnnn");
+          var node = mutation.addedNodes[0];
+          // Vérifie si le noeud ajouté est un iframe avec l'id player
+          if (node.nodeName === 'IFRAME' && node.id === 'player') {
+            console.log("haaaaa");
+              var video = node.contentDocument.querySelector('video');
+              video.addEventListener('timeupdate', function() {
+
+                console.log("bbbbbbbbb");
+                  if (video.currentTime >= 5) {
+                      video.currentTime = 0;
+                  }
+              }, false);
+          }
+      }
+  });
+});
+
+// Commence à observer les modifications
+observer.observe(document.body, { childList: true }); */
+
+
+
+/* var video = null;
+
+window.addEventListener('load', function() {
+  console.log("c oim");
+    try {
+      video = iframe.contentDocument.querySelector('video');
+    } catch (error) {
+      console.log(error);
+    }
+    
+      
+    
+});
+
+window.addEventListener('timeupdate', function() {
+    if (video && video.currentTime >= 5) {
+        video.currentTime = 0;
+    }
+}, false); */
 
 
 // trouver l'élément parent qui contiendra l'iframe
-const parentElement = document.getElementById('player');
+/* const parentElement = document.getElementById('player');
 
 // ajouter un écouteur d'événements pour l'événement "load"
 parentElement.addEventListener('load', function() {
   // trouver l'iframe
+  console.log('oui c moi');
   var youtubeIframe = document.querySelector("iframe#player");
+  
 
   // attendre que l'iframe soit chargé
   youtubeIframe.addEventListener('load', function() {
+
+    console.log('oui c moi deux');
     // trouver l'objet de la vidéo à l'intérieur de l'iframe
     const youtubeVideo = youtubeIframe.contentWindow.document.querySelector('video');
 
@@ -228,18 +344,8 @@ parentElement.addEventListener('load', function() {
       }
     });
   });
-});
+}); */
 
-function myFunction() {
-  // votre fonction ici
-  console.log('La position de la vidéo a atteint 30 secondes!');
-}
-
-
-function myFunction() {
-  // votre fonction ici
-  console.log('La position de la vidéo a atteint 30 secondes!');
-}
 
 
 let indexObject = 0;
@@ -271,13 +377,16 @@ function guessButton(){
   indexWord++;
   input.value = '';
   input.focus();
+  try {
   const lastWordDiv = output.lastChild.textContent;
   const lastWord = lastWordDiv.trim();
   console.log(lastWord);
-    if (lastWord === stringListGuess[stringListGuess.length - 1]){
-      indexObject++;
-      indexWord = 0;
-    }
+  if (lastWord === stringListGuess[stringListGuess.length - 1]){
+    indexObject++;
+    indexWord = 0;
+  }
+} catch (e){console.log(e)};
+  
   } else {
     output.innerHTML += "END";
     document.getElementById("guessButton").removeAttribute("onclick");
@@ -288,10 +397,9 @@ input.addEventListener("paste", function(event) {
   event.preventDefault();
 });
 
-
+let string;
+let stringList;
 input.addEventListener("input", function(event) {
-
-  
 
   ///goToOffset(sendOffset);
 
@@ -301,10 +409,10 @@ input.addEventListener("input", function(event) {
     //var inputValue = input.value;
     
     //console.log("c parti2");
-    let string;
+    
   try {
    string = clean[indexObject].text;//'lets go to a place'
-  } catch(e){console.log(e)}
+  } catch(e){console.log(e)};
   if (string != null) {
     var stringList = string.split(" "); // ["lets", "go", "to", "a", "place"]
     //console.log(p.split());
@@ -336,17 +444,26 @@ input.addEventListener("input", function(event) {
     score =  score + 1;
     scoreDiv.innerHTML = score;
    }
+   try {
    const lastWordDiv = output.lastChild.textContent;
    const lastWord = lastWordDiv.trim();
-    if (lastWord === stringList[stringList.length - 1]){
-      indexObject++;
-      indexWord = 0;
-    }
+   if (lastWord === stringList[stringList.length - 1]){
+     indexObject++;
+     indexWord = 0;
+   }
+   }catch(e){console.log(e)};
+  
 
   } else {
     output.innerHTML += "END";
     
   }
+
+  if (YT.PlayerState.PLAYING) {
+    var duration = player.getDuration();
+      console.log("a la dur" + duration);
+  }
+
     });
     
 
