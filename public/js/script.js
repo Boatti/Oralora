@@ -3,18 +3,18 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const globalSection = document.querySelector('#globalSection');
-  globalSection.addEventListener("scroll", scrollFunction);
+globalSection.addEventListener("scroll", scrollFunction);
 
-  function scrollFunction() {
-    if (globalSection.scrollTop > 315) {
-      document.getElementById('logo').style.opacity = 1;
-      document.getElementById('header').style.backgroundColor = 'black';
+function scrollFunction() {
+  if (globalSection.scrollTop > 315) {
+    document.getElementById('logo').style.opacity = 1;
+    document.getElementById('header').style.backgroundColor = 'black';
 
-    } else {
-      document.getElementById('logo').style.opacity = 0;
-      document.getElementById('header').style.backgroundColor = 'transparent';
-    }
+  } else {
+    document.getElementById('logo').style.opacity = 0;
+    document.getElementById('header').style.backgroundColor = 'transparent';
   }
+}
 
 function getNavigator() {
   const isMac = navigator.userAgent.toUpperCase().indexOf('MAC') >= 0;
@@ -24,8 +24,9 @@ function getNavigator() {
 function playerCommands() {
   const shortcutElements = document.getElementsByClassName("shortcut");
   const isMac = getNavigator();
-  shortcutElements[0].innerHTML = isMac ? "CMD + A" : "CTRL + A";
-  shortcutElements[1].innerHTML = isMac ? "CMD + Z" : "CTRL + Z";
+  shortcutElements[0].innerHTML = isMac ? "Ctrl + A" : "CTRL + A";
+  shortcutElements[1].innerHTML = isMac ? "Ctrl + Z" : "CTRL + Z";
+  shortcutElements[2].innerHTML = isMac ? "Ctrl + E" : "CTRL + Z";
 }
 
 function setIframeSource() {
@@ -56,18 +57,6 @@ function setIframeSource() {
   }
   return onlyYtId;
 }
-/* 
-function loadAPIPls(getIDYTB) {
-
-   if (typeof YT !== 'undefined' && YT.loaded) {
-    return;
-} 
-  loadYouTubeAPI();
-  window.onYouTubeIframeAPIReady = function () {
-
-  createYouTubePlayer(getIDYTB);
-  }
-} */
 
 function cleanTranscript(transcript) {
 
@@ -97,9 +86,9 @@ function countScore(cleanTranscript) {
   var totalWords = cleanTranscript.reduce(function (acc, val) {
     return acc + val.text.split(' ').length;
   }, 0);
-  
+
   scoreDiv.innerHTML = 0;
-  document.getElementById('totalWords').innerHTML = ' / ' + totalWords;
+  document.getElementById('totalWords').innerHTML = totalWords;
 
   console.log(totalWords);
 
@@ -119,234 +108,106 @@ function getLang() {
   return userLanguage;
 }
 
-
-
 //let obj = new oui();
-
 
 //addEventListenner
 let clean;
+var getIDYTB;
 const output = document.getElementById("foundArea");
 const input = document.getElementById("guessArea");
 const scoreDiv = document.getElementById('currentScore');
 const inputUrl = document.getElementById("urlInput");
 
-
+////////////INPUT URL
 inputUrl.addEventListener("keydown", async function (event) {
-    if (event.key === "Enter") {
-
-      
-        //event.preventDefault();
-        let loading = 'loading';
-        let loadingSpinner = 'loadingSpinner';
-        let spinner = document.getElementById('loading');
-        let videoSection = document.getElementById("videoSection");
-        let guessSection = document.getElementById("guessSection");
-        spinner.id = loadingSpinner;
-        var getIDYTB = setIframeSource();
-        console.log(getIDYTB);
-        if (getIDYTB === "URL Invalid") {
-            inputUrl.value = "";
-            spinner.id = loading;
-            return;
-        }
-        try {
-            var getHTTPTranscript = await fetch("/id", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: getIDYTB,
-            }).then((response) => response.json())
-                .then((transcript) => transcript)
-                .catch(error => {
-                    console.error(error);
-                    document.getElementById("invalidURL").innerHTML = "No subtitles are available for this video or it is intended for kids.";
-                    spinner.id = loading;
-                    inputUrl.value = "";
-                    throw new Error('Error T');
-                });
-
-        } catch (error) {
-            console.error(error);
-            spinner.id = loading;
-            inputUrl.value = "";
-            return;
-        }
-        videoSection.style.display = "flex";
-        guessSection.style.display = "flex";
-        spinner.id = loading;
-        inputUrl.value = "";
-        clean = cleanTranscript(getHTTPTranscript);
-        clean =  JSON.stringify(clean);
-        clean = JSON.parse(clean);
-        var startBy = clean[0].offset;
-        console.log(getHTTPTranscript);
-        loadAPIPls(getIDYTB, startBy);
-        //toDoOnStart(startBy);
-        console.log(clean);
-        countScore(clean);
-        inputUrl.blur(); //Unfocus the input
-        const scrollTo = document.querySelector("#guessSection");
-        scrollTo.scrollIntoView();
+  if (event.key === "Enter" || event.key === 'NumpadEnter') {
 
 
-        document.addEventListener("keydown", function (event) {
-          if (event.key === "n") {
-              console.log(3);
-          }
-      }); 
-      //var iframe = document.querySelector("iframe#player");
-       
+    //event.preventDefault();
+    let loading = 'loading';
+    let loadingSpinner = 'loadingSpinner';
+    let spinner = document.getElementById('loading');
+    let videoSection = document.getElementById("videoSection");
+    let guessSection = document.getElementById("guessSection");
+    spinner.id = loadingSpinner;
+    getIDYTB = setIframeSource();
+    console.log(getIDYTB);
+    if (getIDYTB === "URL Invalid") {
+      inputUrl.value = "";
+      spinner.id = loading;
+      return;
     }
-},{passive:true});
+    try {
+      var getHTTPTranscript = await fetch("/id", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: getIDYTB,
+      }).then((response) => response.json())
+        .then((transcript) => transcript)
+        .catch(error => {
+          console.error(error);
+          document.getElementById("invalidURL").innerHTML = "No subtitles are available for this video or it is intended for kids.";
+          spinner.id = loading;
+          inputUrl.value = "";
+          throw new Error('Error T');
+        });
+
+    } catch (error) {
+      console.error(error);
+      spinner.id = loading;
+      inputUrl.value = "";
+      return;
+    }
+    videoSection.style.display = "flex";
+    guessSection.style.display = "flex";
+    spinner.id = loading;
+    inputUrl.value = "";
+    clean = cleanTranscript(getHTTPTranscript);
+    clean = JSON.stringify(clean);
+    clean = JSON.parse(clean);
+    var startBy = clean[0].offset;
+    console.log(getHTTPTranscript);
+    loadAPIPls(getIDYTB, startBy);
+    //toDoOnStart(startBy);
+    console.log(clean);
+    countScore(clean);
+    inputUrl.blur(); //Unfocus the input
+    const scrollTo = document.querySelector("#guessSection");
+    scrollTo.scrollIntoView();
+
+
+    document.addEventListener("keydown", function (event) {
+      if (event.ctrlKey && event.key === "a") {
+        repeatAWord();
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.ctrlKey && event.key === "z") {
+        replayVideo();
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.ctrlKey && event.key === "e") {
+       ; // clear the setInterval
+        toggleVideo();
+      }
+
+    });
+    input.focus();
+    //var iframe = document.querySelector("iframe#player");
+  }
+}, { passive: true });
+////////////INPUT URL
 
 getLang();
 
+// const myVariable = new Proxy({ value: false }, {
 
-
-/* const myVariable = new Proxy({ value: false }, {
-  set(target, prop, value) {
-    target[prop] = value;
-    if (prop === 'value') {
-      console.log(`La variable a changé de valeur de ${!target[prop]} à ${target[prop]} !`);
-      
-
-    }
-    return true;
-  }
-}); */
-
-/* let myVariable = false;
-console.log(myVariable);
-
-Object.defineProperty(window, 'myVariable', {
-  get: function() {
-    return myVariable;
-  },
-  set: function(value) {
-    if (value !== myVariable) {
-      console.log('La variable a changé de valeur de', myVariable, 'à', value, '!');
-      myVariable = value;
-    }
-  }
-}); */
-
-
-/* // Récupère la div parent qui contiendra la vidéo
-const parentDiv = document.getElementById('player');
-
-// Crée le MutationObserver qui observe les modifications de l'attribut "src" de la balise "video"
-const observer = new MutationObserver(function(mutationsList) {
-  console.log("aahhaahha");
-  for(let mutation of mutationsList) {
-    console.log("ouiiiiiiii");
-    if (mutation.type === 'attributes' && mutation.attributeName === 'src') {
-      try {
-        console.log("haaaaa");
-        const video = parentDiv.querySelector('video');
-        if(video && video.currentTime >= 5) {
-          video.currentTime = 0;
-          video.pause();
-        }
-      } catch(error) {
-        console.error(error);
-      }
-    }
-  }
-});
-
-// Configure le MutationObserver pour observer les modifications de l'attribut "src" de la balise "video"
-observer.observe(parentDiv, { attributes: true, childList: false, subtree: false }); */
-
-// Observe les modifications apportées au noeud body
-/* var observer = new MutationObserver(function(mutations) {
-  console.log("aahhaahha");
-  mutations.forEach(function(mutation) {
-console.log("ouiiiiiiii");
-    console.log(mutation);
-    
-      // Vérifie si un noeud enfant a été ajouté à body
-      if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-        console.log("nonnnnnnnnnn");
-          var node = mutation.addedNodes[0];
-          // Vérifie si le noeud ajouté est un iframe avec l'id player
-          if (node.nodeName === 'IFRAME' && node.id === 'player') {
-            console.log("haaaaa");
-              var video = node.contentDocument.querySelector('video');
-              video.addEventListener('timeupdate', function() {
-
-                console.log("bbbbbbbbb");
-                  if (video.currentTime >= 5) {
-                      video.currentTime = 0;
-                  }
-              }, false);
-          }
-      }
-  });
-});
-
-// Commence à observer les modifications
-observer.observe(document.body, { childList: true }); */
-
-
-
-/* var video = null;
-
-window.addEventListener('load', function() {
-  console.log("c oim");
-    try {
-      video = iframe.contentDocument.querySelector('video');
-    } catch (error) {
-      console.log(error);
-    }
-    
-      
-    
-});
-
-window.addEventListener('timeupdate', function() {
-    if (video && video.currentTime >= 5) {
-        video.currentTime = 0;
-    }
-}, false); */
-
-
-// trouver l'élément parent qui contiendra l'iframe
-/* const parentElement = document.getElementById('player');
-
-// ajouter un écouteur d'événements pour l'événement "load"
-parentElement.addEventListener('load', function() {
-  // trouver l'iframe
-  console.log('oui c moi');
-  var youtubeIframe = document.querySelector("iframe#player");
-  
-
-  // attendre que l'iframe soit chargé
-  youtubeIframe.addEventListener('load', function() {
-
-    console.log('oui c moi deux');
-    // trouver l'objet de la vidéo à l'intérieur de l'iframe
-    const youtubeVideo = youtubeIframe.contentWindow.document.querySelector('video');
-
-    // ajouter un event listener pour l'événement "timeupdate"
-    youtubeVideo.addEventListener('timeupdate', function() {
-      // obtenir la durée de la vidéo et la position actuelle
-      const duration = youtubeVideo.duration;
-      console.log('la duration : ' + duration);
-      const currentTime = youtubeVideo.currentTime;
-
-      // vérifier si la position actuelle atteint un certain chiffre
-      const threshold = 30; // changer cette valeur en fonction de vos besoins
-      if (currentTime >= threshold) {
-        // appeler votre fonction ici
-        myFunction();
-      }
-    });
-  });
-}); */
-
-
+//const observer = new MutationObserver(function(mutationsList) 
 
 let indexObject = 0;
 let indexWord = 0;
@@ -356,116 +217,159 @@ let indexStartOffset = 0;
 let indexEndOffset = 0;
 let currentWord;
 
+/////////// PASTE
+input.addEventListener("paste", function (event) {
+  event.preventDefault();
+});
 
+input.addEventListener('keydown', function(event) {
+  if (event.key === "Backspace") {
+    event.preventDefault();
+  }
+});
+/////////// PASTE
+let string;
+let stringList;
 
-/* function goToOffset(sendOffset){
+////////////OUTPUT
+let selectedSpans = [];
+output.addEventListener("click", function(event) {
+  if (event.target.tagName === "SPAN" ) {
+    event.target.style.background = "#12a5d9";
+    event.target.style.borderRadius = "20px";
+    selectedSpans.push(event.target);
+    if (selectedSpans.length === 2) {
+      selectedSpans.sort(function(a, b) {
+        return Array.prototype.indexOf.call(a.parentNode.childNodes, a) - Array.prototype.indexOf.call(b.parentNode.childNodes, b);
+      });
+      let startIndex = Array.prototype.indexOf.call(selectedSpans[0].parentNode.childNodes, selectedSpans[0]);
+      let endIndex = Array.prototype.indexOf.call(selectedSpans[1].parentNode.childNodes, selectedSpans[1]);
+      let phrase = Array.prototype.slice.call(selectedSpans[0].parentNode.childNodes, startIndex, endIndex + 1)
+        .map(function(span) {
+          return span.textContent;
+        })
+        .join(" ");
+      //let phraseAvecPourcentage = phrase.replace(/ /g, '%20');
+      //console.log("Selected phrase: " + phrase);
+      phrase = phrase.replace(/   /g, ' ');
+      setTimeout(() => {window.open("https://www.deepl.com/translator#en/fr/" + phrase); }, 50) 
+      //selectedSpans[0].parentNode.querySelectorAll("span").forEach(function(span) {
+        selectedSpans.forEach(function(span) {
+        setTimeout(() => {span.style.background = ""}, 50);
+        setTimeout(() => {span.style.borderRadius = ""}, 50);
+        
+      });
+      selectedSpans = [];
+    }
+  }
+});
+////////////OUTPUT
 
-
-
-} */
-
-function guessButton(){
+///////////BUTTON
+function guessButton() {
   let stringGuess;
   try {
-   stringGuess = clean[indexObject].text;
-  } catch(e){console.log(e)}
+    stringGuess = clean[indexObject].text;
+  } catch (e) { console.log(e) }
   if (stringGuess != null) {
-  let stringListGuess = stringGuess.split(" ");
-  console.log(stringListGuess);
-  currentWord = stringListGuess[indexWord];
-  output.innerHTML += "<a href = https://translate.google.com/?sl=en&tl=fr&text=" + currentWord + "&op=translate target=_blank><span class='guessWords'>" + currentWord + "</span>" + ' ';
-  indexWord++;
-  input.value = '';
-  input.focus();
-  try {
-  const lastWordDiv = output.lastChild.textContent;
-  const lastWord = lastWordDiv.trim();
-  console.log(lastWord);
-  if (lastWord === stringListGuess[stringListGuess.length - 1]){
-    indexObject++;
-    indexWord = 0;
-  }
-} catch (e){console.log(e)};
-  
+    let stringListGuess = stringGuess.split(" ");
+    console.log(stringListGuess);
+    currentWord = stringListGuess[indexWord];
+    //output.innerHTML += "<a href = https://translate.google.com/?sl=en&tl=fr&text=" + currentWord + "&op=translate target=_blank><span class='guessWords'>" + currentWord + "</span>" + ' ';
+    output.innerHTML += "<span class='guessWords'>" + currentWord + "</span>" + ' ';
+    indexWord++;
+    indexLetter = 0;
+    input.value = '';
+    input.focus();
+    try {
+      const lastWordDiv = output.lastElementChild.textContent;
+      //console.log('A' + lastWordDiv);
+      const lastWord = lastWordDiv.trim();
+      console.log(lastWord);
+      if (lastWord === stringListGuess[stringListGuess.length - 1]) {
+        indexObject++;
+        indexWord = 0;
+      }
+    } catch (e) { console.log(e) };
+
   } else {
     output.innerHTML += "END";
     document.getElementById("guessButton").removeAttribute("onclick");
   }
+  output.scrollTop = output.scrollHeight;
 }
+///////////BUTTON
 
-input.addEventListener("paste", function(event) {
-  event.preventDefault();
-});
-
-let string;
-let stringList;
-input.addEventListener("input", function(event) {
-
-  ///goToOffset(sendOffset);
-
+//////////////////INPUT
+var cara = "";
+input.addEventListener("input", function (event) {
   
-
-
-    //var inputValue = input.value;
-    
-    //console.log("c parti2");
-    
+  input.placeholder = '';
   try {
-   string = clean[indexObject].text;//'lets go to a place'
-  } catch(e){console.log(e)};
+    string = clean[indexObject].text;//'lets go to a place'
+  } catch (e) { console.log(e) };
   if (string != null) {
-    var stringList = string.split(" "); // ["lets", "go", "to", "a", "place"]
+    stringList = string.split(" "); // ["lets", "go", "to", "a", "place"]
     //console.log(p.split());
     currentWord = stringList[indexWord];
     var letter = currentWord[indexLetter]; //'l'
     //console.log(z);
     var inputData = event.data; //'f'
 
-    if ( clean[indexObject].text.length + clean[indexObject + 1].text.length <= 14) {
-      indexEndOffset++;
-    }
-    
-    //console.log(t);
     if (inputData === letter) {
-        indexLetter++;
-        
+      indexLetter++;
+
     } else {
-        setTimeout(() => {input.value = input.value.slice(0, indexLetter) + input.value.slice(indexLetter + 2)}, 100); 
-        
+      setTimeout(() => { input.value = input.value.slice(0, indexLetter) + input.value.slice(indexLetter + 3) }, 1);
+
+    }
+    if (input.value === currentWord) {
+
+      setTimeout(() => {input.value = '';}, 30);
+      output.innerHTML += "<span>" + currentWord + "</span>" + ' ';
+      cara = cara + " " + currentWord;
+      cara = cara.trim();
+      score = score + 1;
+      setTimeout(() => {scoreDiv.innerHTML = score;}, 100) 
+      indexWord++;
+      indexLetter = 0;
+      currentWord = '';
     }
 
-   if (input.value === currentWord) {
+    try {
+      const lastWordDiv = output.lastElementChild.textContent;
+      
 
-    output.innerHTML += "<a href = https://translate.google.com/?sl=en&tl=fr&text=" + currentWord + "&op=translate target=_blank>" + currentWord + ' ';
-    currentWord = '';
-    indexWord++;
-    indexLetter = 0;
-    input.value = '';
-    score =  score + 1;
-    scoreDiv.innerHTML = score;
-   }
-   try {
-   const lastWordDiv = output.lastChild.textContent;
-   const lastWord = lastWordDiv.trim();
-   if (lastWord === stringList[stringList.length - 1]){
-     indexObject++;
-     indexWord = 0;
-   }
-   }catch(e){console.log(e)};
-  
+      console.log("voici cara " + cara);
+      var p = clean[endOffset - 1].text
+      console.log("pp "+p);
+    
+      
+      if (cara === p) {
+        console.log("c gagné");
+        var [startForLoad, endForLoad] = getOffset();
+        changeAll(getIDYTB, startForLoad, endForLoad);
+      }
+      //console.log('A ' + lastWordDiv);
+      //const lastWord = lastWordDiv.trim();
+      //console.log('B ' +lastWord);
+      if (cara === string) {
+        cara = "";
+        indexObject++;
+        indexWord = 0;
+        console.log(1);
+       
+        
+      }
+    } catch (e) { console.log(e) };
+    
 
   } else {
     output.innerHTML += "END";
-    
   }
-
-  if (YT.PlayerState.PLAYING) {
-    var duration = player.getDuration();
-      console.log("a la dur" + duration);
-  }
-
-    });
-    
+  output.scrollTop = output.scrollHeight;
+});
+///////////////////INPUT
 
 ///rule display : 
 

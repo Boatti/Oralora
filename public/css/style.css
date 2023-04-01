@@ -23,37 +23,55 @@ body {
 }
 
 #challengeDropdown {
+    height: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
     position: relative;
-    display: inline-block;
     cursor: pointer;
     border-radius: 50px;
 }
 
 #challengeDropdownContent {
+    
     width: 150px;
     height: 150px;
-    border-radius: 50px;
+    border-radius: 18px;
     display: none;
     flex-direction: column;
     position: absolute;
+    top: 62px;
     left: -30px;
-    background-color: #f9f9f9;
+    background: #242424;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
 
-#challengeDropdownContent a {
-    background: black;
-    
+#challengeDropdownContent > a {
+    transition: 0.3s ease-in-out;
+    flex: 25%;
+    border-radius: 18px;
+    font-family: GolosBold;
+    align-items: center;
+    text-align: center;
+    border-bottom: 2px solid black;
+    display: flex;
     text-align: center;
     align-items: center;
     justify-content: center;
-
 }
 
 #challengeDropdownContent a:hover {
-    background-color: #f1f1f1;
+    background: #3c3c3c;
+    transition: 0.4s ;
+
+}
+
+#challengeDropdown > img {
+    top: 42px;
+    position: absolute;
+    width: 18px;
 
 }
 
@@ -104,9 +122,10 @@ body {
 }
 
 #boxForTabs {
+    position: relative;
     gap: 1vw;
     font-family: GolosBold;
-    margin-right: 3vw;
+    margin-right: 3.5vw;
 }
 
 #logo {
@@ -118,6 +137,8 @@ body {
 }
 
 #parentScore{
+    font-size: 2vw;
+    font-family: GolosBold;
     display: flex;
     gap: 3px;
 }
@@ -134,17 +155,6 @@ body {
     border-radius: 30px;
     width: 7vw;
     height: 3vw;
-}
-
-
-
-#guessButton {
-    border: 2px solid lightblue;
-    cursor: pointer;
-    border-radius: 30px;
-    width: 7vw;
-    height: 3vw;
-
     position: absolute;
     right: -8vw;
     top: 2.5vw;
@@ -153,7 +163,6 @@ body {
 .guessWords {
     color: rgb(182, 2, 2);
 }
-
 
 .tabs:hover {
     color: blueviolet;
@@ -208,15 +217,13 @@ iframe {
     background-position: right center;
 }
 
-
-
 #inputSection,
 #homeSection {
     display: flex;
 }
 
 section {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 }
@@ -261,7 +268,6 @@ section {
 
 #command {
     display: flex;
-
     justify-content: center;
 }
 
@@ -322,7 +328,12 @@ section {
     background-color: #D9D9D9;
     font-size: 1.2em;
     color: rgb(0, 0, 53);
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#foundArea > span {
+    cursor: pointer;
 }
 
 #guessArea {
@@ -335,6 +346,11 @@ section {
     background-color: #D9D9D9;
     font-size: 1.2em;
     border: 0;
+}
+
+#guessArea::placeholder {
+    color: rgb(150, 150, 150);
+    font-family: GolosRegular;
 }
 
 #guessArea:focus {
