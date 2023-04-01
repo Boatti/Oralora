@@ -18,9 +18,9 @@ app.use(bodyParser.text({ type: "*/*" }));
 app.post('/id', async function (req, res) {
 
   var onlyYtId = req.body;
-  console.log('mecstp' + onlyYtId);
+  //console.log('mecstp' + onlyYtId);
   try {
-    let transcript = await YoutubeTranscript.default.fetchTranscript(onlyYtId, { lang: 'en' });
+    let transcript = await YoutubeTranscript.default.fetchTranscript(onlyYtId, {lang: 'en'});
     //console.log(transcript);
     res.send(transcript);
   } catch (err) {

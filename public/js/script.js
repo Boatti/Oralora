@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   playerCommands();
+  scrollSnap();
 });
 
 const globalSection = document.querySelector('#globalSection');
@@ -21,12 +22,21 @@ function getNavigator() {
   return isMac ? true : false;
 }
 
+function scrollSnap() {
+  const isMac = getNavigator();
+  const globalSection = document.getElementById('globalSection')
+  
+  isMac ? globalSection.style.scrollSnapType = "y mandatory" : globalSection.style.scrollSnapType = "none";
+ 
+
+}
+
 function playerCommands() {
   const shortcutElements = document.getElementsByClassName("shortcut");
   const isMac = getNavigator();
   shortcutElements[0].innerHTML = isMac ? "Ctrl + A" : "CTRL + A";
   shortcutElements[1].innerHTML = isMac ? "Ctrl + Z" : "CTRL + Z";
-  shortcutElements[2].innerHTML = isMac ? "Ctrl + E" : "CTRL + Z";
+  shortcutElements[2].innerHTML = isMac ? "Ctrl + E" : "CTRL + E";
 }
 
 function setIframeSource() {
@@ -36,7 +46,7 @@ function setIframeSource() {
   let onlyYtId;
   let errorURL = document.getElementById("invalidURL");
 
-  if (cutURL.startsWith("https://www.youtube.com/watch?v=")) {
+  if (cutURL.startsWith("https://www.youtube.com/watch?v=") || cutURL.includes("youtube.com")) {
     if (cutURL.indexOf('&') !== -1) { // Cut if URL has a &t=1234s
       cutURL = cutURL.split('&')[0];
     }
@@ -58,14 +68,47 @@ function setIframeSource() {
   return onlyYtId;
 }
 
-function cleanTranscript(transcript) {
+/* function cleanTranscript(transcript) {
 
   // Supprimer les objets qui ont pour seul texte [Music] ou [Applause]
   const filteredArr = transcript.filter(obj => !/^(\[Music\]|\[Applause\])$/.test(obj.text));
 
   // Enlever tout ce qui n'est pas une lettre de l'alphabet, remplacer les '\n' par des espaces, enlever les "whooah argh aaaah aaah whoa huh" si ce mot est seul dans le text on supprime tout l'objet mais si il est avec du text a coté on supprime que le mot
-  const modifiedArr = filteredArr.map(obj => {
-    let newText = obj.text.replace(/[^a-z \n]/gi, '').replace(/\n/g, ' ').replace(/\bwhooah\s*|\bargh\s*|\baaaah\s*|\baaah\s*|\bwhoa\s*|\bhuh\s*/gi, '');
+  const modifiedArr = filteredArr.map(obj => {*/
+    //let newText = obj.text.replace(/[^a-z \n]/gi, '').replace(/\n/g, ' ').replace(/\bwhooah\s*|\bargh\s*|\baaaah\s*|\baaah\s*|\bwhoa\s*|\bhuh\s*/gi, '');
+   /* if (newText.trim() === '') {
+      return null; // supprimer l'objet si le texte est vide après avoir enlevé les mots
+    }
+    return {
+      ...obj,
+      text: newText.trim().toLowerCase()
+    };
+  }).filter(obj => obj !== null); // filtrer les objets null
+
+   Si le dernier objet a pour texte "you", le supprimer
+  if (modifiedArr[modifiedArr.length - 1].text === 'you') {
+    modifiedArr.pop();
+  }
+  return modifiedArr;
+} */
+
+function cleanTranscript(transcript) {
+
+  // Supprimer les objets qui ont pour seul texte [Music] ou [Applause]
+  
+
+  // Enlever tout ce qui n'est pas une lettre de l'alphabet, remplacer les '\n' par des espaces, enlever les "whooah argh aaaah aaah whoa huh" si ce mot est seul dans le text on supprime tout l'objet mais si il est avec du text a coté on supprime que le mot
+  const modifiedArr = transcript.map(obj => {
+    let newText = obj.text
+    .replace(/\[\S+?\]/g, '') // supprimer les mots entre []
+    .replace(/\*[^*]+\*/g, '')// supprimer les mots entre *
+    .replace(/\([^)]*\)/g, '')// supprimer les mots entre ()
+    
+    .replace(/[^a-z0-9-àâäéèêëîïôöùûüçáíóúñü \n']/gi, '')
+ // enlever tout ce qui n'est pas une lettre ou un chiffre
+    .replace(/\n|-/g, ' ')
+    .replace(/\bwhooah\s*|\bargh\s*|\baaaah\s*|\baaah\s*|\bwhoa\s*|\bhuh\s*/gi, '')
+    .replace(/\s+/g, ' ');
     if (newText.trim() === '') {
       return null; // supprimer l'objet si le texte est vide après avoir enlevé les mots
     }
@@ -338,8 +381,6 @@ input.addEventListener("input", function (event) {
 
     try {
       const lastWordDiv = output.lastElementChild.textContent;
-      
-
       console.log("voici cara " + cara);
       var p = clean[endOffset - 1].text
       console.log("pp "+p);
@@ -358,8 +399,6 @@ input.addEventListener("input", function (event) {
         indexObject++;
         indexWord = 0;
         console.log(1);
-       
-        
       }
     } catch (e) { console.log(e) };
     
@@ -371,7 +410,7 @@ input.addEventListener("input", function (event) {
 });
 ///////////////////INPUT
 
-///rule display : 
+///rule display :
 
 /*     // récupérer la variable de stockage local
 const rulesDisplayed = localStorage.getItem('rulesDisplayed');

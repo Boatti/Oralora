@@ -1,5 +1,6 @@
 body {
-    background-color: #120731;
+    background-color:#241842; /*#120731 #070018 #1f0069 #3a1a93 #241842 #4d416a*/
+    
     margin: 0;
     padding: 0;
     color: white;
@@ -24,6 +25,7 @@ body {
 
 #challengeDropdown {
     height: 100%;
+    margin-bottom: 10px;
     align-items: center;
     display: flex;
     justify-content: center;
@@ -40,7 +42,7 @@ body {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 62px;
+    top: 67px;
     left: -30px;
     background: #242424;
     min-width: 160px;
@@ -75,7 +77,7 @@ body {
 
 }
 
-#challengeDropdown:hover #challengeDropdownContent {
+#boxForTabs:hover #challengeDropdownContent {
     display: flex;
   }
 
@@ -137,6 +139,7 @@ body {
 }
 
 #parentScore{
+    text-shadow: 2px 2px black;
     font-size: 2vw;
     font-family: GolosBold;
     display: flex;
@@ -191,6 +194,7 @@ iframe {
 #title {
     font-family: GolosBlack;
     font-size: 5em;
+    filter: drop-shadow(18px 0px black);
     background: var(--accent-gradient);
     -webkit-background-clip: text;
     background-clip: text;
@@ -202,19 +206,23 @@ iframe {
     margin-top: 3vw;
     width: 9vw;
     height: 4vw;
-    font-family: GolosExtraBold;
+    font-family: GolosBlack;
     font-size: 1.2rem;
-    border-radius: 100px;
-    border: 0px solid white;
+    border-radius: 200px;
+    box-shadow: 6px 6px 0px black;
+    border: 2px solid white;
     cursor: pointer;
-    color: white;
+    color: #0a3800;
     background-image: var(--accent-gradient);
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-out;
     background-size: 200% auto;
 }
 
 #try:hover {
+    
     background-position: right center;
+    transform: translate(6px, 6px) ;
+    box-shadow: 0px 0px 0px black;
 }
 
 #inputSection,
@@ -325,6 +333,7 @@ section {
     width: 58vw;
     height: 12vw;
     padding: 16;
+    font-family: GolosSemiBold;
     background-color: #D9D9D9;
     font-size: 1.2em;
     color: rgb(0, 0, 53);
@@ -340,6 +349,7 @@ section {
     resize: none;
     font-family: GolosRegular;
     border-radius: 23px;
+    font-family: GolosSemiBold;
     width: 40vw;
     height: 8vw;
     padding: 12 0 0 15;

@@ -92,7 +92,7 @@ function onPlayerReady(event, id) { // quand la video est lancé la premiere foi
                     endSeconds: end2
                 });
                 event.target.pauseVideo();
-                setTimeout(() => {event.target.playVideo()}, 1000);
+                setTimeout(() => {event.target.playVideo()}, 1500);
             } 
         }
     );
