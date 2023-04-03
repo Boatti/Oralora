@@ -1,11 +1,11 @@
-function loadAPIPls(getIDYTB, startBy) {
+function loadAPIPls(getIDYTB) {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
         loadYouTubeAPI();
         window.onYouTubeIframeAPIReady = function () {
-        createYouTubePlayer(getIDYTB, startBy);
+        createYouTubePlayer(getIDYTB);
         }
     } else {
-        createYouTubePlayer(getIDYTB, startBy);
+        createYouTubePlayer(getIDYTB);
     }
 }
 
@@ -16,7 +16,7 @@ function loadYouTubeAPI() {
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
 
-function createYouTubePlayer(id, startBy) {
+function createYouTubePlayer(id) {
 
     var iframePlayer = document.querySelector("iframe#player");
     if (iframePlayer == null) {
@@ -28,36 +28,39 @@ function createYouTubePlayer(id, startBy) {
             playerVars: {'loop': 1, 'autoplay': 0, 'controls': 0, 'disablekb': 1, 'enablejsapi': 1, 'cc_load_policy': 0, 'cc_lang_pref': 'en', 'iv_load_policy': 3, 'modestbranding': 1 },
             events: {
                 'onReady': function (event) {
-                    onPlayerReady(event, id);//, startBy);
+                    onPlayerReady(event, id);
                 },
                 //'onStateChange': function(event) {onPlayerStateChange(event,id);}
             }
         });
     } else {
-        loadNewIframe(id);
-    }
-}
-
-function loadNewIframe(id) {
-    input.value = "";
-    output.innerHTML = "";
-
+    indexWord = 0;
     indexObject = 0;
     startOffset = 0;
     endOffset = 0;
-
-    [startOf, endOf] = getOffset();
-    var start =  millisToSeconds(clean[startOf].offset);
-    var end = millisToSeconds(clean[endOf].offset);
-   
-    console.log(start,end);
+    indexLetter = 0;
+    var [newStart, newEnd] = getOffset();
+    var start =  millisToSeconds(clean[newStart].offset);
+    var end = millisToSeconds(clean[newEnd].offset);
     
+   
     player.loadVideoById({
         videoId: id,
-        startSeconds: startOf,
-        endSeconds: endOf
+        startSeconds: start,
+        endSeconds: end
       });
+      player.setVolume(60);
+
+    input.value = "";
+    output.innerHTML = "";
+
+    input.disabled = false;
+    if (!document.getElementById("guessButton").hasAttribute("onclick"))
+    document.getElementById("guessButton").setAttribute("onclick", "guessButton()");
+    }
 }
+
+
 
 function onPlayerReady(event, id) { // quand la video est lancé la premiere fois, load avec le start de debut et de fin
 
@@ -81,8 +84,11 @@ function onPlayerReady(event, id) { // quand la video est lancé la premiere foi
        
         if (state.data == YT.PlayerState.ENDED) {
             var start2 =  millisToSeconds(clean[startOffset].offset);
-            var end2 = millisToSeconds(clean[endOffset].offset);
-            
+            if (endOffset != null) {
+                var end2 = millisToSeconds(clean[endOffset].offset);
+            } else {
+                end2 = endOffset;
+            }
             console.log("par pitié " + start2);
                 //player.seekTo(start, false);
                 //setTimeout(() => {player.playVideo()}, 1000);
@@ -104,13 +110,18 @@ var endOffset = 0;
 var startOffset;
 
 function getOffset() {
-    startOffset = endOffset;
+    startOffset = endOffset; 
 
-    if (clean[startOffset].text.split(" ").length > 7) {
-        endOffset = endOffset + 1;
-        return [startOffset, endOffset];
+    if (clean[startOffset + 1] == undefined) {
+        endOffset = null;
+        return [startOffset, endOffset]
     }
-
+    
+    if (clean[startOffset].text.split(" ").length > 7) {
+       endOffset = endOffset + 1;
+        return [startOffset, endOffset];
+        } 
+    
     for (i = endOffset; i < clean.length; i++) {
         count = count + clean[i].text.split(" ").length;
         if(count > 7) {
@@ -124,8 +135,12 @@ function getOffset() {
    
 function changeAll(id, startOff, endOff) {
     var start =  millisToSeconds(clean[startOff].offset);
+    if (endOff != null) {
     var end = millisToSeconds(clean[endOff].offset);
-   
+   } else {
+    end = endOff;
+    console.log("essaie " + end);
+   }
     console.log(start,end);
     console.log(start,end);
     player.loadVideoById({
@@ -288,14 +303,28 @@ function pauseVideo2() {
 
 function repeatAWord(){
     var currentTime = player.getCurrentTime();
-    player.seekTo(currentTime - 1.5);
+    
+    var add = parseFloat(millisToSeconds(clean[startOffset].offset))
+    console.log(add);
+    console.log("current time is : " + currentTime + " et start offset : " + add);
+    if (currentTime <= add + 1.5) {
+        player.seekTo(add)
+    } else {
+         player.seekTo(currentTime - 1.5);
+    }
+
+   
 }
 
 function replayVideo() {
     var offset = clean[indexObject].offset;
-    var damn = millisToSeconds(offset);
-    player.seekTo(damn);
+    var rplay = millisToSeconds(offset);
+    player.seekTo(rplay);
     
+}
+
+function stopVideo() {
+    player.stopVideo();
 }
 
 function toggleVideo() {
@@ -306,9 +335,7 @@ function toggleVideo() {
     }
   }
 
-function stopVideo() {
-    player.stopVideo();
-}
+
 /* function onPlayerStateChange(event) {
   
 } */

@@ -257,6 +257,11 @@ section {
     font-family: GolosBold;
 }
 
+#strongEnd{
+    display: inline-block;
+    color: #b09421;
+}
+
 #allGuess {
     gap: 20px;
     display: flex;
@@ -325,8 +330,6 @@ section {
 #urlInput:focus::placeholder {
     color: transparent;
 }
-
-
 
 #foundArea {
     border-radius: 33px;
