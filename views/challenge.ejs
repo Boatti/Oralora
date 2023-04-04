@@ -14,7 +14,7 @@
         content="Looking to improve your listening skills in another language? Look no further than our website! We offer a wide range of engaging and informative videos that you can transcribe to improve your listening and comprehension abilities. Whether you're a beginner or an advanced learner, we have videos suitable for your level. Let us help you achieve your language learning goals."
         property="og:description">
     <meta content="/static/ogImage.png" property="og:image">
-    <title>Oraloa | <!-- nomCategorie --></title>
+    <title>Oralora | <%- nomCategorie %></title>
     <link href="/assets/css/challStyle.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
     <script src="/assets/js/script.js" defer></script>
@@ -32,6 +32,8 @@
             <button id="divFilter">Difficulty</button>
             <button id="buttonSuggest">Suggest a video</button>
         </div> 
+
+        <% documents.forEach((document) => { %>
        
         <div class="divLoop"> <!-- div for-->
             <a class="aLoop"> <!-- a for-->
@@ -60,6 +62,9 @@
             </div>
          <!----></a>
         </div>
+
+        <% }) %>
+
         <div class="divLoop"> <!-- div for-->
             <a class="aLoop"> <!-- a for-->
             <hr class="line">
