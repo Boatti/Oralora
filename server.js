@@ -1,6 +1,7 @@
 let express = require('express');
 let YoutubeTranscript = require('youtube-transcript');
 let bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 let app = express()
 

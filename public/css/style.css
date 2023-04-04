@@ -161,6 +161,13 @@ body {
     position: absolute;
     right: -8vw;
     top: 2.5vw;
+    transition: all 0.3s ease;
+    color: #0a3800;
+}
+
+#guessButton:hover {
+    background: #0a3800;
+    color: white;
 }
 
 .guessWords {
@@ -249,7 +256,7 @@ section {
 #invalidURL {
     position: absolute;
     background: linear-gradient(45deg, #950000, #c50000);
-    top: 5vw;
+    top: 5.5vw;
     font-size: 1vw;
     -webkit-background-clip: text;
     background-clip: text;
@@ -335,7 +342,7 @@ section {
     border-radius: 33px;
     width: 58vw;
     height: 12vw;
-    padding: 16;
+    padding: 16px;
     font-family: GolosSemiBold;
     background-color: #D9D9D9;
     font-size: 1.2em;
@@ -355,7 +362,7 @@ section {
     font-family: GolosSemiBold;
     width: 40vw;
     height: 8vw;
-    padding: 12 0 0 15;
+    padding: 12px 0 0 15px;
     background-color: #D9D9D9;
     font-size: 1.2em;
     border: 0;

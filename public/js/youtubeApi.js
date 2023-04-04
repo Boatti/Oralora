@@ -28,7 +28,7 @@ function createYouTubePlayer(id) {
             playerVars: {'loop': 1, 'autoplay': 0, 'controls': 0, 'disablekb': 1, 'enablejsapi': 1, 'cc_load_policy': 0, 'cc_lang_pref': 'en', 'iv_load_policy': 3, 'modestbranding': 1 },
             events: {
                 'onReady': function (event) {
-                    onPlayerReady(event, id);
+                    onPlayerReady(player, event, id);
                 },
                 //'onStateChange': function(event) {onPlayerStateChange(event,id);}
             }
@@ -39,36 +39,28 @@ function createYouTubePlayer(id) {
     startOffset = 0;
     endOffset = 0;
     indexLetter = 0;
-    var [newStart, newEnd] = getOffset();
-    var start =  millisToSeconds(clean[newStart].offset);
-    var end = millisToSeconds(clean[newEnd].offset);
-    
-   
-    player.loadVideoById({
-        videoId: id,
-        startSeconds: start,
-        endSeconds: end
-      });
-      player.setVolume(60);
-
+    score = 0;
+    cara = "";
     input.value = "";
     output.innerHTML = "";
+    
 
     input.disabled = false;
-    if (!document.getElementById("guessButton").hasAttribute("onclick"))
-    document.getElementById("guessButton").setAttribute("onclick", "guessButton()");
+    if (!document.getElementById("guessButton").hasAttribute("onclick")) {
+    document.getElementById("guessButton").setAttribute("onclick", "guessButton()"); 
     }
+    onPlayerReady(player, null, id);
+      
+   }
 }
-function onPlayerReady(event, id) { // quand la video est lancé la premiere fois, load avec le start de debut et de fin
+
+function onPlayerReady(player, event, id) { // quand la video est lancé la premiere fois, load avec le start de debut et de fin
 
     [startO, endO] = getOffset();
     var start =  millisToSeconds(clean[startO].offset);
     var end = millisToSeconds(clean[endO].offset);
-   
-    console.log(start,end);
 
-    console.log("tamere" + startO, endO);
-
+    if (event) {
     event.target.loadVideoById({
       videoId: id,
       startSeconds: start,
@@ -77,7 +69,17 @@ function onPlayerReady(event, id) { // quand la video est lancé la premiere foi
     event.target.setVolume(60);
     event.target.playVideo();
 
-    event.target.addEventListener('onStateChange', function(state) {
+} else {
+    player.loadVideoById({
+        videoId: id,
+        startSeconds: start,
+        endSeconds: end
+      });
+      player.setVolume(60);
+      player.playVideo();
+}
+
+    player.addEventListener('onStateChange', function(state) {
        
         if (state.data == YT.PlayerState.ENDED) {
             var start2 =  millisToSeconds(clean[startOffset].offset);
@@ -89,13 +91,13 @@ function onPlayerReady(event, id) { // quand la video est lancé la premiere foi
             console.log("par pitié " + start2);
                 //player.seekTo(start, false);
                 //setTimeout(() => {player.playVideo()}, 1000);
-                event.target.loadVideoById({
+                player.loadVideoById({
                     videoId: id,
                     startSeconds: start2,
                     endSeconds: end2
                 });
-                event.target.pauseVideo();
-                setTimeout(() => {event.target.playVideo()}, 1500);
+                player.pauseVideo();
+                setTimeout(() => {player.playVideo()}, 1500);
             } 
         }
     );

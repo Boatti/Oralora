@@ -259,14 +259,6 @@ getLang();
 
 //const observer = new MutationObserver(function(mutationsList) 
 
-let indexObject = 0;
-let indexWord = 0;
-let indexLetter = 0;
-let score = 0;
-let indexStartOffset = 0;
-let indexEndOffset = 0;
-let currentWord;
-
 /////////// PASTE
 input.addEventListener("paste", function (event) {
   event.preventDefault();
@@ -278,15 +270,13 @@ input.addEventListener('keydown', function(event) {
   }
 });
 /////////// PASTE
-let string;
-let stringList;
 
 ////////////OUTPUT
 let selectedSpans = [];
 output.addEventListener("click", function(event) {
   if (event.target.tagName === "SPAN" ) {
     event.target.style.background = "#12a5d9";
-    event.target.style.borderRadius = "20px";
+    event.target.style.borderRadius = "8px";
     selectedSpans.push(event.target);
     if (selectedSpans.length === 2) {
       selectedSpans.sort(function(a, b) {
@@ -375,10 +365,16 @@ function guessButton() {
 }
 ///////////BUTTON
 
-//////////////////INPUT
+let indexObject = 0;
+let indexWord = 0;
+let indexLetter = 0;
+let score = 0;
+let currentWord;
 var cara = "";
-var ooo = 0;
-var buffer = [];
+let string;
+let stringList;
+
+//////////////////INPUT
 input.addEventListener("input", function (event) {
   input.placeholder = '';
   try {
@@ -389,7 +385,6 @@ input.addEventListener("input", function (event) {
     //var letter = currentWord[indexLetter]; //'l'
     //var inputData = event.data; //'f'
     const value = event.target.value;
-    
     setTimeout(() => {
       // Vérification caractère par caractère
       for (let i = 0; i < value.length; i++) {

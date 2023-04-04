@@ -25,34 +25,67 @@
     
     <%- include('header.ejs') %>
 
-    <div id="container">
+<div id="divContainer"> <!-- div container-->
     <div id="divGlobal"> <!-- div global-->
-        <a class="aLoop"> <!-- a for-->
+        <div id="divHeader"> <!-- div header-->
+            <span id="spanCategory">B1-C2</span>
+            <button id="divFilter">Difficulty</button>
+            <button id="buttonSuggest">Suggest a video</button>
+        </div> 
+       
         <div class="divLoop"> <!-- div for-->
+            <a class="aLoop"> <!-- a for-->
             <hr class="line">
             <div class="divContent"> <!-- div content-->
                 <div class="divImage"> <!-- div image-->
-                    <img src="" alt="">
+                    <img class="imgThumbnail" src="/assets/Img/blackHoles.jpeg" alt="">
                 </div>
                 <div class="divEverythingElse"> <!-- div reste-->
                     <div class="divTitleChannel"> <!-- div titre/chaine-->
-                        <span>Official Minecraft Trailer</span>
-                        <span>Minecraft</span>
+                        <span class="spanTitle" >Official Minecraft Trailer</span>
+                        <span class="spanChannel">Minecraft</span>
                     </div>
 
                     <div class="divDurationStar"> <!-- div durée/star-->
                         <div class="divDuration"> <!-- div durée-->
-                            <img src="/assets/Img/hourglassWhite.png" alt="">
+                            <img class="imgHourglass" src="/assets/Img/hourglassWhite.png" alt="">
                             <stan>1:01</stan>
                         </div>
                         <div class="divStar"> <!-- div star-->
-                            <img src="/assets/Img/star.png" alt="">
-                            <img src="/assets/Img/star.png" alt="">
+                            <img class="imgStar" src="/assets/Img/star.png" alt="">
+                            <img class="imgStar" src="/assets/Img/star.png" alt="">
                         </div>
                     </div>
                 </div>
             </div>
-        </a>
+         <!----></a>
+        </div>
+        <div class="divLoop"> <!-- div for-->
+            <a class="aLoop"> <!-- a for-->
+            <hr class="line">
+            <div class="divContent"> <!-- div content-->
+                <div class="divImage"> <!-- div image-->
+                    <img class="imgThumbnail" src="/assets/Img/blackHoles.jpeg" alt="">
+                </div>
+                <div class="divEverythingElse"> <!-- div reste-->
+                    <div class="divTitleChannel"> <!-- div titre/chaine-->
+                        <span class="spanTitle" >Official Minecraft Trailer</span>
+                        <span class="spanChannel">Minecraft</span>
+                    </div>
+
+                    <div class="divDurationStar"> <!-- div durée/star-->
+                        <div class="divDuration"> <!-- div durée-->
+                            <img class="imgHourglass" src="/assets/Img/hourglassWhite.png" alt="">
+                            <stan>1:01</stan>
+                        </div>
+                        <div class="divStar"> <!-- div star-->
+                            <img class="imgStar" src="/assets/Img/star.png" alt="">
+                            <img class="imgStar" src="/assets/Img/star.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+         <!----></a>
         </div>
     </div>
 

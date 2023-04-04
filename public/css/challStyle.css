@@ -1,19 +1,133 @@
-#container {
+#divContainer {
     display: flex;
     justify-content: center; /* centre horizontalement */
-    align-items: center; /* centre verticalement */
-    height: 100vh;
 }
 
 #divGlobal {
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: #05031B;
     margin-top: 10vw;
     height: auto;
-    width: 60vw; /* ajuster la largeur au besoin */
+    width: 55vw; /* ajuster la largeur au besoin */
 }
 
+#divHeader {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#spanCategory {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#spanCategory, #divFilter, #buttonSuggest {
+    width: 10vw;
+    text-align: center;
+    height: 6vh;
+    align-content: center;
+}
+
+#buttonSuggest {
+   border-radius: 20px;
+   border: none;
+   cursor: pointer;
+  }
+
+.aLoop {
+    cursor: pointer;
+}
+
+.divLoop {
+    display: flex;
+    flex-direction: column;
+}
+
+.divLoop:hover .divContent{
+    background: #13112c;
+  }
+
+.divLoop:hover .line {
+    width: 99.75%;
+  }
+
 .line {
-    border: 1px solid black; /* ajoute une bordure */
+    border: 1px solid #05031B; /* ajoute une bordure */
     border-radius: 10px; /* arrondit les coins de la bordure */
     height: 5px;
-    background: black;
+    background: #AFAFAF;
+    width: 90%;
+    transition: width 0.3s;
 }
+
+.divContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+
+.divImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5%;
+}
+
+.imgThumbnail {
+    border-radius: 20px;
+    width: 300px;
+}
+
+.divEverythingElse{
+    margin-right: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.divTitleChannel{
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.spanTitle, .spanChannel{
+    text-align: end;
+    align-self: flex-end;
+
+}
+
+.divDurationStar {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+}
+
+.divDuration {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.imgHourglass {
+    width: 15px;
+}
+
+.divStar {
+    align-self: flex-end;
+}
+
+.imgStar {
+    width: 15px;
+}
+
+
+
