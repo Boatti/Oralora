@@ -1,0 +1,19 @@
+#container {
+    display: flex;
+    justify-content: center; /* centre horizontalement */
+    align-items: center; /* centre verticalement */
+    height: 100vh;
+}
+
+#divGlobal {
+    margin-top: 10vw;
+    height: auto;
+    width: 60vw; /* ajuster la largeur au besoin */
+}
+
+.line {
+    border: 1px solid black; /* ajoute une bordure */
+    border-radius: 10px; /* arrondit les coins de la bordure */
+    height: 5px;
+    background: black;
+}

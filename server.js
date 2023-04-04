@@ -1,6 +1,6 @@
 let express = require('express');
 let YoutubeTranscript = require('youtube-transcript');
-var bodyParser = require('body-parser')
+let bodyParser = require('body-parser');
 
 let app = express()
 
@@ -12,7 +12,7 @@ app.get('/', async (req, res) => {
   res.render('index');
 });
 
-app.get('/challenge/', async (req, res) => {
+app.get('/challenge', async (req, res) => {
   res.render('challenge');
 });
 
@@ -25,7 +25,7 @@ app.post('/id', async function (req, res) {
   //console.log('mecstp' + onlyYtId);
   try {
     let transcript = await YoutubeTranscript.default.fetchTranscript(onlyYtId, {lang: 'en'});
-    //console.log(transcript);
+    console.log(transcript);
     res.send(transcript);
   } catch (err) {
     res.status(500).send('Transcript error');

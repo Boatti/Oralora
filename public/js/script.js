@@ -89,13 +89,18 @@ function setIframeSource() {
   return modifiedArr;
 } */
 
-function cleanTranscript(transcript) {
+function cleanTranscript(transcriptu) {
 
+  
+
+ // var dam = JSON.stringify(transcriptu);
+ // var dam2 = JSON.parse(dam);
+//console.log('voici le transcript de base' + dam2);
   // Supprimer les objets qui ont pour seul texte [Music] ou [Applause]
 
   // Enlever tout ce qui n'est pas une lettre de l'alphabet, remplacer les '\n' par des espaces, enlever les "whooah argh aaaah aaah whoa huh" si ce mot est seul dans le text on supprime tout l'objet mais si il est avec du text a coté on supprime que le mot
-  const modifiedArr = transcript.map(obj => {
-    let newText = obj.text
+  const modifiedArr = transcriptu.map(obj => {
+    let newText = obj.text ? obj.text
     .replace(/\[\S+?\]/g, '') // supprimer les mots entre []
     .replace(/\*[^*]+\*/g, '')// supprimer les mots entre *
     .replace(/\([^)]*\)/g, '')// supprimer les mots entre ()
@@ -104,7 +109,7 @@ function cleanTranscript(transcript) {
  // enlever tout ce qui n'est pas une lettre ou un chiffre
     .replace(/\n|-/g, ' ')
     .replace(/\bwhooah\s*|\bargh\s*|\baaaah\s*|\baaah\s*|\bwhoa\s*|\bhuh\s*/gi, '')
-    .replace(/\s+/g, ' ');
+    .replace(/\s+/g, ' ') : '';
     if (newText.trim() === '') {
       return null; // supprimer l'objet si le texte est vide après avoir enlevé les mots
     }
@@ -181,15 +186,16 @@ inputUrl.addEventListener("keydown", async function (event) {
           "Content-Type": "application/json",
         },
         body: getIDYTB,
-      }).then((response) => response.json())
-        .then((transcript) => transcript)
+      });/* .then((response) => response.json())
+        //.then((transcript) => transcript)
         .catch(() => {
           
           throw new Error('No subtitles are available for this video or it is intended for kids.');
-        });
+        }); */
+        var transcripto = await getHTTPTranscript.json();
 
     } catch (error) {
-      document.getElementById("invalidURL").innerHTML = error.message;
+      document.getElementById("invalidURL").innerHTML = 'No subtitles are available for this video or it is intended for kids.';
       spinner.id = loading;
       inputUrl.value = "";
       return;
@@ -198,7 +204,17 @@ inputUrl.addEventListener("keydown", async function (event) {
     guessSection.style.display = "flex";
     spinner.id = loading;
     inputUrl.value = "";
-    clean = cleanTranscript(getHTTPTranscript);
+    //getHTTPTranscript = JSON.stringify(getHTTPTranscript);
+    //getHTTPTranscript = `'${getHTTPTranscript}'`;
+    console.log(transcripto[0].text); 
+    console.log(transcripto[1].duration);
+
+    console.log("étape 1 " + transcripto)
+    //getHTTPTranscript = JSON.parse(getHTTPTranscript);
+    console.log("étape 2 " + transcripto)
+   
+
+    clean = cleanTranscript(transcripto);
     clean = JSON.stringify(clean);
     clean = JSON.parse(clean);
     //var startBy = clean[0].offset;
@@ -303,7 +319,7 @@ output.addEventListener("click", function(event) {
 function guessButton() {
   let stringGuess;
   try {
-    stringGuess = clean[indexObject].text;
+    stringGuess = clean[indexObject].text; // 'Let's go to a place'
   } catch (e) { console.log(e) }
     let stringListGuess = stringGuess.split(" ");
     console.log(stringListGuess);
@@ -315,41 +331,44 @@ function guessButton() {
     } 
     output.innerHTML += "<span class='guessWords'>" + currentWord + "</span>" + ' ';
     
-    if (cara === clean[clean.length - 1].text) {
+    if (cara === clean[clean.length - 1].text) { //Le END de la fin
       output.innerHTML += "<div id='strongEnd'>END</div>";
       input.disabled = true;
       stopVideo();
       document.getElementById("guessButton").removeAttribute("onclick");
     }
-    if (endOffset != null || endForLoad != null) {
+    if (endOffset != null || endForLoad != null) { //Prend le sous-titre de fin de segment
       var p = clean[endOffset - 1].text;
     } else {
       var p = clean[startOffset].text;
     }
-    if (cara === p) {
+    indexWord++;
+    if (cara === p) { //Si la chaine entrée equivaut au dernier sous-titre du segment, génére un nouveau segment de vidéo
       console.log("c gagné button");
       var [startForLoad, endForLoad] = getOffset();
       console.log("ddd " + startForLoad, endForLoad);
       changeAll(getIDYTB, startForLoad, endForLoad);
+     
     }
     if (cara === stringGuess){
       cara = "";
+      indexObject++;
+      indexWord = 0;
     }
-
-    indexWord++;
+    
     indexLetter = 0;
     input.value = '';
     input.focus();
-    try {
-      const lastWordDiv = output.lastElementChild.textContent;
+   // try {
+     // const lastWordDiv = output.lastElementChild.textContent;
       //console.log('A' + lastWordDiv);
-      const lastWord = lastWordDiv.trim();
-      console.log(lastWord);
-      if (lastWord === stringListGuess[stringListGuess.length - 1]) {
-        indexObject++;
-        indexWord = 0;
-      }
-    } catch (e) { console.log(e) };
+     // const lastWord = lastWordDiv.trim();
+    //  console.log(lastWord);
+    //  if (lastWord === stringListGuess[stringListGuess.length - 1]) {
+        
+        
+   //   }
+   // } catch (e) { console.log(e) };
 
   
   output.scrollTop = output.scrollHeight;
@@ -358,6 +377,8 @@ function guessButton() {
 
 //////////////////INPUT
 var cara = "";
+var ooo = 0;
+var buffer = [];
 input.addEventListener("input", function (event) {
   input.placeholder = '';
   try {
@@ -365,16 +386,43 @@ input.addEventListener("input", function (event) {
   } catch (e) { console.log(e) };
     stringList = string.split(" "); // ["lets", "go", "to", "a", "place"]
     currentWord = stringList[indexWord];
-    var letter = currentWord[indexLetter]; //'l'
-    var inputData = event.data; //'f'
+    //var letter = currentWord[indexLetter]; //'l'
+    //var inputData = event.data; //'f'
+    const value = event.target.value;
+    
+    setTimeout(() => {
+      // Vérification caractère par caractère
+      for (let i = 0; i < value.length; i++) {
+        if (value[i] !== currentWord[i]) {
+          // Suppression de la saisie à partir de la position incorrecte
+          event.target.value = value.substring(0, i);
+          break; // Sortie de la boucle
+        }
+      }
+    }, 100);
 
-    if (inputData === letter) {
-      indexLetter++;
+    /* console.log(input.value);
+    setTimeout(function() {
+      var currentValue = input.value;
+      if (currentValue.charAt(currentValue.length - 1) != currentWord.charAt(ooo)) {
+        input.value = currentValue.substring(0, currentValue.length - 1);
+      }
+      else {
+        input.value = input.value + currentWord.charAt(ooo);
+        ooo++;
+      }
+    }, 30);  */
 
-    } else {
-      setTimeout(() => { input.value = input.value.slice(0, indexLetter) + input.value.slice(indexLetter + 3) }, 1);
+   
+   
 
-    }
+    //if (inputData === letter) {
+    //  indexLetter++;
+
+   // } else {
+      //setTimeout(() => { input.value = input.value.slice(0, indexLetter) + input.value.slice(indexLetter + 5) }, 1);
+
+    //}
     if (input.value === currentWord) {
       setTimeout(() => {input.value = '';}, 30);
 
@@ -385,11 +433,10 @@ input.addEventListener("input", function (event) {
         currentWord = currentWord.charAt(0).toUpperCase() + currentWord.slice(1);
       } 
       output.innerHTML += "<span>" + currentWord + "</span>" + ' ';
-      
-      
       score = score + 1;
       setTimeout(() => {scoreDiv.innerHTML = score}, 100) 
       indexWord++;
+      ooo = 0;
       indexLetter = 0;
       currentWord = '';
     }
@@ -400,12 +447,12 @@ input.addEventListener("input", function (event) {
       document.getElementById("guessButton").removeAttribute("onclick");
     }
     try {
-      const lastWordDiv = output.lastElementChild.textContent;
+      //const lastWordDiv = output.lastElementChild.textContent;
       console.log("voici cara " + cara);
       if (endOffset != null) {
-        var p = clean[startOffset].text;
+        var p = clean[endOffset - 1].text;
       } else {
-      var p = clean[endOffset - 1].text;
+      var p = clean[startOffset].text;
       }
       if (cara === p) {
         console.log("c gagné");

@@ -59,9 +59,6 @@ function createYouTubePlayer(id) {
     document.getElementById("guessButton").setAttribute("onclick", "guessButton()");
     }
 }
-
-
-
 function onPlayerReady(event, id) { // quand la video est lancé la premiere fois, load avec le start de debut et de fin
 
     [startO, endO] = getOffset();
