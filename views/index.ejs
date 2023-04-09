@@ -29,13 +29,18 @@
 
             <section id="homeSection">
 
+                
+
+                
+
+
 
 
                 <div id="globalTitle">
                     <div id="title">ORALORA</div>
-                    <div id="hook">Work your verbal comprehension<!--The best way to learn a language.--></div>
+                    <div id="hook"><%= i18n.t("hook"); %><!--The best way to learn a language.--></div>
 
-                    <button onclick="scrollToInput()" id="try">TRY</button>
+                    <button onclick="scrollToInput()" id="try"><%= i18n.t("try"); %></button>
                 </div>
 
             </section>
@@ -43,7 +48,7 @@
             <section id="inputSection">
 
                 <div id="inputLoadingDiv">
-                    <input placeholder="Enter Youtube URL" autocomplete="off" type="text" id="urlInput" name="urlInput">
+                    <input placeholder="<%= i18n.t('inputUrl'); %>" autocomplete="off" type="text" id="urlInput" name="urlInput">
                     <span id="invalidURL"></span>
                     <div id="loading"></div>
                 </div>
@@ -71,13 +76,20 @@
                         </div>
                     </div>
                     <div id="command">
-                        <div><img class="playRepeat" onclick="repeatAWord()" src="/assets/Img/backSec.png"><span
-                                class="shortcut"></span>
+
+                        <div>
+                            <img class="playRepeat" id="repeat" onclick="repeatAWord()" src="/assets/Img/backSec.png">
+                            <span class="shortcut"></span>
                         </div>
-                        <div><img class="playRepeat" id="repeat" onclick="replayVideo()"
-                                src="/assets/Img/Repeat.png"><span class="shortcut"></span></div>
-                        <div><img class="playRepeat" onclick="toggleVideo()" src="/assets/Img/playButton.png"><span
-                                class="shortcut"></span>
+
+                        <div>
+                            <img class="playRepeat" id="replay" onclick="replayVideo()" src="/assets/Img/Repeat.png">
+                            <span class="shortcut"></span>
+                        </div>
+
+                        <div>
+                            <img class="playRepeat" id="play" onclick="toggleVideo()" src="/assets/Img/playButton.png">
+                            <span class="shortcut"></span>
                         </div>
 
 

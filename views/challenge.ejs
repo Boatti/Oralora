@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,89 +13,75 @@
         content="Looking to improve your listening skills in another language? Look no further than our website! We offer a wide range of engaging and informative videos that you can transcribe to improve your listening and comprehension abilities. Whether you're a beginner or an advanced learner, we have videos suitable for your level. Let us help you achieve your language learning goals."
         property="og:description">
     <meta content="/static/ogImage.png" property="og:image">
-    <title>Oralora | <%- nomCategorie %></title>
+    <title>Oralora | <%= categoryUpperCase %></title>
     <link href="/assets/css/challStyle.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
-    <script src="/assets/js/script.js" defer></script>
     <script src="/assets/js/youtubeApi.js" defer></script>
+    <script src="/assets/js/script.js" defer></script>
 </head>
 
 <body>
     
     <%- include('header.ejs') %>
 
+    
+        
+      
+
 <div id="divContainer"> <!-- div container-->
     <div id="divGlobal"> <!-- div global-->
         <div id="divHeader"> <!-- div header-->
-            <span id="spanCategory">B1-C2</span>
-            <button id="divFilter">Difficulty</button>
-            <button id="buttonSuggest">Suggest a video</button>
+            <span id="spanCategory"><%= categoryUpperCase %></span>
+            <select name="filter"  id="selectFilter"> <!-- select filter-->
+                <option value="difficulty" ><%= i18n.t("difficulty"); %></option>
+                <option value="popularity"><%= i18n.t("popularity"); %></option>
+                <option value="hamster"><%= i18n.t("duration"); %></option>
+            </select>
+           <a href="/suggest"><button id="buttonSuggest"><%= i18n.t("suggest"); %></button></a>
         </div> 
+        
 
-        <% documents.forEach((document) => { %>
+       <% USVids.forEach((key) => { %>
        
         <div class="divLoop"> <!-- div for-->
-            <a class="aLoop"> <!-- a for-->
+            <a class="aLoop" onclick="aRedirect('<%= key.id %>')"> <!-- a for-->
             <hr class="line">
             <div class="divContent"> <!-- div content-->
                 <div class="divImage"> <!-- div image-->
-                    <img class="imgThumbnail" src="/assets/Img/blackHoles.jpeg" alt="">
+                    <img class="imgThumbnail" src="<%= key.thumbnail %>" alt="">
                 </div>
                 <div class="divEverythingElse"> <!-- div reste-->
                     <div class="divTitleChannel"> <!-- div titre/chaine-->
-                        <span class="spanTitle" >Official Minecraft Trailer</span>
-                        <span class="spanChannel">Minecraft</span>
+                        <span class="spanTitle" ><%= key.title %></span>
+                        <span class="spanChannel"><%= key.channel %></span>
                     </div>
 
                     <div class="divDurationStar"> <!-- div durée/star-->
                         <div class="divDuration"> <!-- div durée-->
                             <img class="imgHourglass" src="/assets/Img/hourglassWhite.png" alt="">
-                            <stan>1:01</stan>
+                            <stan class="stanDuration"><%= key.duration %></stan>
                         </div>
                         <div class="divStar"> <!-- div star-->
-                            <img class="imgStar" src="/assets/Img/star.png" alt="">
-                            <img class="imgStar" src="/assets/Img/star.png" alt="">
+                            <%- difficultyStars(key.difficulty) %>
                         </div>
                     </div>
                 </div>
             </div>
-         <!----></a>
+            </a>
         </div>
 
         <% }) %>
 
-        <div class="divLoop"> <!-- div for-->
-            <a class="aLoop"> <!-- a for-->
-            <hr class="line">
-            <div class="divContent"> <!-- div content-->
-                <div class="divImage"> <!-- div image-->
-                    <img class="imgThumbnail" src="/assets/Img/blackHoles.jpeg" alt="">
-                </div>
-                <div class="divEverythingElse"> <!-- div reste-->
-                    <div class="divTitleChannel"> <!-- div titre/chaine-->
-                        <span class="spanTitle" >Official Minecraft Trailer</span>
-                        <span class="spanChannel">Minecraft</span>
-                    </div>
-
-                    <div class="divDurationStar"> <!-- div durée/star-->
-                        <div class="divDuration"> <!-- div durée-->
-                            <img class="imgHourglass" src="/assets/Img/hourglassWhite.png" alt="">
-                            <stan>1:01</stan>
-                        </div>
-                        <div class="divStar"> <!-- div star-->
-                            <img class="imgStar" src="/assets/Img/star.png" alt="">
-                            <img class="imgStar" src="/assets/Img/star.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-         <!----></a>
-        </div>
+    </div>
     </div>
 
-
-
-    </div>
+    <% function difficultyStars(difficulty) {
+        var stars = "";
+        for (var i = 0; i < difficulty; i++) {
+          stars += '<img class="imgStar" src="/assets/Img/star.png" alt="star">';
+        }
+        return stars;
+      } %>
 
 
 </body>

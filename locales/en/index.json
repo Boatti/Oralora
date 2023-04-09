@@ -1,0 +1,11 @@
+{
+    "description" : "",
+    "hook": "Work your verbal comprehension",
+    "try": "TRY",
+    "inputUrl" : "Enter Youtube Link",
+    "outputPlaceholder" : "Write down every word you hear..",
+    "guessButton" : "GUESS",
+    "pause" : "Pause",
+    "replay": "Replay",
+    "repeat": "Repeat"
+}

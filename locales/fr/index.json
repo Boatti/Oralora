@@ -1,0 +1,11 @@
+{
+    "description" : "",
+    "hook": "Travaille ta compréhension orale",
+    "try": "Essayer",
+    "inputUrl" : "Entrer un lien Youtube",
+    "outputPlaceholder" : "Ecris chaque mot que tu entends",
+    "guessButton" : "GUESS",
+    "pause" : "Pause",
+    "replay": "Replay",
+    "repeat": "Repeat"
+}

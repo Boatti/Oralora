@@ -1,7 +1,42 @@
 document.addEventListener("DOMContentLoaded", function () {
   playerCommands();
   scrollSnap();
+  setUpLang();
 });
+
+function setUpLang() {
+  const currentLang = getCookie('i18next');
+  const getUserLang = getLang();
+  
+  if (currentLang == 'en') {
+    var currentFlag = document.getElementById('currentFlag');
+    var otherFlag = document.getElementById('otherFlag');
+    currentFlag.innerHTML = "<a href='/en'><img id='otherFlag' class='imgFlag' src='/assets/Img/US.png' alt='US Flag'></a>";
+    otherFlag.innerHTML = "<a href='/fr'><img id='imgCurrentFlag' class='imgFlag' src='/assets/Img/FR.png' alt='FR Flag'></a>";
+  } else if (currentLang == 'fr'){
+      var currentFlag = document.getElementById('currentFlag');
+      var otherFlag = document.getElementById('otherFlag');
+      currentFlag.innerHTML = "<a href='/fr'><img id='imgCurrentFlag' class='imgFlag' src='/assets/Img/FR.png' alt='FR Flag'></a>";
+      otherFlag.innerHTML = "<a href='/en'><img id='otherFlag' class='imgFlag' src='/assets/Img/US.png' alt='US Flag'></a>";
+  } else if ((getUserLang.includes('fr')) && (!currentLang)){
+      var currentFlag = document.getElementById('currentFlag');
+      var otherFlag = document.getElementById('otherFlag');
+      currentFlag.innerHTML = "<a href='/fr'><img id='imgCurrentFlag' class='imgFlag' src='/assets/Img/FR.png' alt='FR Flag'></a>";
+      otherFlag.innerHTML = "<a href='/en'><img id='otherFlag' class='imgFlag' src='/assets/Img/US.png' alt='US Flag'></a>";
+  } else if ((getUserLang.includes('en')) && (!currentLang)){
+      var currentFlag = document.getElementById('currentFlag');
+      var otherFlag = document.getElementById('otherFlag');
+      currentFlag.innerHTML = "<a href='/en'><img id='otherFlag' class='imgFlag' src='/assets/Img/US.png' alt='US Flag'></a>";
+      otherFlag.innerHTML = "<a href='/fr'><img id='imgCurrentFlag' class='imgFlag' src='/assets/Img/FR.png' alt='FR Flag'></a>";
+    }
+}
+
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
 const globalSection = document.querySelector('#globalSection');
 globalSection.addEventListener("scroll", scrollFunction);
@@ -9,7 +44,7 @@ globalSection.addEventListener("scroll", scrollFunction);
 function scrollFunction() {
   if (globalSection.scrollTop > 315) {
     document.getElementById('logo').style.opacity = 1;
-    document.getElementById('header').style.backgroundColor = 'black';
+    document.getElementById('header').style.backgroundColor = '#05031B';
 
   } else {
     document.getElementById('logo').style.opacity = 0;
@@ -31,9 +66,43 @@ function scrollSnap() {
 function playerCommands() {
   const shortcutElements = document.getElementsByClassName("shortcut");
   const isMac = getNavigator();
-  shortcutElements[0].innerHTML = isMac ? "Ctrl + A" : "CTRL + A";
-  shortcutElements[1].innerHTML = isMac ? "Ctrl + Z" : "CTRL + Z";
-  shortcutElements[2].innerHTML = isMac ? "Ctrl + E" : "CTRL + E";
+  shortcutElements[0].innerHTML = isMac ? "Ctrl + L" : "CTRL + L";
+  shortcutElements[1].innerHTML = isMac ? "Ctrl + M" : "CTRL + M";
+  shortcutElements[2].innerHTML = isMac ? "Space" : "Space";
+}
+
+async function aRedirect(id) {
+  window.location.href = "/";
+  //window.open("/", "_blank");
+  let videoSection = document.getElementById("videoSection");
+  let guessSection = document.getElementById("guessSection");
+  
+  console.log(id);
+  try {
+    var getHTTPTranscript = await fetch("/id", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: id,
+    });
+      var transcripto = await getHTTPTranscript.json();
+
+  } catch (error) {
+    console.log(error);
+  }
+  videoSection.style.display = "flex";
+    guessSection.style.display = "flex";
+
+  clean = cleanTranscript(transcripto);
+  clean = JSON.stringify(clean);
+  clean = JSON.parse(clean);
+
+  loadAPIPls(id);
+  countScore(clean);
+
+  const scrollTo = document.querySelector("#videoSection");
+  scrollTo.scrollIntoView();
 }
 
 function setIframeSource() {
@@ -65,33 +134,7 @@ function setIframeSource() {
   return onlyYtId;
 }
 
-/* function cleanTranscript(transcript) {
-
-  // Supprimer les objets qui ont pour seul texte [Music] ou [Applause]
-  const filteredArr = transcript.filter(obj => !/^(\[Music\]|\[Applause\])$/.test(obj.text));
-
-  // Enlever tout ce qui n'est pas une lettre de l'alphabet, remplacer les '\n' par des espaces, enlever les "whooah argh aaaah aaah whoa huh" si ce mot est seul dans le text on supprime tout l'objet mais si il est avec du text a coté on supprime que le mot
-  const modifiedArr = filteredArr.map(obj => {*/
-    //let newText = obj.text.replace(/[^a-z \n]/gi, '').replace(/\n/g, ' ').replace(/\bwhooah\s*|\bargh\s*|\baaaah\s*|\baaah\s*|\bwhoa\s*|\bhuh\s*/gi, '');
-   /* if (newText.trim() === '') {
-      return null; // supprimer l'objet si le texte est vide après avoir enlevé les mots
-    }
-    return {
-      ...obj,
-      text: newText.trim().toLowerCase()
-    };
-  }).filter(obj => obj !== null); // filtrer les objets null
-
-   Si le dernier objet a pour texte "you", le supprimer
-  if (modifiedArr[modifiedArr.length - 1].text === 'you') {
-    modifiedArr.pop();
-  }
-  return modifiedArr;
-} */
-
 function cleanTranscript(transcriptu) {
-
-  
 
  // var dam = JSON.stringify(transcriptu);
  // var dam2 = JSON.parse(dam);
@@ -102,12 +145,11 @@ function cleanTranscript(transcriptu) {
   const modifiedArr = transcriptu.map(obj => {
     let newText = obj.text ? obj.text
     .replace(/\[\S+?\]/g, '') // supprimer les mots entre []
-    .replace(/\*[^*]+\*/g, '')// supprimer les mots entre *
-    .replace(/\([^)]*\)/g, '')// supprimer les mots entre ()
-    
-    .replace(/[^a-z0-9-àâäéèêëîïôöùûüçáíóúñü \n']/gi, '')
- // enlever tout ce qui n'est pas une lettre ou un chiffre
-    .replace(/\n|-/g, ' ')
+    .replace(/\*[^*]+\*/g, '') // supprimer les mots entre *
+    .replace(/\([^)]*\)/g, '') // supprimer les mots entre ()
+    .replace(/\n|-/g, ' ') // remplacer les \n par des espaces
+    .replace(/\s+/g, ' ') // remplacer les doubles espaces par des espaces
+    .replace(/[^a-z0-9-àâäéèêëîïôöùûüçáíóúñü \n']/gi, '') // enlever tout ce qui n'est pas une lettre ou un chiffre
     .replace(/\bwhooah\s*|\bargh\s*|\baaaah\s*|\baaah\s*|\bwhoa\s*|\bhuh\s*/gi, '')
     .replace(/\s+/g, ' ') : '';
     if (newText.trim() === '') {
@@ -133,9 +175,7 @@ function countScore(cleanTranscript) {
 
   scoreDiv.innerHTML = 0;
   document.getElementById('totalWords').innerHTML = totalWords;
-
   console.log(totalWords);
-
 }
 
 function scrollToInput() {
@@ -172,13 +212,14 @@ inputUrl.addEventListener("keydown", async function (event) {
     let videoSection = document.getElementById("videoSection");
     let guessSection = document.getElementById("guessSection");
     spinner.id = loadingSpinner;
-    getIDYTB = setIframeSource();
-    console.log(getIDYTB);
-    if (getIDYTB === "URL Invalid") {
+    getIDYTB2 = setIframeSource();
+    console.log(getIDYTB2);
+    if (getIDYTB2 === "URL Invalid") {
       inputUrl.value = "";
       spinner.id = loading;
-      return;
-    }
+      
+    } else {
+      getIDYTB = getIDYTB2;
     try {
       var getHTTPTranscript = await fetch("/id", {
         method: "POST",
@@ -209,19 +250,17 @@ inputUrl.addEventListener("keydown", async function (event) {
     console.log(transcripto[0].text); 
     console.log(transcripto[1].duration);
 
-    console.log("étape 1 " + transcripto)
+    console.log("étape 1 ", transcripto)
     //getHTTPTranscript = JSON.parse(getHTTPTranscript);
-    console.log("étape 2 " + transcripto)
-   
-
     clean = cleanTranscript(transcripto);
+    console.log(clean[0].text); 
     clean = JSON.stringify(clean);
     clean = JSON.parse(clean);
     //var startBy = clean[0].offset;
     console.log(getHTTPTranscript);
     loadAPIPls(getIDYTB);
     //toDoOnStart(startBy);
-    console.log(clean);
+    console.log("official ", clean);
     countScore(clean);
     inputUrl.blur(); //Unfocus the input
     const scrollTo = document.querySelector("#guessSection");
@@ -229,31 +268,33 @@ inputUrl.addEventListener("keydown", async function (event) {
 
 
     document.addEventListener("keydown", function (event) {
-      if (event.ctrlKey && event.key === "a") {
+      if (event.ctrlKey && event.key === "l") {
+        event.preventDefault();
         repeatAWord();
       }
     });
 
     document.addEventListener("keydown", function (event) {
-      if (event.ctrlKey && event.key === "z") {
+      if (event.ctrlKey && event.key === "m") {
+        event.preventDefault();
         replayVideo();
       }
     });
 
     document.addEventListener("keydown", function (event) {
-      if (event.ctrlKey && event.key === "e") {
-       ; // clear the setInterval
+      if (event.code === "Space") {
+        event.preventDefault();
         toggleVideo();
       }
 
     });
     input.focus();
     //var iframe = document.querySelector("iframe#player");
-  }
+  } }
 }, { passive: true });
 ////////////INPUT URL
 
-getLang();
+
 
 // const myVariable = new Proxy({ value: false }, {
 
@@ -265,7 +306,7 @@ input.addEventListener("paste", function (event) {
 });
 
 input.addEventListener('keydown', function(event) {
-  if (event.key === "Backspace") {
+  if (event.key === "Backspace" || event.code === "Space") {
     event.preventDefault();
   }
 });
@@ -326,11 +367,14 @@ function guessButton() {
       input.disabled = true;
       stopVideo();
       document.getElementById("guessButton").removeAttribute("onclick");
+      document.getElementById("repeat").removeAttribute("onclick");
+      document.getElementById("replay").removeAttribute("onclick");
+      document.getElementById("play").removeAttribute("onclick");
     }
     if (endOffset != null || endForLoad != null) { //Prend le sous-titre de fin de segment
       var p = clean[endOffset - 1].text;
     } else {
-      var p = clean[startOffset].text;
+      var p = clean[clean.length - 1].text;
     }
     indexWord++;
     if (cara === p) { //Si la chaine entrée equivaut au dernier sous-titre du segment, génére un nouveau segment de vidéo
@@ -431,7 +475,6 @@ input.addEventListener("input", function (event) {
       score = score + 1;
       setTimeout(() => {scoreDiv.innerHTML = score}, 100) 
       indexWord++;
-      ooo = 0;
       indexLetter = 0;
       currentWord = '';
     }
@@ -440,6 +483,10 @@ input.addEventListener("input", function (event) {
       stopVideo();
       input.disabled = true;
       document.getElementById("guessButton").removeAttribute("onclick");
+      document.getElementById("repeat").removeAttribute("onclick");
+      document.getElementById("replay").removeAttribute("onclick");
+      document.getElementById("play").removeAttribute("onclick");
+
     }
     try {
       //const lastWordDiv = output.lastElementChild.textContent;
@@ -447,7 +494,7 @@ input.addEventListener("input", function (event) {
       if (endOffset != null) {
         var p = clean[endOffset - 1].text;
       } else {
-      var p = clean[startOffset].text;
+      var p = clean[clean.length - 1].text;
       }
       if (cara === p) {
         console.log("c gagné");

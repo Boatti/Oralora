@@ -1,16 +1,26 @@
 <div id="header">
     <div id="logo">
-        <a href="">ORALORA</a>
+        <a href="http://localhost:8080/">ORALORA</a>
     </div>
+
+        <div id="currentFlag"></div>
+        <div id="divLang">
+            <div id="otherFlag"></div>
+        </div>
+        
     <div id="boxForTabs">
+
+       
+        
         
         <div id = 'challengeDropdown' href="">CHALLENGE
             <img src="../assets/Img/dropdownArrowWhite.png">
             <div id="challengeDropdownContent">
-                <a href="/challenge">B1-C2</a><a href="/challenge/<%= category %>/<%= document.slug %>"><%= document.title %></a>
-                <a href="">Movie scenes</a>
-                <a href="">Short</a>
-                <a href="">Songs</a>
+                <a href="/challenge/levels"><%= i18n.t("levels"); %></a>
+                <a href="/challenge/short"><%= i18n.t("short"); %></a>
+                <a href="/challenge/movie"><%= i18n.t("movie"); %></a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=oswild.corp@gmail.com&su=Idea or Request or Issue"><%= i18n.t("songs"); %></a>
+                
                 </div>
         </div>
        <!-- <a class="tabs" href="">SIGN UP</a>

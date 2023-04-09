@@ -1,6 +1,5 @@
 body {
     background-color:#241842; /*#120731 #070018 #1f0069 #3a1a93 #241842 #4d416a*/
-    
     margin: 0;
     padding: 0;
     color: white;
@@ -21,6 +20,22 @@ body {
     width: 100%;
     height: 62px;
     z-index: 1;
+}
+
+#divLang {
+    z-index: 2;
+    display: flex;
+    cursor: pointer;
+}
+
+#currentFlag{
+    height: 100%;
+    border: 2px solid red;
+    width: 100px;
+}
+
+.imgFlag {
+    width: 30px;
 }
 
 #challengeDropdown {
@@ -153,7 +168,7 @@ body {
 
 #guessButton {
     font-family: GolosBold;
-    border: 2px solid lightblue;
+    border: 2px solid #0b3800;
     cursor: pointer;
     border-radius: 30px;
     width: 7vw;
@@ -201,7 +216,7 @@ iframe {
 #title {
     font-family: GolosBlack;
     font-size: 5em;
-    filter: drop-shadow(18px 0px black);
+    filter: drop-shadow(6px 4px black);
     background: var(--accent-gradient);
     -webkit-background-clip: text;
     background-clip: text;
@@ -282,7 +297,7 @@ section {
     width: 3.5vw;
 }
 
-#repeat{
+#replay{
     transform: rotate(17deg);
 }
 
