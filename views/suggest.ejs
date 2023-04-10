@@ -13,12 +13,12 @@
         content="Looking to improve your listening skills in another language? Look no further than our website! We offer a wide range of engaging and informative videos that you can transcribe to improve your listening and comprehension abilities. Whether you're a beginner or an advanced learner, we have videos suitable for your level. Let us help you achieve your language learning goals."
         property="og:description">
     <meta content="/static/ogImage.png" property="og:image">
-    <title>Oralora | Suggest a video</title>
+    <title>Oralora | <%= i18n.t("suggest") %></title>
     <link href="/assets/css/challStyle.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
     <link href="/assets/css/suggest.css" rel="stylesheet">
     <script src="/assets/js/youtubeApi.js" defer></script>
-    <script src="/assets/js/script.js" defer></script>
+   
 </head>
 <body>
 
@@ -29,11 +29,11 @@
         
 
         <form action="/suggestMethod" method="post">
-            <div>If you want to suggest a video you find interesting so everyone can train with, send it here ! Thanks</div>
+            <div><%= i18n.t("hookSuggest") %></div>
             <label><%= i18n.t("link") %></label>
-            <input type="text" name="nom"  />
+            <input type="text" name="nom"/>
             <br />
-            <label>Choose category</label>
+            <label><%= i18n.t("choose") %></label>
             <select name="filter"  id="selectFilter"> <!-- select filter-->
               <option value="popularity">Movie Scenes</option>
               <option value="difficulty" >Levels</option>
@@ -42,12 +42,17 @@
             </select>
             
               <br />
-              <label>Choose difficulty level</label>
+              <label><%= i18n.t("chooseDifficulty") %></label>
               <select name="difficulty" id="selectDifficulty">
                 <option value="beginner">Beginner</option>
                 <option value="intermediate">Intermediate</option>
                 <option value="advanced">Advanced</option>
               </select>
+
+            <label><%= i18n.t("explain") %></label>
+            <input type="text" name="nom"/>
+
+
            
 
             <br />

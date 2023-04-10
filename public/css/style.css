@@ -20,18 +20,111 @@ body {
     width: 100%;
     height: 62px;
     z-index: 1;
+    text-align: center;
+    gap: 10px;
+}
+
+
+#divInformations{
+    color: #2f2e48;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.81);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+#imgTranslateExplanation {
+    width: 27vw;
+}
+
+#divParagraph {
+    overflow-y: auto;
+    flex-direction: column;
+    display: flex;
+    position: absolute;
+	top : 8%;
+	left : 20%;
+}
+
+#divInfoSon {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#parchment {
+    height : 88vh;
+	border-radius : 29px;
+}
+
+#paragraph {
+    
+}
+
+#cross {
+    width: 33px;
+    height: 33px;
+    position : absolute;
+	top : -36px;
+	right : -36px;
+	cursor : pointer;
 }
 
 #divLang {
+    transition: all 0.3s ease;
+    justify-content: center;
+    width: 50px;
+    height: 40px;
+    border-radius: 0 0 20px 20px;
+    position: absolute;
+    top: 60px;
     z-index: 2;
-    display: flex;
-    cursor: pointer;
+    display: none;
+    background: #05031B;
 }
 
 #currentFlag{
     height: 100%;
-    border: 2px solid red;
-    width: 100px;
+    borer: 2px solid red;
+    width: 50px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#currentFlag:hover #divLang{
+    display: flex;
+}
+
+
+
+#imgCurrentFlag {
+}
+
+#otherFlag {
+
+}
+
+#parentGuessButton {
+    gap: 10px;
+    position: absolute;
+    right: -7.5vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#imgRules {
+    cursor: pointer;
+    width: 3.5vw;
 }
 
 .imgFlag {
@@ -133,19 +226,23 @@ body {
     }
 }
 
-#header>div {
-    align-items: center;
+#boxForAll{
+    margin-right: 3.5vw;
     display: flex;
+    gap: 10px;
 }
 
 #boxForTabs {
+    align-items: center;
+    display: flex;
     position: relative;
     gap: 1vw;
     font-family: GolosBold;
-    margin-right: 3.5vw;
 }
 
 #logo {
+    display: flex;
+    align-items: center;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
     font-family: GolosBlack;
@@ -173,9 +270,9 @@ body {
     border-radius: 30px;
     width: 7vw;
     height: 3vw;
-    position: absolute;
-    right: -8vw;
-    top: 2.5vw;
+   
+  
+
     transition: all 0.3s ease;
     color: #0a3800;
 }
@@ -199,9 +296,7 @@ iframe {
     height: 22.5vw;
 }
 
-#header {
-    text-align: center;
-}
+
 
 #globalTitle {
     display: flex;
@@ -339,7 +434,7 @@ section {
 
 #urlInput:focus {
     outline: rgb(230, 230, 230);
-    background-color: rgb(0, 0, 0);
+    background-color: #05031b;;
     color: white;
 }
 

@@ -1,54 +1,29 @@
 document.addEventListener("DOMContentLoaded", function () {
   playerCommands();
   scrollSnap();
-  setUpLang();
 });
-
-function setUpLang() {
-  const currentLang = getCookie('i18next');
-  const getUserLang = getLang();
-  
-  if (currentLang == 'en') {
-    var currentFlag = document.getElementById('currentFlag');
-    var otherFlag = document.getElementById('otherFlag');
-    currentFlag.innerHTML = "<a href='/en'><img id='otherFlag' class='imgFlag' src='/assets/Img/US.png' alt='US Flag'></a>";
-    otherFlag.innerHTML = "<a href='/fr'><img id='imgCurrentFlag' class='imgFlag' src='/assets/Img/FR.png' alt='FR Flag'></a>";
-  } else if (currentLang == 'fr'){
-      var currentFlag = document.getElementById('currentFlag');
-      var otherFlag = document.getElementById('otherFlag');
-      currentFlag.innerHTML = "<a href='/fr'><img id='imgCurrentFlag' class='imgFlag' src='/assets/Img/FR.png' alt='FR Flag'></a>";
-      otherFlag.innerHTML = "<a href='/en'><img id='otherFlag' class='imgFlag' src='/assets/Img/US.png' alt='US Flag'></a>";
-  } else if ((getUserLang.includes('fr')) && (!currentLang)){
-      var currentFlag = document.getElementById('currentFlag');
-      var otherFlag = document.getElementById('otherFlag');
-      currentFlag.innerHTML = "<a href='/fr'><img id='imgCurrentFlag' class='imgFlag' src='/assets/Img/FR.png' alt='FR Flag'></a>";
-      otherFlag.innerHTML = "<a href='/en'><img id='otherFlag' class='imgFlag' src='/assets/Img/US.png' alt='US Flag'></a>";
-  } else if ((getUserLang.includes('en')) && (!currentLang)){
-      var currentFlag = document.getElementById('currentFlag');
-      var otherFlag = document.getElementById('otherFlag');
-      currentFlag.innerHTML = "<a href='/en'><img id='otherFlag' class='imgFlag' src='/assets/Img/US.png' alt='US Flag'></a>";
-      otherFlag.innerHTML = "<a href='/fr'><img id='imgCurrentFlag' class='imgFlag' src='/assets/Img/FR.png' alt='FR Flag'></a>";
-    }
-}
+document.getElementById("divLang").style.background = 'transparent';
 
 
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}
-
+try {
 const globalSection = document.querySelector('#globalSection');
+
 globalSection.addEventListener("scroll", scrollFunction);
+} catch {}
 
 function scrollFunction() {
+  var getDivLang = document.getElementById('divLang');
   if (globalSection.scrollTop > 315) {
+    getDivLang.style.background = '#05031B';
     document.getElementById('logo').style.opacity = 1;
     document.getElementById('header').style.backgroundColor = '#05031B';
 
+
   } else {
+    getDivLang.style.background= 'transparent';
     document.getElementById('logo').style.opacity = 0;
     document.getElementById('header').style.backgroundColor = 'transparent';
+    
   }
 }
 
@@ -71,20 +46,29 @@ function playerCommands() {
   shortcutElements[2].innerHTML = isMac ? "Space" : "Space";
 }
 
-async function aRedirect(id) {
-  window.location.href = "/";
-  //window.open("/", "_blank");
+var getIDYTB;
+
+//window.onload = function() {
+if (localStorage.getItem("runPisslo")) {
+
+  getIDYTB = localStorage.getItem("runPisslo");
+  pisslo(getIDYTB);
+  // Supprime la variable runPisslo de localStorage
+  localStorage.removeItem("runPisslo");
+}
+//}
+
+async function pisslo(idios) {
+  console.log("end over finish",idios);
   let videoSection = document.getElementById("videoSection");
   let guessSection = document.getElementById("guessSection");
-  
-  console.log(id);
   try {
     var getHTTPTranscript = await fetch("/id", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: id,
+      body: idios,
     });
       var transcripto = await getHTTPTranscript.json();
 
@@ -92,17 +76,39 @@ async function aRedirect(id) {
     console.log(error);
   }
   videoSection.style.display = "flex";
-    guessSection.style.display = "flex";
+  guessSection.style.display = "flex";
 
-  clean = cleanTranscript(transcripto);
+  clean = await cleanTranscript(transcripto);
   clean = JSON.stringify(clean);
   clean = JSON.parse(clean);
 
-  loadAPIPls(id);
+  loadAPIPls(idios);
   countScore(clean);
-
-  const scrollTo = document.querySelector("#videoSection");
+  const scrollTo = document.querySelector("#guessSection");
   scrollTo.scrollIntoView();
+
+  document.addEventListener("keydown", function (event) {
+    if (event.ctrlKey && event.key === "l") {
+      event.preventDefault();
+      repeatAWord();
+    }
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.ctrlKey && event.key === "m") {
+      event.preventDefault();
+      replayVideo();
+    }
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.code === "Space") {
+      event.preventDefault();
+      toggleVideo();
+    }
+
+  });
+  input.focus();
 }
 
 function setIframeSource() {
@@ -124,15 +130,102 @@ function setIframeSource() {
 
     errorURL.innerHTML = "";
   } else {
-    errorURL.innerHTML = "Please enter a valid YouTube URL";
+    errorURL.innerHTML = 'Please enter a valid YouTube URL';
     return ('URL Invalid');
   }
   if (onlyYtId.length > 11) {
-    errorURL.innerHTML = "Please enter a valid YouTube URL";
+    errorURL.innerHTML = 'Please enter a valid YouTube URL';
     return ('URL Invalid');
   }
   return onlyYtId;
 }
+
+ function displayRules() {
+  document.getElementById('divInformations').style.display = 'block';
+  var cross = document.getElementById('cross');
+  cross.addEventListener('click', function() {
+    document.getElementById('divInformations').style.display = 'none';
+  }); 
+
+
+       /*  try {
+        const response = await fetch('/getInfos', {
+          method: 'POST'
+        });
+        var data = await response.json();
+        console.log(data.infos2);
+      } catch (err){
+          console.log(err)
+        };
+
+				var newDiv = document.createElement("div");
+				newDiv.style.display = "block";
+				newDiv.style.backgroundColor = "rgba(0, 0, 0, 0.81)";
+				newDiv.style.position = "fixed";
+				newDiv.style.top = "0";
+				newDiv.style.left = "0";
+				newDiv.style.width = "100%";
+				newDiv.style.height = "100%";
+				newDiv.style.zIndex = "999";
+
+				var newDiv2 = document.createElement("div");
+				newDiv2.style.display = "flex";
+
+				var newImage = document.createElement("img");
+				newImage.src = "assets/Img/parchment.png";
+				newImage.style.height = "88vh";
+				newImage.style.borderRadius = "29px";
+				newDiv2.style.position = "absolute";
+				newDiv2.style.top = "50%";
+				newDiv2.style.left = "50%";
+				newDiv2.style.transform = "translate(-50%, -50%)";
+
+        var paragraph = document.createElement("p");
+				paragraph.setAttribute("id", "paragraph");
+        paragraph.style.position = "absolute";
+				paragraph.style.top = "8%";
+				paragraph.style.left = "20%";
+        paragraph.textContent = data.infos + data.infos2;
+        
+
+				var crossSrc = new Image(33,33);
+				crossSrc.src = 'assets/Img/crossNormal.png';
+				crossSrc.setAttribute("id", "cross");
+				crossSrc.style.position = 'absolute';
+				crossSrc.style.top = "-36px";
+				crossSrc.style.right = "-36px";
+				crossSrc.style.cursor = "pointer";
+				
+				newDiv2.appendChild(newImage);
+        
+				
+				setTimeout(() => {
+          
+					newDiv2.appendChild(crossSrc);
+          newDiv2.appendChild(paragraph);
+				}, 10);
+				newDiv.appendChild(newDiv2);
+
+				document.body.appendChild(newDiv);
+
+				crossSrc.addEventListener('click', function() {
+					newDiv.remove();
+				}); */
+}
+		
+
+  /* const rulesDisplayed = localStorage.getItem('rulesDisplayed');
+
+// si les règles n'ont pas encore été affichées, afficher la div de règles
+if (!rulesDisplayed) {
+  const rulesDiv = document.getElementById('rules');
+  rulesDiv.style.display = 'flex';
+
+  // enregistrer la variable de stockage local pour indiquer que les règles ont été affichées
+  localStorage.setItem('rulesDisplayed', true);
+}  */
+
+
 
 function cleanTranscript(transcriptu) {
 
@@ -187,22 +280,17 @@ function millisToSeconds(ms) {
   return (ms / 1000).toFixed(3);
 }
 
-function getLang() {
-  let userLanguage = navigator.language;
-  return userLanguage;
-}
-
 //let obj = new oui();
 
 //addEventListenner
 let clean;
-var getIDYTB;
 const output = document.getElementById("foundArea");
 const input = document.getElementById("guessArea");
 const scoreDiv = document.getElementById('currentScore');
 const inputUrl = document.getElementById("urlInput");
 
 ////////////INPUT URL
+
 inputUrl.addEventListener("keydown", async function (event) {
   if (event.key === "Enter" || event.key === 'NumpadEnter') {
     //event.preventDefault();
@@ -220,7 +308,7 @@ inputUrl.addEventListener("keydown", async function (event) {
       
     } else {
       getIDYTB = getIDYTB2;
-    try {
+      try {
       var getHTTPTranscript = await fetch("/id", {
         method: "POST",
         headers: {
@@ -486,7 +574,6 @@ input.addEventListener("input", function (event) {
       document.getElementById("repeat").removeAttribute("onclick");
       document.getElementById("replay").removeAttribute("onclick");
       document.getElementById("play").removeAttribute("onclick");
-
     }
     try {
       //const lastWordDiv = output.lastElementChild.textContent;

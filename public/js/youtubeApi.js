@@ -1,3 +1,4 @@
+
 function loadAPIPls(getIDYTB) {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
         loadYouTubeAPI();
@@ -25,7 +26,7 @@ function createYouTubePlayer(id) {
             height: '360',
             width: '640',
             videoId: id,
-            playerVars: {'loop': 1, 'autoplay': 0, 'controls': 0, 'disablekb': 1, 'enablejsapi': 1, 'cc_load_policy': 0, 'cc_lang_pref': 'en', 'iv_load_policy': 3, 'modestbranding': 1 },
+            playerVars: {'loop': 1, 'autoplay': 0, 'controls': 1, 'disablekb': 1, 'enablejsapi': 1, 'cc_load_policy': 0, 'cc_lang_pref': 'en', 'iv_load_policy': 3, 'modestbranding': 1 },
             events: {
                 'onReady': function (event) {
                     onPlayerReady(player, event, id);
@@ -44,7 +45,6 @@ function createYouTubePlayer(id) {
     input.value = "";
     output.innerHTML = "";
     
-
     input.disabled = false;
     const guessButton = document.getElementById("guessButton");
     const repeatButton = document.getElementById("repeat");
@@ -67,11 +67,7 @@ function createYouTubePlayer(id) {
     if (!playButton.onclick) {
     playButton.onclick = toggleVideo;
     }
-
-
-    
-     
-      
+ 
     onPlayerReady(player, null, id);
       
    }

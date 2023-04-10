@@ -1,3 +1,8 @@
 {
-    "link":"Youtube link"
+    "suggest":"Suggest a video",
+    "hookSuggest":"If you want to suggest a video you find interesting so everyone can train with, send it here ! Thanks",
+    "link":"Youtube link",
+    "explain":"Explain why this video is good",
+    "choose":"Choose category",
+    "chooseDifficulty":"Choose difficulty level"
 }

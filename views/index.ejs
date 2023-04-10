@@ -15,9 +15,10 @@
     <meta content="/static/ogImage.png" property="og:image">
     <title>Oralora</title>
     <link href="/assets/css/style.css" rel="stylesheet">
+    <script src="/assets/js/youtubeIframe.js" defer></script>
     <script src="/assets/js/script.js" defer></script>
     <script src="/assets/js/youtubeApi.js" defer></script>
-
+    <script src="/assets/js/scriptForLang.js" defer></script>
 
 </head>
 
@@ -25,16 +26,28 @@
 
     <%- include('header.ejs') %>
 
+    <div id="divInformations">
+        <div id="divInfoSon">
+            <img id='cross' src="assets/Img/crossNormal.png" alt="Cross">
+            <img id='parchment' src="assets/Img/parchment.png" alt="Informations">
+            <div id="divParagraph">
+                <h3>Informations</h3>
+                <p id='paragraph'><%- i18n.t("informations"); %></p>
+                <p id='paragraph'><%- i18n.t("translateInfos"); %></p>
+                <p id='paragraph'><%- i18n.t("translateExplanation"); %></p>
+                <img id='imgTranslateExplanation' src="assets/Img/translateExplanation.png" alt="HowToTranslate">
+                <p id='paragraph'><%- i18n.t("lastInfo"); %></p>
+            </div>
+            
+        </div>
+
+
+    </div>
+
+    
         <div id="globalSection">
 
             <section id="homeSection">
-
-                
-
-                
-
-
-
 
                 <div id="globalTitle">
                     <div id="title">ORALORA</div>
@@ -70,9 +83,10 @@
 
                     <div id="foundArea"></div>
                     <div id="parentGuess">
-                        <textarea placeholder="Write down every word you hear.." id="guessArea"></textarea>
+                        <textarea placeholder="<%= i18n.t('outputPlaceholder'); %>.." id="guessArea"></textarea>
                         <div id='parentGuessButton'>
                             <button onclick="guessButton()" id="guessButton">GUESS</button>
+                            <img onclick="displayRules()" id="imgRules" src="/assets/Img/rulesWhite.png" alt="">
                         </div>
                     </div>
                     <div id="command">

@@ -1,3 +1,8 @@
 {
-    "link":"Lien Youtube"
+    "suggest":"Suggérer une vidéo",
+    "hookSuggest":"Si vous voulez proposer une vidéo que vous trouver intéressante, envoyez là ici ! Merci",
+    "link":"Lien Youtube",
+    "explain":"Expliquez pourquoi cette video est bien",
+    "choose":"Choisissez une catégorie",
+    "chooseDifficulty":"Choisissez une difficulté"
 }

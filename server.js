@@ -9,11 +9,9 @@ const i18nextMiddleware = require('i18next-http-middleware');
 const Backend = require('i18next-fs-backend');
 const cookieParser = require('cookie-parser');
 
-
 //const path = require('path');
 //const Video = require('./models/fr');
 //const MongoClient = require('mongodb').MongoClient;
-
 
 const uri = "mongodb+srv://Boatti:4nOvG5Pq6jUMBNav@oralora.qnmxthm.mongodb.net/Oralora?retryWrites=true&w=majority";
 mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true });
@@ -60,7 +58,7 @@ i18next
 
 app.use('/:falseURl', (req, res, next) => {
     const falseURl = req.params.falseURl;
-    if (falseURl !== 'id' && falseURl !== 'en' && falseURl !== 'fr' && falseURl !== 'challenge' && falseURl !== 'suggest') {
+    if (falseURl !== 'id' && falseURl !== 'getInfos' && falseURl !== 'en' && falseURl !== 'fr' && falseURl !== 'challenge' && falseURl !== 'suggest') {
       return res.redirect('/'); // Redirige vers la page d'accueil
     }
     next();
@@ -84,14 +82,14 @@ app.use((req, res, next) => {
 });
 
 app.get('/en', (req, res) => {
-  res.clearCookie('i18next');
-  res.cookie('i18next', 'en');
+  //res.clearCookie('i18next');
+  res.cookie('i18next', 'en', { maxAge: 30 * 24 * 60 * 60 * 1000});
   res.redirect('back');
 });
 
 app.get('/fr', (req, res) => {
-  res.clearCookie('i18next');
-  res.cookie('i18next', 'fr');
+  //res.clearCookie('i18next');
+  res.cookie('i18next', 'fr', { maxAge: 30 * 24 * 60 * 60 * 1000});
   res.redirect('back');
 });
 
@@ -100,12 +98,35 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/challenge/:category', async (req, res) => {
+  var filter = req.query.filter;
+  if (filter) {
+    res.clearCookie('filter');
+    res.cookie('filter', filter, { maxAge: 30 * 24 * 60 * 60 * 1000});
+  }
+  //console.log("cv ",filter);
+  //console.log("cv 2 ",req.cookies.filter);
+
   //var i18n = req.i18n;
   try {
-    const USVids = await US.find({category: req.params.category});
+    if (req.cookies.filter === "difficulty") {
+      var USVids = await US.find({category: req.params.category}).sort(({difficulty: -1}));
+      var diff = 'selected';
+      var dura = '';
+      
+    } else if (req.cookies.filter === "duration") {
+    var USVids = await US.find({category: req.params.category}).sort(({duration: 1}));
+    var dura = 'selected';
+    var diff = '';
+   
+    } else {
+      var USVids = await US.find({category: req.params.category}).sort(({difficulty: -1}));
+      var diff = 'selected';
+      var dura = '';
+      
+    }
     var category = req.params.category;
     var categoryUpperCase = category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
-    res.render('challenge', {USVids, categoryUpperCase});
+    res.render('challenge', {USVids, categoryUpperCase, diff, dura});
   } catch (err) {
     console.log(err);
     res.status(500).send('Internal Server Error');
@@ -119,7 +140,7 @@ app.get('/suggest', async (req, res) => {
 app.post('/id', async function (req, res) {
   var onlyYtId = req.body;
   try {
-    let transcript = await YoutubeTranscript.default.fetchTranscript(onlyYtId, {lang: 'fr'});
+    let transcript = await YoutubeTranscript.default.fetchTranscript(onlyYtId, {lang: 'en'});
     //console.log(transcript);
     res.send(transcript);
   } catch (err) {
@@ -128,7 +149,18 @@ app.post('/id', async function (req, res) {
 }
 );
 
+/* app.post('/getInfos', function (req, res) {
+  var infos = req.i18n.t("informations");
+  var infos2 = req.i18n.t("translateInfos");
+  console.log(infos);
+
+  res.json({ infos: infos, infos2: infos2 });
+}); */
+
+
 app.listen(8080)
+
+
 
 /* const MongoClient = require('mongodb').MongoClient;
 

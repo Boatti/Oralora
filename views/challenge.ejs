@@ -17,25 +17,24 @@
     <link href="/assets/css/challStyle.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
     <script src="/assets/js/youtubeApi.js" defer></script>
-    <script src="/assets/js/script.js" defer></script>
+    <script src="/assets/js/scriptForLang.js" defer></script>
+    <script src="/assets/js/challScript.js" defer ></script>
+    <script src="/assets/js/youtubeIframe.js" defer></script>
+    
+    
 </head>
 
 <body>
     
     <%- include('header.ejs') %>
 
-    
-        
-      
-
 <div id="divContainer"> <!-- div container-->
     <div id="divGlobal"> <!-- div global-->
         <div id="divHeader"> <!-- div header-->
             <span id="spanCategory"><%= categoryUpperCase %></span>
-            <select name="filter"  id="selectFilter"> <!-- select filter-->
-                <option value="difficulty" ><%= i18n.t("difficulty"); %></option>
-                <option value="popularity"><%= i18n.t("popularity"); %></option>
-                <option value="hamster"><%= i18n.t("duration"); %></option>
+            <select name="filter"  id="selectFilter" onchange="onChangeFilter()"> <!-- select filter-->
+                <option <%= diff %> value="difficulty"><%= i18n.t("difficulty"); %></option>
+                <option <%= dura %> value="duration"><%= i18n.t("duration"); %></option>
             </select>
            <a href="/suggest"><button id="buttonSuggest"><%= i18n.t("suggest"); %></button></a>
         </div> 
@@ -44,11 +43,11 @@
        <% USVids.forEach((key) => { %>
        
         <div class="divLoop"> <!-- div for-->
-            <a class="aLoop" onclick="aRedirect('<%= key.id %>')"> <!-- a for-->
+            <a class="aLoop" onclick="kkk('<%= key.id %>')"> <!-- a for-->
             <hr class="line">
             <div class="divContent"> <!-- div content-->
                 <div class="divImage"> <!-- div image-->
-                    <img class="imgThumbnail" src="<%= key.thumbnail %>" alt="">
+                    <img class="imgThumbnail" src='<%= key.thumbnail %>' alt="">
                 </div>
                 <div class="divEverythingElse"> <!-- div reste-->
                     <div class="divTitleChannel"> <!-- div titre/chaine-->
