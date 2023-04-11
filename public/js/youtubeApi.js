@@ -186,13 +186,20 @@ function pauseVideo2() {
 
 function repeatAWord(){
     var currentTime = player.getCurrentTime();
-    var add = parseFloat(millisToSeconds(clean[startOffset].offset))
+    var add = parseFloat(millisToSeconds(clean[startOffset].offset));
+    var img = document.getElementById("play");
     console.log(add);
     console.log("current time is : " + currentTime + " et start offset : " + add);
     if (currentTime <= add + 1.5) {
-        player.seekTo(add)
+        player.seekTo(add);
     } else {
          player.seekTo(currentTime - 1.5);
+    }
+    playVideo();
+    if (player.getPlayerState() == 1) {
+        img.setAttribute("src", "/assets/Img/playButton.png");
+    } else {
+        img.setAttribute("src", "/assets/Img/pauseButton.png");
     }
 }
 
@@ -200,7 +207,6 @@ function replayVideo() {
     var offset = clean[startOffset].offset;
     var rplay = millisToSeconds(offset);
     player.seekTo(rplay);
-    
 }
 
 function stopVideo() {

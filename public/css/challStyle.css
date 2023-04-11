@@ -1,3 +1,4 @@
+
 #logo {
     opacity: 1 !important;
 }
@@ -32,10 +33,10 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    background: #05031B;
     margin-top: 10vw;
     height: auto;
-    width: 55vw; /* ajuster la largeur au besoin */
+    width: 50vw; /* ajuster la largeur au besoin */
+    background: linear-gradient(110deg, #05031B, #0000002b);
 }
 
 #divHeader {
@@ -57,17 +58,15 @@
     justify-content: center;
 }
 
-#spanCategory, #divFilter, #buttonSuggest {
-    width: 10vw;
-    text-align: center;
-    height: 6vh;
-    align-content: center;
-}
 
 #buttonSuggest {
-   border-radius: 20px;
-   border: none;
-   cursor: pointer;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    width: 10vw;
+    text-align: center;
+    height: 40px;
+    align-content: center;
   }
 
 .aLoop {
@@ -92,7 +91,7 @@
     border-radius: 10px; /* arrondit les coins de la bordure */
     height: 5px;
     background: #AFAFAF;
-    width: 90%;
+    width: 95%;
     transition: width 0.3s;
 }
 
@@ -107,7 +106,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 5%;
+    margin-left: 2%;
 }
 
 .imgThumbnail {
@@ -116,7 +115,7 @@
 }
 
 .divEverythingElse{
-    margin-right: 5%;
+    margin-right: 2%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;

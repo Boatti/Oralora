@@ -1,3 +1,5 @@
+
+
 #divSuggest {
     display: flex;
     justify-content: center;
@@ -10,4 +12,38 @@ form {
     display: flex;
     align-items: center;
     flex-direction: column;
+}
+
+.selectCategory{
+    text-align: center;
+    outline: none;
+    width: 7vw;
+    height: 30px;
+
+}
+
+#inputSuggest{
+    padding: 5px;
+    border: none;
+    max-width: 200px;
+    width: 15vw;
+    height: 25px;
+    border-radius: 12px;
+}
+
+#inputSuggest:focus {
+    outline: none;
+    background-color: #05031b;
+    color: white;
+}
+
+#textareaSuggest:focus {
+    outline: none;
+}
+
+#buttonSuggest {
+    max-width: 100px;
+    min-width: 80px;
+    width: 20vw;
+    height: 30px;
 }

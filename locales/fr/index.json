@@ -13,8 +13,8 @@
     "errorUrl" : "Entrez un lien de vidéo valide",
     "errorCCOrChild" : "Pas de sous-titres disponibles ou cette vidéo est destinée aux enfants",
     "informations": "Le but de ce site est d'améliorer votre compréhension orale dans une autre langue. Vous pouvez vous concentrer sur l'écoute des mots et les vérifier en les écrivant. Ce site utilise la méthode d'écoute extensive pour l'apprentissage d'une langue",
-    "translateInfos": "- Écrivez tous les mots que vous entendez</br>- Essayez d'obtenir le meilleur score possible</br>- La transcription n'est pas parfaite et peut comporter environ 5 % d'erreurs. Utilisez le bouton 'deviner' lorsque cela échoue de manière étrange",
+    "translateInfos": "- Écrivez tous les mots que vous entendez</br>- Essayez d'obtenir le meilleur score possible</br>- La transcription n'est pas parfaite et peut comporter environ 5 % d'erreurs. Utilisez le bouton 'GUESS' lorsque cela échoue de manière étrange",
     "translateExplanation": "Traduisez instantanément une phrase en cliquant sur le premier et le dernier mot de la phrase",
-    "lastInfo": "Pas besoin d’utiliser de majuscules, d’accents d’espace ou de supprimer</br>Il y a de nombreuses vidéos intéressantes pour s'entraîner dans “challenge”</br>Si vous avez des idées de bonnes vidéos pour la compréhension orale, envoyez-les-moi dans “challenge” </br>Si vous avez des idées ou rencontrez des problèmes sur le site Web, n'hésitez pas à me le signaler ici"
+    "lastInfo": "Pas besoin d’utiliser de majuscules, d’accents d’espace ou de supprimer</br>Il y a de nombreuses vidéos intéressantes pour s'entraîner dans “challenge”</br>Si vous avez des idées de bonnes vidéos pour la compréhension orale, envoyez-les-moi dans “challenge” </br>Si vous avez des idées ou rencontrez des problèmes sur le site Web, n'hésitez pas à me le signaler <span id='spanMail'><a target='_blank' href='https://mail.google.com/mail/?view=cm&fs=1&to=oswild.corp@gmail.com&su=Idée / problème'>ici</a><span>"
     
 }

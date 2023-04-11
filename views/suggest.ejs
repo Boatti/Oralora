@@ -27,26 +27,28 @@
         <form action="/suggestMethod" method="post">
             <div><%= i18n.t("hookSuggest") %></div>
             <label><%= i18n.t("link") %></label>
-            <input type="text" name="link"/>
-            <br />
+            <input autocomplete="off" id="inputSuggest" type="text" name="link" required/>
+            <br/>
             <label><%= i18n.t("choose") %></label>
-            <select name="category" id="selectCategory"> <!-- select filter-->
+            <select name="category" class="selectCategory">
               <option value="levels"><%= i18n.t("levels"); %></option>
               <option value="short"><%= i18n.t("short"); %></option>
               <option value="movie"><%= i18n.t("movie"); %></option>
               <option value="songs"><%= i18n.t("songs"); %></option>
             </select>
-            
               <br />
+              <label><%= i18n.t("chooseLang") %></label>
+              <select name="lang" class="selectCategory"> 
+                <option value="fr">FR</option>
+                <option value="en">EN</option>
+                <option value="es">ES</option>
+              </select>
             <label><%= i18n.t("explain") %></label>
-            <textarea></textarea>
-            <br />
-            <input type="submit" value="<%= i18n.t('send') %>" />
+            <textarea name="explanation" id="textareaSuggest"></textarea>
+            <br/>
+            <button id="buttonSuggest" type="submit"><%= i18n.t('send') %></button>
           </form>
-          
       </div>
-
-
 </body>
 
 </html>

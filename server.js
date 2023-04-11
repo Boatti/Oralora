@@ -3,7 +3,7 @@ let YoutubeTranscript = require('youtube-transcript');
 let bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const router = express.Router();
-const models = require('./models/allModels');
+const { models, Suggest } = require('./models/allModels');
 const i18next = require('i18next');
 const i18nextMiddleware = require('i18next-http-middleware');
 const Backend = require('i18next-fs-backend');
@@ -149,17 +149,26 @@ app.post('/id', async function (req, res) {
 }
 );
 
-app.post('/suggestMethod', async function (req, res) {
+app.post('/suggestMethod', function (req, res) {
 
   const link = req.body.link;
   const category = req.body.category;
+  const lang = req.body.lang;
   const explanation = req.body.explanation;
+  const now = new Date();
+  now.setHours(now.getHours() + 2); // Ajoute deux heures à la date actuelle
+  const gmtPlus2DateString = now.toISOString();
 
-  //Send data into DB
-  
-  
-}
-);
+  const suggestData = new Suggest({
+    link: link,
+    category: category,
+    lang: lang,
+    explanation: explanation,
+    date: gmtPlus2DateString
+  });
+  suggestData.save();
+  res.redirect('back');
+});
 
 /* app.post('/getInfos', function (req, res) {
   var infos = req.i18n.t("informations");

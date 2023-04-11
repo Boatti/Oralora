@@ -1,9 +1,9 @@
 body {
-    background-color:#241842; /*#120731 #070018 #1f0069 #3a1a93 #241842 #4d416a*/
+    background-color:#12072f; /*#120731 #070018 #1f0069 #3a1a93 #241842 #4d416a #12072f #362369 #241842*/
     margin: 0;
     padding: 0;
     color: white;
-    font-family: GolosRegular;
+    font-family: "GolosRegular";
 }
 
 :root {
@@ -42,12 +42,15 @@ body {
 }
 
 #divParagraph {
+    overflow-x: hidden;
     overflow-y: auto;
     flex-direction: column;
     display: flex;
     position: absolute;
-	top : 8%;
-	left : 20%;
+	top: 5%;
+    left: 16%;
+    width: 70%;
+    height: 85%;
 }
 
 #divInfoSon {
@@ -63,8 +66,8 @@ body {
 	border-radius : 29px;
 }
 
-#paragraph {
-    
+.paragraph {
+    font-size: 1em;
 }
 
 #cross {
@@ -266,7 +269,7 @@ body {
     align-items: center;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
-    font-family: GolosBlack;
+    font-family: "GolosBlack" !important;
     font-size: 2em;
     margin-left: 3vw;
 }
@@ -340,7 +343,7 @@ iframe {
     width: 9vw;
     height: 4vw;
     font-family: GolosBlack;
-    font-size: 1.2rem;
+    font-size: 1.2em;
     border-radius: 200px;
     box-shadow: 6px 6px 0px black;
     border: 2px solid white;
@@ -409,6 +412,10 @@ section {
 
 #replay{
     transform: rotate(17deg);
+}
+
+#spanMail {
+    font-family: "GolosBold";
 }
 
 #command {
@@ -570,5 +577,5 @@ a:active {
 }
 
 ::-webkit-scrollbar-track {
-    background: #120731;
+    background: #05031B;
 }
