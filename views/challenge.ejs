@@ -5,22 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/assets/Img/logo3.ico" />
     <meta
-        content="Looking to improve your listening skills in another language? Look no further than our website! We offer a wide range of engaging and informative videos that you can transcribe to improve your listening and comprehension abilities. Whether you're a beginner or an advanced learner, we have videos suitable for your level. Let us help you achieve your language learning goals."
+        content="<%= i18n.t('metaDescription') %>"
         name="description">
-    <meta content="Looking to improve your listening skills in another language? Look no further than our website!"
+    <meta content="Oralora - <%= i18n.t('metaOgTitle') %>"
         property="og:title">
     <meta
-        content="Looking to improve your listening skills in another language? Look no further than our website! We offer a wide range of engaging and informative videos that you can transcribe to improve your listening and comprehension abilities. Whether you're a beginner or an advanced learner, we have videos suitable for your level. Let us help you achieve your language learning goals."
+        content="<%= i18n.t('metaDescription') %>"
         property="og:description">
     <meta content="/static/ogImage.png" property="og:image">
-    <title>Oralora | <%= categoryUpperCase %></title>
+    <title>Oralora | <%= i18n.t(category); %></title>
     <link href="/assets/css/challStyle.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
     <script src="/assets/js/youtubeApi.js" defer></script>
     <script src="/assets/js/scriptForLang.js" defer></script>
     <script src="/assets/js/challScript.js" defer ></script>
     <script src="/assets/js/youtubeIframe.js" defer></script>
-    
     
 </head>
 
@@ -31,7 +30,7 @@
 <div id="divContainer"> <!-- div container-->
     <div id="divGlobal"> <!-- div global-->
         <div id="divHeader"> <!-- div header-->
-            <span id="spanCategory"><%= categoryUpperCase %></span>
+            <span id="spanCategory"><%= i18n.t(category); %></span>
             <select name="filter"  id="selectFilter" onchange="onChangeFilter()"> <!-- select filter-->
                 <option <%= diff %> value="difficulty"><%= i18n.t("difficulty"); %></option>
                 <option <%= dura %> value="duration"><%= i18n.t("duration"); %></option>
@@ -43,7 +42,7 @@
        <% USVids.forEach((key) => { %>
        
         <div class="divLoop"> <!-- div for-->
-            <a class="aLoop" onclick="kkk('<%= key.id %>')"> <!-- a for-->
+            <a class="aLoop" onclick="redirectYT('<%= key.id %>')"> <!-- a for-->
             <hr class="line">
             <div class="divContent"> <!-- div content-->
                 <div class="divImage"> <!-- div image-->

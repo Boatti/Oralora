@@ -49,17 +49,23 @@ function playerCommands() {
 var getIDYTB;
 
 //window.onload = function() {
-if (localStorage.getItem("runPisslo")) {
-
-  getIDYTB = localStorage.getItem("runPisslo");
-  pisslo(getIDYTB);
-  // Supprime la variable runPisslo de localStorage
-  localStorage.removeItem("runPisslo");
-}
+  if (sessionStorage.getItem("idYtb")) {
+    let loadingDiv = 'divLoading';
+    let divLoading = document.getElementById('divNotLoading');
+    let notLoadingDiv = 'divNotLoading';
+    let loading0 = 'loading0';
+    let loadingSpinner = 'loadingSpinner0';
+    let spinner = document.getElementById('loading0');
+    divLoading.id = loadingDiv;
+    spinner.id = loadingSpinner;
+    getIDYTB = sessionStorage.getItem("idYtb");
+    vidFromChall(getIDYTB, loading0, notLoadingDiv, spinner);
+    sessionStorage.removeItem("idYtb");
+  }
 //}
 
-async function pisslo(idios) {
-  console.log("end over finish",idios);
+async function vidFromChall(id, loading0, notLoadingDiv, spinner) {
+  //console.log("end over finish",id);
   let videoSection = document.getElementById("videoSection");
   let guessSection = document.getElementById("guessSection");
   try {
@@ -68,7 +74,7 @@ async function pisslo(idios) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: idios,
+      body: id,
     });
       var transcripto = await getHTTPTranscript.json();
 
@@ -82,8 +88,10 @@ async function pisslo(idios) {
   clean = JSON.stringify(clean);
   clean = JSON.parse(clean);
 
-  loadAPIPls(idios);
+  loadAPIPls(id);
   countScore(clean);
+  divLoading.id = notLoadingDiv;
+  spinner.id = loading0;
   const scrollTo = document.querySelector("#guessSection");
   scrollTo.scrollIntoView();
 

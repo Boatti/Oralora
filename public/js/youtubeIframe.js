@@ -1,11 +1,5 @@
-function kkk(id) {
+function redirectYT(id) {
     
-    localStorage.setItem("runPisslo", id);
+    sessionStorage.setItem("idYtb", id);
     window.location.href = "/";
   }
-  
-/*   window.onload = function() {
-    setTimeout(function() {
-      pisslo();
-    }, 3000);
-  } */

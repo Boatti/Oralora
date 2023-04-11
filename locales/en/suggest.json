@@ -4,5 +4,6 @@
     "link":"Youtube link",
     "explain":"Explain why this video is good",
     "choose":"Choose category",
-    "chooseDifficulty":"Choose difficulty level"
+    "chooseDifficulty":"Choose difficulty level",
+    "send":"Send"
 }

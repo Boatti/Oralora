@@ -26,7 +26,7 @@ function createYouTubePlayer(id) {
             height: '360',
             width: '640',
             videoId: id,
-            playerVars: {'loop': 1, 'autoplay': 0, 'controls': 1, 'disablekb': 1, 'enablejsapi': 1, 'cc_load_policy': 0, 'cc_lang_pref': 'en', 'iv_load_policy': 3, 'modestbranding': 1 },
+            playerVars: {'loop': 1, 'autoplay': 0, 'controls': 0, 'disablekb': 1, 'enablejsapi': 1, 'cc_load_policy': 0, 'cc_lang_pref': 'en', 'iv_load_policy': 3, 'modestbranding': 1 },
             events: {
                 'onReady': function (event) {
                     onPlayerReady(player, event, id);

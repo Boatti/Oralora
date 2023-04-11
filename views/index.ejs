@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= i18n.t('htmlLang') %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/assets/Img/logo3.ico" />
     <meta
-        content="Looking to improve your listening skills in another language? Look no further than our website! We offer a wide range of engaging and informative videos that you can transcribe to improve your listening and comprehension abilities. Whether you're a beginner or an advanced learner, we have videos suitable for your level. Let us help you achieve your language learning goals."
+        content="<%= i18n.t('metaDescription') %>"
         name="description">
-    <meta content="Looking to improve your listening skills in another language? Look no further than our website!"
+    <meta content="Oralora - <%= i18n.t('metaOgTitle') %>"
         property="og:title">
     <meta
-        content="Looking to improve your listening skills in another language? Look no further than our website! We offer a wide range of engaging and informative videos that you can transcribe to improve your listening and comprehension abilities. Whether you're a beginner or an advanced learner, we have videos suitable for your level. Let us help you achieve your language learning goals."
+        content="<%= i18n.t('metaDescription') %>"
         property="og:description">
     <meta content="/static/ogImage.png" property="og:image">
     <title>Oralora</title>
@@ -25,6 +25,8 @@
 <body>
 
     <%- include('header.ejs') %>
+
+    <div id="divNotLoading"><div id="loading0"></div></div>
 
     <div id="divInformations">
         <div id="divInfoSon">

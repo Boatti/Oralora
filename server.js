@@ -3,7 +3,7 @@ let YoutubeTranscript = require('youtube-transcript');
 let bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const router = express.Router();
-const US = require('./models/US');
+const models = require('./models/allModels');
 const i18next = require('i18next');
 const i18nextMiddleware = require('i18next-http-middleware');
 const Backend = require('i18next-fs-backend');
@@ -31,7 +31,7 @@ app.set('view engine', 'ejs')
 
 app.use('/assets', express.static('public'))
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(express.json());
 app.use(bodyParser.text({ type: "*/*" }));
   //app.use(express.bodyParser());
@@ -58,7 +58,7 @@ i18next
 
 app.use('/:falseURl', (req, res, next) => {
     const falseURl = req.params.falseURl;
-    if (falseURl !== 'id' && falseURl !== 'getInfos' && falseURl !== 'en' && falseURl !== 'fr' && falseURl !== 'challenge' && falseURl !== 'suggest') {
+    if (falseURl !== 'id' && falseURl !== 'getInfos' && falseURl !== 'en' && falseURl !== 'fr' && falseURl !== 'challenge' && falseURl !== 'suggest' && falseURl !== 'suggestMethod') {
       return res.redirect('/'); // Redirige vers la page d'accueil
     }
     next();
@@ -109,24 +109,24 @@ app.get('/challenge/:category', async (req, res) => {
   //var i18n = req.i18n;
   try {
     if (req.cookies.filter === "difficulty") {
-      var USVids = await US.find({category: req.params.category}).sort(({difficulty: -1}));
+      var USVids = await models.find({category: req.params.category}).sort(({difficulty: -1}));
       var diff = 'selected';
       var dura = '';
       
     } else if (req.cookies.filter === "duration") {
-    var USVids = await US.find({category: req.params.category}).sort(({duration: 1}));
+    var USVids = await models.find({category: req.params.category}).sort(({duration: 1}));
     var dura = 'selected';
     var diff = '';
    
     } else {
-      var USVids = await US.find({category: req.params.category}).sort(({difficulty: -1}));
+      var USVids = await models.find({category: req.params.category}).sort(({difficulty: -1}));
       var diff = 'selected';
       var dura = '';
       
     }
     var category = req.params.category;
-    var categoryUpperCase = category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
-    res.render('challenge', {USVids, categoryUpperCase, diff, dura});
+    //var categoryUpperCase = category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
+    res.render('challenge', {USVids, category, diff, dura});
   } catch (err) {
     console.log(err);
     res.status(500).send('Internal Server Error');
@@ -146,6 +146,18 @@ app.post('/id', async function (req, res) {
   } catch (err) {
     res.status(500).send('Transcript error');
   }
+}
+);
+
+app.post('/suggestMethod', async function (req, res) {
+
+  const link = req.body.link;
+  const category = req.body.category;
+  const explanation = req.body.explanation;
+
+  //Send data into DB
+  
+  
 }
 );
 

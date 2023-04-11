@@ -1,5 +1,7 @@
 {
-    "description" : "",
+    "htmlLang":"en",
+    "metaDescription" : "Looking to improve your listening skills in another language? Look no further than our website! We offer a wide range of engaging and informative videos that you can transcribe to improve your listening and comprehension abilities. Whether you're a beginner or an advanced learner, we have videos suitable for your level. Let us help you achieve your language learning goals.",
+    "metaOgTitle":"improve your listening skills in another language",
     "hook": "Work your verbal comprehension",
     "try": "TRY",
     "inputUrl" : "Enter Youtube Link",

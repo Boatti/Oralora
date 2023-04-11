@@ -1,62 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= i18n.t('htmlLang') %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/assets/Img/logo3.ico" />
-    <meta
-        content="Looking to improve your listening skills in another language? Look no further than our website! We offer a wide range of engaging and informative videos that you can transcribe to improve your listening and comprehension abilities. Whether you're a beginner or an advanced learner, we have videos suitable for your level. Let us help you achieve your language learning goals."
-        name="description">
+    <meta name="robots" content="noindex">
     <meta content="Looking to improve your listening skills in another language? Look no further than our website!"
         property="og:title">
     <meta
         content="Looking to improve your listening skills in another language? Look no further than our website! We offer a wide range of engaging and informative videos that you can transcribe to improve your listening and comprehension abilities. Whether you're a beginner or an advanced learner, we have videos suitable for your level. Let us help you achieve your language learning goals."
         property="og:description">
     <meta content="/static/ogImage.png" property="og:image">
+    
     <title>Oralora | <%= i18n.t("suggest") %></title>
     <link href="/assets/css/challStyle.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
     <link href="/assets/css/suggest.css" rel="stylesheet">
     <script src="/assets/js/youtubeApi.js" defer></script>
-   
+    <script src="/assets/js/scriptForLang.js" defer></script>
 </head>
 <body>
 
     <%- include('header.ejs') %>
 
     <div id="divSuggest">
-
-        
-
         <form action="/suggestMethod" method="post">
             <div><%= i18n.t("hookSuggest") %></div>
             <label><%= i18n.t("link") %></label>
-            <input type="text" name="nom"/>
+            <input type="text" name="link"/>
             <br />
             <label><%= i18n.t("choose") %></label>
-            <select name="filter"  id="selectFilter"> <!-- select filter-->
-              <option value="popularity">Movie Scenes</option>
-              <option value="difficulty" >Levels</option>
-              <option value="hamster">Short</option>
-              <option value="songs">Songs</option>
+            <select name="category" id="selectCategory"> <!-- select filter-->
+              <option value="levels"><%= i18n.t("levels"); %></option>
+              <option value="short"><%= i18n.t("short"); %></option>
+              <option value="movie"><%= i18n.t("movie"); %></option>
+              <option value="songs"><%= i18n.t("songs"); %></option>
             </select>
             
               <br />
-              <label><%= i18n.t("chooseDifficulty") %></label>
-              <select name="difficulty" id="selectDifficulty">
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-              </select>
-
             <label><%= i18n.t("explain") %></label>
-            <input type="text" name="nom"/>
-
-
-           
-
+            <textarea></textarea>
             <br />
-            <input type="submit" value="Ajouter" />
+            <input type="submit" value="<%= i18n.t('send') %>" />
           </form>
           
       </div>
