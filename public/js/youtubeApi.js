@@ -133,16 +133,17 @@ function getOffset() {
         endOffset = null;
         return [startOffset, endOffset]
     }
-    
+     */
     if (clean[startOffset].text.split(" ").length > 15) {
        endOffset = endOffset + 1;
         return [startOffset, endOffset];
-        }  */
+        } 
     
     for (i = endOffset; i < (clean.length); i++) {
         console.log(clean.length);
         console.log("i vaut : ", i);
         count = count + clean[i].text.split(" ").length;
+        console.log('count is : ', count);
             if(count > 15) {
                 count = 0;
                 endOffset = i;
