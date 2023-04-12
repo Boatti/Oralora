@@ -41,8 +41,8 @@ function scrollSnap() {
 function playerCommands() {
   const shortcutElements = document.getElementsByClassName("shortcut");
   const isMac = getNavigator();
-  shortcutElements[0].innerHTML = isMac ? "(Ctrl + L)" : "(CTRL + L)";
-  shortcutElements[1].innerHTML = isMac ? "(Ctrl + M)" : "(CTRL + M)";
+  shortcutElements[0].innerHTML = isMac ? "(CTRL + L)" : "(CTRL + L)";
+  shortcutElements[1].innerHTML = isMac ? "(CTRL + M)" : "(CTRL + M)";
   shortcutElements[2].innerHTML = isMac ? "(Space)" : "(Space)";
 }
 
