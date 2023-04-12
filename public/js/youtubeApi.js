@@ -184,6 +184,10 @@ function pauseVideo2() {
     player.pauseVideo();
 }
 
+function stopVideo() {
+    player.stopVideo();
+}
+
 function repeatAWord(){
     var currentTime = player.getCurrentTime();
     var add = parseFloat(millisToSeconds(clean[startOffset].offset));
@@ -195,32 +199,35 @@ function repeatAWord(){
     } else {
          player.seekTo(currentTime - 1.5);
     }
-    playVideo();
-    if (player.getPlayerState() == 1) {
-        img.setAttribute("src", "/assets/Img/playButton.png");
-    } else {
-        img.setAttribute("src", "/assets/Img/pauseButton.png");
+    if (player.getPlayerState() == 2) {
+        img.setAttribute("src", "/assets/Img/playButton2.png");
     }
+    playVideo();
+    
 }
 
 function replayVideo() {
     var offset = clean[startOffset].offset;
     var rplay = millisToSeconds(offset);
+    var img = document.getElementById("play");
     player.seekTo(rplay);
+    if (player.getPlayerState() == 2) {
+        img.setAttribute("src", "/assets/Img/playButton2.png");
+    }
+    playVideo();
+
 }
 
-function stopVideo() {
-    player.stopVideo();
-}
+
 
 function toggleVideo() {
     var img = document.getElementById("play");
     if (player.getPlayerState() == 1) {
         pauseVideo2();
-        img.setAttribute("src", "/assets/Img/pauseButton.png");
+        img.setAttribute("src", "/assets/Img/pauseButton2.png");
     } else {
         playVideo();
-        img.setAttribute("src", "/assets/Img/playButton.png");
+        img.setAttribute("src", "/assets/Img/playButton2.png");
     }
     
   }

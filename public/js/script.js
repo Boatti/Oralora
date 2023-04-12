@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   playerCommands();
   scrollSnap();
 });
-document.getElementById("divLang").style.background = 'transparent';
+
 
 
 try {
@@ -20,7 +20,7 @@ function scrollFunction() {
 
 
   } else {
-    getDivLang.style.background= 'transparent';
+    getDivLang.style.background= '#cacaca';
     document.getElementById('logo').style.opacity = 0;
     document.getElementById('header').style.backgroundColor = 'transparent';
     
@@ -41,9 +41,9 @@ function scrollSnap() {
 function playerCommands() {
   const shortcutElements = document.getElementsByClassName("shortcut");
   const isMac = getNavigator();
-  shortcutElements[0].innerHTML = isMac ? "Ctrl + L" : "CTRL + L";
-  shortcutElements[1].innerHTML = isMac ? "Ctrl + M" : "CTRL + M";
-  shortcutElements[2].innerHTML = isMac ? "Space" : "Space";
+  shortcutElements[0].innerHTML = isMac ? "(Ctrl + L)" : "(CTRL + L)";
+  shortcutElements[1].innerHTML = isMac ? "(Ctrl + M)" : "(CTRL + M)";
+  shortcutElements[2].innerHTML = isMac ? "(Space)" : "(Space)";
 }
 
 var getIDYTB;

@@ -2,33 +2,28 @@ document.addEventListener("DOMContentLoaded", function () {
     setUpLang();
   });
 
-function setUpLang() {
+  function setUpLang() {
     const currentLang = getCookie('i18next');
     const getUserLang = getLang();
+    const currentFlag = document.getElementById('currentFlag');
+    const otherFlag = document.getElementById('otherFlag');
     
+    const frLink = "<a href='/fr'><img id='imgOtherFlag' class='imgFlag' src='/assets/Img/FR.png' alt='FR Flag'></a>";
+    const enLink = "<a href='/en'><img id='imgOtherFlag' class='imgFlag' src='/assets/Img/US.png' alt='US Flag'></a>";
+  
     if (currentLang == 'en') {
-      var currentFlag = document.getElementById('currentFlag');
-      var otherFlag = document.getElementById('otherFlag');
-      otherFlag.innerHTML = "<a href='/fr'><img id='imgOtherFlag' class='imgFlag' src='/assets/Img/FR.png' alt='FR Flag'></a>";
-      currentFlag.innerHTML += "<a href='/en'><img id='imgCurrentFlag' class='imgFlag' src='/assets/Img/US.png' alt='US Flag'></a>";
-      
-    } else if (currentLang == 'fr'){
-        var currentFlag = document.getElementById('currentFlag');
-        var otherFlag = document.getElementById('otherFlag');
-        otherFlag.innerHTML = "<a href='/en'><img id='imgOtherFlag' class='imgFlag' src='/assets/Img/US.png' alt='US Flag'></a>";
-        currentFlag.innerHTML += "<a href='/fr'><img id='imgCurrentFlag' class='imgFlag' src='/assets/Img/FR.png' alt='FR Flag'></a>";
-    } else if ((getUserLang.includes('fr')) && (!currentLang)){
-        var currentFlag = document.getElementById('currentFlag');
-        var otherFlag = document.getElementById('otherFlag');
-        otherFlag.innerHTML = "<a href='/en'><img id='imgOtherFlag' class='imgFlag' src='/assets/Img/US.png' alt='US Flag'></a>";
-        currentFlag.innerHTML += "<a href='/fr'><img id='imgCurrentFlag' class='imgFlag' src='/assets/Img/FR.png' alt='FR Flag'></a>";
-    } else if ((getUserLang.includes('en')) && (!currentLang)){
-        var currentFlag = document.getElementById('currentFlag');
-        var otherFlag = document.getElementById('otherFlag');
-        otherFlag.innerHTML = "<a href='/fr'><img id='imgOtherFlag' class='imgFlag' src='/assets/Img/FR.png' alt='FR Flag'></a>";
-        currentFlag.innerHTML += "<a href='/en'><img id='imgCurrentFlag' class='imgFlag' src='/assets/Img/US.png' alt='US Flag'></a>";
-        
-      }
+      otherFlag.innerHTML = frLink;
+      currentFlag.innerHTML += enLink;
+    } else if (currentLang == 'fr') {
+      otherFlag.innerHTML = enLink;
+      currentFlag.innerHTML += frLink;
+    } else if ((getUserLang.includes('fr')) && (!currentLang)) {
+      otherFlag.innerHTML = enLink;
+      currentFlag.innerHTML += frLink;
+    } else if ((getUserLang.includes('en')) && (!currentLang)) {
+      otherFlag.innerHTML = frLink;
+      currentFlag.innerHTML += enLink;
+    }
   }
 
 function getCookie(name) {

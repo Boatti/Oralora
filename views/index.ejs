@@ -52,7 +52,7 @@
             <section id="homeSection">
 
                 <div id="globalTitle">
-                    <div id="title">ORALORA</div>
+                    <div id="title">Oralora</div>
                     <div id="hook"><%= i18n.t("hook"); %><!--The best way to learn a language.--></div>
 
                     <button onclick="scrollToInput()" id="try"><%= i18n.t("try"); %></button>
@@ -94,17 +94,20 @@
                     <div id="command">
 
                         <div>
-                            <img class="playRepeat" id="repeat" onclick="repeatAWord()" src="/assets/Img/backSec.png">
+                            <img class="playRepeat" id="repeat" onclick="repeatAWord()" src="/assets/Img/backSec2.png">
+                            <span><%= i18n.t("repeat"); %></span>
                             <span class="shortcut"></span>
                         </div>
 
                         <div>
-                            <img class="playRepeat" id="replay" onclick="replayVideo()" src="/assets/Img/Repeat.png">
+                            <img class="playRepeat" id="replay" onclick="replayVideo()" src="/assets/Img/Repeat3.png">
+                            <span><%= i18n.t("replay"); %></span>
                             <span class="shortcut"></span>
                         </div>
 
                         <div>
-                            <img class="playRepeat" id="play" onclick="toggleVideo()" src="/assets/Img/playButton.png">
+                            <img class="playRepeat" id="play" onclick="toggleVideo()" src="/assets/Img/playButton2.png">
+                            <span><%= i18n.t("pause"); %></span>
                             <span class="shortcut"></span>
                         </div>
 
