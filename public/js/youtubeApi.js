@@ -134,6 +134,7 @@ function getOffset() {
         return [startOffset, endOffset]
     }
      */
+    try {
     if (clean[startOffset].text.split(" ").length > 15) {
        endOffset = endOffset + 1;
         return [startOffset, endOffset];
@@ -153,9 +154,9 @@ function getOffset() {
             endOffset = null;
             return [startOffset, endOffset]
         } 
-            
+        } 
         
-    }
+     } catch(err) {console.log(err);}
 }
 
 function changeAll(id, startOff, endOff) {

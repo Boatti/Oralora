@@ -12,7 +12,7 @@ const mongoose = require("mongoose");
     cc: Number,
     quality: String,
     category: String
-  }, { collection: 'US' });
+}, { collection: 'US' });
    
   var suggestDB = new mongoose.Schema({
     link: String,

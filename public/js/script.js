@@ -457,8 +457,8 @@ function guessButton() {
       currentWord = currentWord.charAt(0).toUpperCase() + currentWord.slice(1);
     } 
     output.innerHTML += "<span class='guessWords'>" + currentWord + "</span>" + ' ';
-    
-    if (cara === clean[clean.length - 1].text) { //Le END de la fin
+
+    if (cara === clean[clean.length - 1].text && (endForLoad === null || endOffset === null)) { //Le END de la fin
       output.innerHTML += "<div id='strongEnd'>END</div>";
       input.disabled = true;
       stopVideo();
@@ -467,6 +467,8 @@ function guessButton() {
       document.getElementById("replay").removeAttribute("onclick");
       document.getElementById("play").removeAttribute("onclick");
     }
+    
+    
     if (endOffset != null || endForLoad != null) { //Prend le sous-titre de fin de segment
       var p = clean[endOffset - 1].text;
     } else {
@@ -478,8 +480,8 @@ function guessButton() {
       var [startForLoad, endForLoad] = getOffset();
       console.log("ddd " + startForLoad, endForLoad);
       changeAll(getIDYTB, startForLoad, endForLoad);
-     
     }
+
     if (cara === stringGuess){
       cara = "";
       indexObject++;
@@ -574,7 +576,7 @@ input.addEventListener("input", function (event) {
       indexLetter = 0;
       currentWord = '';
     }
-    if (cara === clean[clean.length - 1].text) {
+    if (cara === clean[clean.length - 1].text && (endForLoad === null || endOffset === null)) {
       output.innerHTML += "<div id='strongEnd'>END</div>";
       stopVideo();
       input.disabled = true;
@@ -582,6 +584,7 @@ input.addEventListener("input", function (event) {
       document.getElementById("repeat").removeAttribute("onclick");
       document.getElementById("replay").removeAttribute("onclick");
       document.getElementById("play").removeAttribute("onclick");
+      
     }
     try {
       //const lastWordDiv = output.lastElementChild.textContent;
@@ -597,6 +600,7 @@ input.addEventListener("input", function (event) {
         console.log("mmm " + startForLoad, endForLoad);
         changeAll(getIDYTB, startForLoad, endForLoad);
       }
+      
       if (cara === string) {
         cara = "";
         indexObject++;
