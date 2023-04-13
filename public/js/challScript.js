@@ -5,3 +5,10 @@ function onChangeFilter() {
     fetch(`/challenge/${category}?filter=${x.value}`)
     .then(() => location.reload());
 }
+
+function loadingForm() {
+    let loading = 'loading';
+    let loadingSpinner = 'loadingSpinner';
+    let spinner = document.getElementById('loading');
+    spinner.id = loadingSpinner;
+}

@@ -1,8 +1,9 @@
 
-
 #divSuggest {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 form {
@@ -46,4 +47,12 @@ form {
     min-width: 80px;
     width: 20vw;
     height: 30px;
+}
+
+#divLoadd {
+    position: relative;
+}
+
+#loadingSpinner {
+    position: initial; margin-top: 30px;
 }

@@ -18,12 +18,14 @@
     <link href="/assets/css/suggest.css" rel="stylesheet">
     <script src="/assets/js/youtubeApi.js" defer></script>
     <script src="/assets/js/scriptForLang.js" defer></script>
+    <script src="/assets/js/challScript.js" defer></script>
 </head>
 <body>
 
     <%- include('header.ejs') %>
 
     <div id="divSuggest">
+      <div>
         <form action="/suggestMethod" method="post">
             <div><%= i18n.t("hookSuggest") %></div>
             <label><%= i18n.t("link") %></label>
@@ -46,9 +48,12 @@
             <label><%= i18n.t("explain") %></label>
             <textarea name="explanation" id="textareaSuggest"></textarea>
             <br/>
-            <button id="buttonSuggest" type="submit"><%= i18n.t('send') %></button>
+            <button onclick="loadingForm()" id="buttonSuggest" type="submit"><%= i18n.t('send') %></button>
           </form>
+        </div>
+          <div id="divLoadd"><div id="loading"></div></div>
       </div>
+      
 </body>
 
 </html>
