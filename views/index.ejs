@@ -37,7 +37,7 @@
                 <p class='paragraph'><%- i18n.t("informations"); %></p>
                 <p class='paragraph'><%- i18n.t("translateInfos"); %></p>
                 <p class='paragraph'><%- i18n.t("translateExplanation"); %></p>
-                <img id='imgTranslateExplanation' src="assets/Img/translateExplanation.png" alt="HowToTranslate">
+                <img id='imgTranslateExplanation' src="assets/Img/translateExplanation.png" alt="How to translate">
                 <p class='paragraph'><%- i18n.t("lastInfo"); %></p>
             </div>
             
@@ -53,11 +53,31 @@
 
                 <div id="globalTitle">
 
-                    <div id="title">Oralor</div>
-                    <div id="hook"><%= i18n.t("hook"); %><!--The best way to learn a language.--></div>
+                    <div id="title">Oralora</div>
+                    <span class="spanExplain"><%= i18n.t("hook"); %><!--The best way to learn a language.--></span>
+                </div>
 
-               
-                    <button onclick="scrollToInput()" id="try"><%= i18n.t("try"); %></button>
+                <div id="divExplain">
+                    <div id="divExplainLeft">
+                        <span class="spanExplain"><%= i18n.t("explain1"); %></span>
+                        <img src="assets/Img/youtubeURL.png" alt="How to get a youtube link">
+
+                        <span class="spanExplain"><%= i18n.t("explain2"); %></span>
+                        <img src="assets/Img/pasteIt.png" alt="How to past the link to an input">
+                        
+
+                    </div>
+                    <div id="divExplainCenter">
+                        <img src="assets/Img/arrowCenter.png" alt="Arrow">
+                        <button onclick="scrollToInput()" id="try"><%= i18n.t("try"); %></button>
+                    </div>
+                    <div id="divExplainRight">
+                        <span class="spanExplain"><%= i18n.t("explain3"); %></span>
+                        <img src="assets/Img/inputWrite.png" alt="How to write down what you ear">
+                        <span class="spanExplain"><%- i18n.t("explain4"); %></span>
+
+                    </div>
+
                 </div>
 
             </section>
@@ -90,25 +110,25 @@
                         <textarea placeholder="<%= i18n.t('outputPlaceholder'); %>.." id="guessArea"></textarea>
                         <div id='parentGuessButton'>
                             <button onclick="guessButton()" id="guessButton">GUESS</button>
-                            <img onclick="displayRules()" id="imgRules" src="/assets/Img/rulesWhite.png" alt="">
+                            <img onclick="displayRules()" id="imgRules" src="/assets/Img/rulesWhite.png" alt="Rules">
                         </div>
                     </div>
                     <div id="command">
 
                         <div>
-                            <img class="playRepeat" id="repeat" onclick="repeatAWord()" src="/assets/Img/backSec2.png">
+                            <img class="playRepeat" id="repeat" onclick="repeatAWord()" src="/assets/Img/backSec2.png" alt="Back 1.5sec before button">
                             <span><%= i18n.t("repeat"); %></span>
                             <span class="shortcut"></span>
                         </div>
 
                         <div>
-                            <img class="playRepeat" id="replay" onclick="replayVideo()" src="/assets/Img/Repeat3.png">
+                            <img class="playRepeat" id="replay" onclick="replayVideo()" src="/assets/Img/Repeat3.png" alt="Replay segment button">
                             <span><%= i18n.t("replay"); %></span>
                             <span class="shortcut"></span>
                         </div>
 
                         <div>
-                            <img class="playRepeat" id="play" onclick="toggleVideo()" src="/assets/Img/playButton2.png">
+                            <img class="playRepeat" id="play" onclick="toggleVideo()" src="/assets/Img/playButton2.png" alt="Play/Pause button">
                             <span><%= i18n.t("pause"); %></span>
                             <span class="shortcut"></span>
                         </div>

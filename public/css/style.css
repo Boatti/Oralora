@@ -163,6 +163,7 @@ body {
 
 #challengeDropdownContent {
     transform: translate(-50%);
+    color: black;
     left: 50%;
     transition: all 0.5s ease;
     width: 160px;
@@ -172,7 +173,7 @@ body {
     flex-direction: column;
     position: absolute;
     top: 100%;
-    background: #242424;
+    background: #cacaca;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
@@ -194,7 +195,7 @@ body {
 }
 
 #challengeDropdownContent a:hover {
-    background: #3c3c3c;
+    background: #949494;
     transition: 0.4s ;
 
 }
@@ -265,7 +266,7 @@ body {
 
 
 #boxForAll{
-    margin-right: 3.5vw;
+    margin-right: 1.5vw;
     display: flex;
     gap: 16px;
 }
@@ -353,8 +354,8 @@ iframe {
 #try {
     text-align: center;
     margin-top: 3vw;
-    width: 9vw;
-    height: 4vw;
+    width: 180px;
+    height: 85px;
     font-family: GolosBlack;
     font-size: 1.2em;
     border-radius: 200px;
@@ -376,6 +377,7 @@ iframe {
 #inputSection,
 #homeSection {
     display: flex;
+    flex-direction: column;
 }
 
 section {
@@ -392,6 +394,59 @@ section {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#divExplain{
+    gap: 3vw;
+    height: 50%;
+    width: 70%;
+    font-family: GolosBold;
+    display: flex;
+    flex-direction: row;
+    font-size: 1.3em;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#divExplainLeft{
+    height: 100%;
+
+    gap: 30px;
+    flex: 0.4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#divExplainCenter{
+    align-self: flex-end;
+    gap: 18px;
+    flex: 0.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#divExplainRight{
+    height: 100%;
+    gap: 30px;
+    flex: 0.4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.spanExplain{
+    text-align: center;
+    width: 70%;
+}
+
+#spanOr{
+    font-family: GolosBlack;
 }
 
 #invalidURL {

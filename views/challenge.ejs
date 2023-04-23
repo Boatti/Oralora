@@ -38,10 +38,17 @@
            <a href="/suggest"><button id="buttonSuggest"><%= i18n.t("suggest"); %></button></a>
         </div> 
         
-
-       <% USVids.forEach((key) => { %>
+        <% var a = 0; var divClass; %>
+        <% USVids.forEach((key) => { 
+            if (a % 2 == 0) {
+                divClass = 'divLoop';
+            } 
+            else {
+                divClass = 'divLoop2';
+            } 
+        %>
        
-        <div class="divLoop"> <!-- div for-->
+        <div class=<%= divClass %>> <!-- div for-->
             <a class="aLoop" onclick="redirectYT('<%= key.id %>')"> <!-- a for-->
             <div class="divContent"> <!-- div content-->
                 <div class="divImage"> <!-- div image-->
@@ -50,36 +57,30 @@
                 <div class="divEverythingElse"> <!-- div reste-->
                     <div class="divTitleChannel"> <!-- div titre/chaine-->
                         <span class="spanTitle" ><%= key.title %></span>
-                        <span class="spanChannel"><%= key.channel %></span>
+                        <span class="spanChannel">Niveau <%= key.difficulty %></span>
                     </div>
 
                     <div class="divDurationStar"> <!-- div durée/star-->
                         <div class="divDuration"> <!-- div durée-->
                             <img class="imgHourglass" src="/assets/Img/hourglassWhite.png" alt="">
-                            <stan class="stanDuration"><%= key.duration %></stan>
+                            <span class="spanDuration"><%= key.duration %></span>
                         </div>
-                        <div class="divStar"> <!-- div star-->
-                            <%- difficultyStars(key.difficulty) %>
+                        <div class="divTotalWords"> <!-- div star-->
+                           Total words : 300
                         </div>
                     </div>
                 </div>
             </div>
-            <hr class="line">
             </a>
         </div>
 
-        <% }) %>
+
+        <% a = a+1}) %>
 
     </div>
     </div>
 
-    <% function difficultyStars(difficulty) {
-        var stars = "";
-        for (var i = 0; i < difficulty; i++) {
-          stars += '<img class="imgStar" src="/assets/Img/star.png" alt="star">';
-        }
-        return stars;
-      } %>
+    
 
 
 </body>

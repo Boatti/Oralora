@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
   scrollSnap();
 });
 
-
-
 try {
 const globalSection = document.querySelector('#globalSection');
 

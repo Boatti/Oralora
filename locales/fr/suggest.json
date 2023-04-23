@@ -1,10 +1,12 @@
 {
     "suggest":"Suggérer une vidéo",
-    "hookSuggest":"Si vous voulez proposer une vidéo que vous trouvez intéressante, envoyez là ici ! Merci",
+    "hookSuggest":"Si tu veux proposer une vidéo que tu trouves intéressante, envois là ici ! Merci",
     "link":"Lien Youtube",
-    "explain":"Expliquez pourquoi cette video est bien",
+    "explain":"Décris cette vidéo (Accent..)",
     "choose":"Catégorie",
     "chooseLang":"Langue de la vidéo",
-    "chooseDifficulty":"Choisissez une difficulté",
-    "send":"Envoyer"
+    "chooseDifficulty":"Choisis une difficulté",
+    "sendButton":"Envoyer",
+    "send":"Send !",
+    "sendError":"Error !"
 }

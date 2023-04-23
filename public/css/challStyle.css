@@ -44,9 +44,10 @@
     flex-direction: column;
     margin-top: 10vw;
     height: auto;
-    width: 40vw; 
+    
+     /*width: 40vw; 
     min-width: 655px;
-     /*background: linear-gradient(110deg, #05031B, #0000002b);
+    background: linear-gradient(110deg, #05031B, #0000002b);
      linear-gradient(110deg, #545368, #5f5f5f2b)*/
     background: linear-gradient(110deg, #05031B, #5f5f5f2b);
 
@@ -102,28 +103,33 @@
 }
 
 .divLoop {
+    background: #0B0E2B;
     display: flex;
     flex-direction: column;
+    transition: all 0.5s ease;
 }
 
-.divLoop:hover .divContent{
-    background: #13112c;
-  }
+.divLoop2 {
+    background: #05031B;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.5s ease;
+}
+
   
-.divLoop:hover .imgThumbnail{
-    filter: saturate(1.3);
-    filter: brightness(1.1);
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.479));
-    transition: all 0.2s ease;
+.divLoop:hover, .divLoop2:hover{
+    filter: saturate(120%);
+    filter: brightness(1.2);
   }
 
-.divLoop:hover .line {
+  
+/* .divLoop:hover .line {
     width: 99.75%;
   }
 
 .line {
-    border:none; /* ajoute une bordure */
-    border-radius: 10px; /* arrondit les coins de la bordure */
+    border:none; ajoute une bordure 
+    border-radius: 10px; /* arrondit les coins de la bordure 
     height: 5px;
     background: #AFAFAF;
     width: 95%;
@@ -131,12 +137,10 @@
     align-self: center;
     margin: 0;
 }
-
+*/
 .divContent {
-    padding: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     transition: all 0.3s ease;
 }
 
@@ -144,26 +148,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 2%;
+    padding: 20px;
+    padding-left: 28px;
 }
 
 .imgThumbnail {
-    transition: all 0.3s ease;
-    border-radius: 20px;
-    width: 24vw;
+    border-radius: 14px;
+    width: 14vw;
     max-width: 300px;
-    min-width: 200px;
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.479));
+    min-width: 100px;
+    filter: drop-shadow(2px 2px 4px black);
 }
 
 .divEverythingElse{
-    margin-right: 2%;
+    min-width: 20vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .divTitleChannel{
+    margin-top: 14px;
     gap: 8px;
     display: flex;
     flex-direction: column;
@@ -172,24 +178,25 @@
 
 .spanTitle{
     font-size: 1.05rem;
+    color: #C3C3C3;
 }
 
 .spanChannel {
+    font-size: 1.05em;
     font-family: GolosSemiBold;
 }
 
 .spanTitle, .spanChannel{
-    text-align: end;
-    align-self: flex-end;
+    text-align: left;
+    align-self: flex-start;
 
 }
 
 .divDurationStar {
+    margin-bottom: 14px;
     justify-content: space-between;
     display: flex;
     flex-direction: row;
-    align-self: end;
-    width: 20vw;
 }
 
 .divDuration {
@@ -203,12 +210,18 @@
     width: 17px;
 }
 
-.stanDuration {
+.spanDuration {
     font-family: GolosBold;
     background: linear-gradient(45deg, rgb(125, 147, 245), #93ff78);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.divTotalWords{
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
 }
 
 .divStar {

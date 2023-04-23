@@ -100,7 +100,6 @@ app.get('/', async (req, res) => {
 app.get('/challenge/:category', async (req, res) => {
   var filter = req.query.filter;
   if (filter) {
-    res.clearCookie('filter');
     res.cookie('filter', filter, { maxAge: 30 * 24 * 60 * 60 * 1000});
   }
   //console.log("cv ",filter);
@@ -134,7 +133,8 @@ app.get('/challenge/:category', async (req, res) => {
 });
 
 app.get('/suggest', async (req, res) => {
-    res.render('suggest');
+  var wellSend;
+    res.render('suggest',{wellSend});
 });
 
 app.post('/id', async function (req, res) {
@@ -166,8 +166,12 @@ app.post('/suggestMethod', function (req, res) {
     explanation: explanation,
     date: gmtPlus2DateString
   });
+  try {
   suggestData.save();
-  res.redirect('back');
+   wellSend = true;
+  } catch {  wellSend = false;
+  }
+  res.render('suggest', {wellSend});
 });
 
 /* app.post('/getInfos', function (req, res) {

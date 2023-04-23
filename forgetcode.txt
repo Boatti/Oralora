@@ -1,0 +1,12 @@
+
+Function that generate the stars
+
+ <%- difficultyStars(key.difficulty) %>
+
+<% function difficultyStars(difficulty) {
+        var stars = "";
+        for (var i = 0; i < difficulty; i++) {
+          stars += '<img class="imgStar" src="/assets/Img/star.png" alt="star">';
+        }
+        return stars;
+      } %>
