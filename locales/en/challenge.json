@@ -2,5 +2,7 @@
     "popularity": "Popularity",
     "duration": "Duration",
     "difficulty" : "Difficulty",
-    "suggest" : "Suggest a video"
+    "suggest" : "Suggest a video",
+    "levelWord": "Level",
+    "totalWords":"Total words"
 }

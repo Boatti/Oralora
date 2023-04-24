@@ -2,5 +2,8 @@
     "popularity": "Popularité",
     "duration": "Durée",
     "difficulty" : "Difficulté",
-    "suggest" : "Suggérer une vidéo"
+    "suggest" : "Suggérer une vidéo",
+    "levelWord": "Niveau",
+    "totalWords":"Nombre de mots"
+
 }
