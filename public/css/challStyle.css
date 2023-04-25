@@ -224,6 +224,10 @@
     align-items: center;
 }
 
+.imgAccent{
+    width: 25px;
+}
+
 .divStar {
     display: flex;
     align-self: center;

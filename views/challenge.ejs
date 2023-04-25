@@ -57,17 +57,32 @@
                 <div class="divEverythingElse"> <!-- div reste-->
                     <div class="divTitleChannel"> <!-- div titre/chaine-->
                         <span class="spanTitle" ><%= key.title %></span>
-                        <span class="spanChannel"><%= i18n.t("levelWord"); %> <%= key.difficulty %></span>
+                        <span class="spanChannel" title="1 -> A1-A2 | 2 -> B1-B2 | 3 -> C1 | 4 -> C2"><%= i18n.t("levelWord"); %> <%= key.difficulty %></span>
                     </div>
 
                     <div class="divDurationStar"> <!-- div durée/star-->
                         <div class="divDuration"> <!-- div durée-->
-                            <img class="imgHourglass" src="/assets/Img/hourglassWhite.png" alt="">
+                            <img class="imgHourglass" src="/assets/Img/hourglassWhite.png" alt="Hourglass" title="Duration">
                             <span class="spanDuration"><%= key.duration %></span>
                         </div>
-                        <div class="divTotalWords"> <!-- div star-->
-                            <%= i18n.t("totalWords"); %> : 
+                        <div class="divTotalWords">
+                            <%= i18n.t("accent"); %>
+                            <%
+                            var country; 
+                            var countryCountry;
+                            if (key.accent == 1) {
+                                country = 'US';
+                                countryCountry ='American';
+                            } else if (key.accent == 2) {
+                                country = 'UK';
+                                countryCountry ='British';
+                            } else {
+                                country = 'AU';
+                                countryCountry ='Australian';
+                            } %> 
+                            <pre> : </pre> <img class="imgAccent" src="/assets/Img/country/<%= country %>.png" alt="<%= country %> flag" title="<%= countryCountry %>">
                         </div>
+                        
                     </div>
                 </div>
             </div>

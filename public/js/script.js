@@ -248,7 +248,7 @@ function cleanTranscript(transcriptu) {
     .replace(/\([^)]*\)/g, '') // supprimer les mots entre ()
     .replace(/\n|-/g, ' ') // remplacer les \n par des espaces
     .replace(/\s+/g, ' ') // remplacer les doubles espaces par des espaces
-    .replace(/[^a-z0-9-àâäéèêëîïôöùûüçáíóúñü \n']/gi, '') // enlever tout ce qui n'est pas une lettre ou un chiffre
+    .replace(/[^a-z0-9-àâäéèêëîïôöùûüçáíóúñü \n']/gi, '') // enlever tout ce qui n'est pas une lettre ou un chiffre ou un accent
     .replace(/\bwhooah\s*|\bargh\s*|\baaaah\s*|\baaah\s*|\bwhoa\s*|\bhuh\s*/gi, '')
     .replace(/\s+/g, ' ') : '';
     if (newText.trim() === '') {
@@ -456,7 +456,8 @@ function guessButton() {
     } 
     output.innerHTML += "<span class='guessWords'>" + currentWord + "</span>" + ' ';
 
-    if (cara === clean[clean.length - 1].text && (endForLoad === null || endOffset === null)) { //Le END de la fin
+//Le END de la fin
+    if (cara === clean[clean.length - 1].text && (endForLoad === null || endOffset === null)) { 
       output.innerHTML += "<div id='strongEnd'>END</div>";
       input.disabled = true;
       stopVideo();
@@ -465,9 +466,28 @@ function guessButton() {
       document.getElementById("replay").removeAttribute("onclick");
       document.getElementById("play").removeAttribute("onclick");
     }
+
+indexWord++;
+    if (cara === stringGuess) {
+      cara = "";
+      indexObject++;
+      indexWord = 0;
+      countLoopInput++;
+    } 
+    
+    console.log('chat', countLoopInput, ' ', countLoop);
+    if (countLoopInput == countLoop) {
+      countLoopInput = 0;
+      console.log("c gagné button");
+      var [startForLoad, endForLoad] = getOffset();
+      console.log("mmm " + startForLoad, endForLoad);
+      changeAll(getIDYTB, startForLoad, endForLoad);
+    }
+
     
     
-    if (endOffset != null || endForLoad != null) { //Prend le sous-titre de fin de segment
+//Prend le sous-titre de fin de segment
+   /*  if (endOffset != null || endForLoad != null) { 
       var p = clean[endOffset - 1].text;
     } else {
       var p = clean[clean.length - 1].text;
@@ -479,31 +499,18 @@ function guessButton() {
       console.log("ddd " + startForLoad, endForLoad);
       changeAll(getIDYTB, startForLoad, endForLoad);
     }
-
     if (cara === stringGuess){
       cara = "";
       indexObject++;
       indexWord = 0;
-    }
-    
+    } */
     indexLetter = 0;
     input.value = '';
     input.focus();
-   // try {
-     // const lastWordDiv = output.lastElementChild.textContent;
-      //console.log('A' + lastWordDiv);
-     // const lastWord = lastWordDiv.trim();
-    //  console.log(lastWord);
-    //  if (lastWord === stringListGuess[stringListGuess.length - 1]) {
-        
-        
-   //   }
-   // } catch (e) { console.log(e) };
-
-  
+   
   output.scrollTop = output.scrollHeight;
 }
-///////////BUTTON
+///////////BUTTON END
 
 let indexObject = 0;
 let indexWord = 0;
@@ -513,6 +520,7 @@ let currentWord;
 var cara = "";
 let string;
 let stringList;
+let countLoopInput = 0;
 
 //////////////////INPUT
 input.addEventListener("input", function (event) {
@@ -534,36 +542,15 @@ input.addEventListener("input", function (event) {
           break; // Sortie de la boucle
         }
       }
-    }, 100);
+    }, 50);
 
-    /* console.log(input.value);
-    setTimeout(function() {
-      var currentValue = input.value;
-      if (currentValue.charAt(currentValue.length - 1) != currentWord.charAt(ooo)) {
-        input.value = currentValue.substring(0, currentValue.length - 1);
-      }
-      else {
-        input.value = input.value + currentWord.charAt(ooo);
-        ooo++;
-      }
-    }, 30);  */
-
-   
-   
-
-    //if (inputData === letter) {
-    //  indexLetter++;
-
-   // } else {
-      //setTimeout(() => { input.value = input.value.slice(0, indexLetter) + input.value.slice(indexLetter + 5) }, 1);
-
-    //}
     if (input.value === currentWord) {
       setTimeout(() => {input.value = '';}, 30);
 
       cara = cara + " " + currentWord;
       cara = cara.trim();
 
+      //Met le premier mot avec une majuscule
       if (indexWord == 0 && indexObject == 0) {
         currentWord = currentWord.charAt(0).toUpperCase() + currentWord.slice(1);
       } 
@@ -585,30 +572,30 @@ input.addEventListener("input", function (event) {
       
     }
     try {
-      //const lastWordDiv = output.lastElementChild.textContent;
       console.log("voici cara " + cara);
-      if (endOffset != null) {
-        var p = clean[endOffset - 1].text;
-      } else {
-      var p = clean[clean.length - 1].text;
-      }
-      if (cara === p) {
+
+      if (cara === string) {
+        cara = "";
+        indexObject++;
+        indexWord = 0;
+        countLoopInput++;
+      } 
+      if (countLoopInput == countLoop) {
+        countLoopInput = 0;
         console.log("c gagné");
         var [startForLoad, endForLoad] = getOffset();
         console.log("mmm " + startForLoad, endForLoad);
         changeAll(getIDYTB, startForLoad, endForLoad);
       }
       
-      if (cara === string) {
-        cara = "";
-        indexObject++;
-        indexWord = 0;
-      }
+
+      console.log('chat', countLoopInput, ' ', countLoop);
+
     } catch (e) { console.log(e) };
   
   output.scrollTop = output.scrollHeight;
 });
-///////////////////INPUT
+///////////////////INPUT END
 
 ///rule display :
 

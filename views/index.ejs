@@ -42,10 +42,7 @@
             </div>
             
         </div>
-
-
     </div>
-
     
         <div id="globalSection">
 
@@ -60,22 +57,21 @@
                 <div id="divExplain">
                     <div id="divExplainLeft">
                         <span class="spanExplain"><%= i18n.t("explain1"); %></span>
-                        <img src="assets/Img/youtubeURL.png" alt="How to get a youtube link">
+                        <img class="imgExplain" src="assets/Img/youtubeURL.png" alt="How to get a youtube link">
 
                         <span class="spanExplain"><%= i18n.t("explain2"); %></span>
-                        <img src="assets/Img/pasteIt.png" alt="How to past the link to an input">
+                        <img class="imgExplain" src="assets/Img/pasteIt.png" alt="How to past the link to an input">
                         
 
                     </div>
                     <div id="divExplainCenter">
-                        <img src="assets/Img/arrowCenter.png" alt="Arrow">
+                        <img class="imgExplain" id='imgArrowMiddle' src="assets/Img/arrowCenter.png" alt="Arrow">
                         <button onclick="scrollToInput()" id="try"><%= i18n.t("try"); %></button>
                     </div>
                     <div id="divExplainRight">
                         <span class="spanExplain"><%= i18n.t("explain3"); %></span>
-                        <img src="assets/Img/inputWrite.png" alt="How to write down what you ear">
+                        <img class="imgExplain" src="assets/Img/inputWrite.png" alt="How to write down what you ear">
                         <span class="spanExplain"><%- i18n.t("explain4"); %></span>
-
                     </div>
 
                 </div>
@@ -128,7 +124,7 @@
                         </div>
 
                         <div>
-                            <img class="playRepeat" id="play" onclick="toggleVideo()" src="/assets/Img/playButton2.png" alt="Play/Pause button">
+                            <img class="playRepeat" id="play" onclick="toggleVideo()" src="/assets/Img/pauseButton2.png" alt="Play/Pause button">
                             <span><%= i18n.t("pause"); %></span>
                             <span class="shortcut"></span>
                         </div>

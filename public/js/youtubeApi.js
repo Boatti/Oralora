@@ -26,7 +26,7 @@ function createYouTubePlayer(id) {
             height: '360',
             width: '640',
             videoId: id,
-            playerVars: {'loop': 1, 'autoplay': 0, 'controls': 0, 'disablekb': 1, 'enablejsapi': 1, 'cc_load_policy': 0, 'cc_lang_pref': 'en', 'iv_load_policy': 3, 'modestbranding': 1 },
+            playerVars: {'loop': 1, 'autoplay': 0, 'controls': 0, 'disablekb': 1, 'enablejsapi': 1, 'cc_load_policy': 0, 'cc_lang_pref': 'en', 'iv_load_policy': 0, 'modestbranding': 1, 'showinfo':0 },
             events: {
                 'onReady': function (event) {
                     onPlayerReady(player, event, id);
@@ -46,18 +46,18 @@ function createYouTubePlayer(id) {
     output.innerHTML = "";
     
     input.disabled = false;
-    const guessButton = document.getElementById("guessButton");
+    const guessButtonId = document.getElementById("guessButton");
     const repeatButton = document.getElementById("repeat");
     const replayButton = document.getElementById("replay");
     const playButton = document.getElementById("play");
 
-    if (!guessButton.onclick) {
-    guessButton.onclick = guessButton;
+    if (!guessButtonId.onclick) {
+    guessButtonId.onclick = guessButton;
     }
 
     if (!repeatButton.onclick) {
     repeatButton.onclick = repeatAWord;
-    repeatButton.removeAttribute("onclick");
+    //repeatButton.removeAttribute("onclick");
     }
 
     if (!replayButton.onclick) {
@@ -80,23 +80,23 @@ function onPlayerReady(player, event, id) { // quand la video est lancé la prem
     var end = millisToSeconds(clean[endO].offset);
 
     if (event) {
-    event.target.loadVideoById({
-      videoId: id,
-      startSeconds: start,
-      endSeconds: end
-    });
-    event.target.setVolume(60);
-    event.target.playVideo();
+        event.target.loadVideoById({
+            videoId: id,
+            startSeconds: start,
+            endSeconds: end
+        });
+        event.target.setVolume(60);
+        event.target.playVideo();
 
-} else {
-    player.loadVideoById({
-        videoId: id,
-        startSeconds: start,
-        endSeconds: end
-      });
-      player.setVolume(60);
-      player.playVideo();
-}
+    } else {
+        player.loadVideoById({
+            videoId: id,
+            startSeconds: start,
+            endSeconds: end
+        });
+        player.setVolume(60);
+        player.playVideo();
+        }
 
     player.addEventListener('onStateChange', function(state) {
         if (state.data == YT.PlayerState.ENDED) {
@@ -114,21 +114,26 @@ function onPlayerReady(player, event, id) { // quand la video est lancé la prem
                     startSeconds: start2,
                     endSeconds: end2
                 });
+                const playButton = document.getElementById("play");
+                //playButton.removeAttribute("onclick");//playButton.onclick = toggleVideo;
+                errorSpace = true; 
                 player.pauseVideo();
-                setTimeout(() => {player.playVideo()}, 1500);
+                setTimeout(() => {player.playVideo(); errorSpace = false;}, 1500);
             } 
         }
     );
-
 }
 
 var count = 0;
 var endOffset = 0;
-var startOffset;
+var startOffset; 
+var countLoop = 0;
+var errorSpace = false; 
 
 function getOffset() {
     startOffset = endOffset; 
-
+    countLoop = 0;
+   
     /* if (clean[startOffset + 1] == undefined) {
         endOffset = null;
         return [startOffset, endOffset]
@@ -137,9 +142,10 @@ function getOffset() {
     try {
     if (clean[startOffset].text.split(" ").length > 15) {
        endOffset = endOffset + 1;
+       countLoop = 1;
         return [startOffset, endOffset];
-        } 
-    
+        }
+
     for (i = endOffset; i < (clean.length); i++) {
         console.log(clean.length);
         console.log("i vaut : ", i);
@@ -153,7 +159,8 @@ function getOffset() {
         if (i == clean.length - 1) {
             endOffset = null;
             return [startOffset, endOffset]
-        } 
+        }
+        countLoop++;
         } 
         
      } catch(err) {console.log(err);}
@@ -177,19 +184,8 @@ function changeAll(id, startOff, endOff) {
     setTimeout(() => {player.playVideo()}, 100);
 }
 
-function playVideo() {
-    player.playVideo();
-}
-
-function pauseVideo2() {
-    player.pauseVideo();
-}
-
-function stopVideo() {
-    player.stopVideo();
-}
-
 function repeatAWord(){
+    if (errorSpace == false)  {
     var currentTime = player.getCurrentTime();
     var add = parseFloat(millisToSeconds(clean[startOffset].offset));
     var img = document.getElementById("play");
@@ -201,39 +197,48 @@ function repeatAWord(){
          player.seekTo(currentTime - 1.5);
     }
     if (player.getPlayerState() == 2) {
-        img.setAttribute("src", "/assets/Img/playButton2.png");
+        img.setAttribute("src", "/assets/Img/pauseButton2.png");
     }
     playVideo();
+    }
     
 }
 
 function replayVideo() {
+    if (errorSpace == false)  {
     var offset = clean[startOffset].offset;
     var rplay = millisToSeconds(offset);
     var img = document.getElementById("play");
     player.seekTo(rplay);
     if (player.getPlayerState() == 2) {
-        img.setAttribute("src", "/assets/Img/playButton2.png");
+        img.setAttribute("src", "/assets/Img/pauseButton2.png");
     }
     playVideo();
+    }
 
 }
 
-
-
 function toggleVideo() {
+    if (errorSpace == false)  {
     var img = document.getElementById("play");
     if (player.getPlayerState() == 1) {
-        pauseVideo2();
-        img.setAttribute("src", "/assets/Img/pauseButton2.png");
+        pauseVideo();
+        img.setAttribute("src", "/assets/Img/playButton2.png");
     } else {
         playVideo();
-        img.setAttribute("src", "/assets/Img/playButton2.png");
+        img.setAttribute("src", "/assets/Img/pauseButton2.png");
     }
-    
+    }
   }
 
+function playVideo() {
+    player.playVideo();
+}
 
-/* function onPlayerStateChange(event) {
-  
-} */
+function pauseVideo() {
+    player.pauseVideo();
+}
+
+function stopVideo() {
+    player.stopVideo();
+}

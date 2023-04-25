@@ -11,7 +11,7 @@
     "inputUrl" : "Enter YouTube Link",
     "outputPlaceholder" : "Write down every word you hear..",
     "guessButton" : "GUESS",
-    "pause" : "Pause",
+    "pause" : "Pause/Play",
     "replay": "Replay",
     "repeat": "Repeat",
     "errorUrl" : "Please enter a valid YouTube link",
@@ -19,5 +19,5 @@
     "informations":"The goal of this website is to improve your listening comprehension in another language by exposing you to different accents. You can focus on listening to words and check them by writing them down. This website uses the extensive listening method for language learning",
     "translateInfos":"- Write down every word you hear</br>- Try to achieve the best score possible</br>- The transcript may not be perfect and can have approximately 5% errors. Use the 'guess' button when it fails strangely",
     "translateExplanation": "Instantly translate a sentence by clicking on the first and last words of the sentence",
-    "lastInfo": "No need to use capital letters, accents, spaces or delete</br>There are plenty of interesting videos to train with in “challenge”</br>If you have video ideas, send them to me in “challenge”</br>If you have ideas or requests/issues for the website, send them <span id='spanMail'><a target='_blank' href='https://mail.google.com/mail/?view=cm&fs=1&to=oswild.corp@gmail.com&su=Idea / Issue'>here</a><span>"
+    "lastInfo": "No need to use capital letters, accents, spaces or delete</br>There are plenty of interesting videos to train with in “challenge”</br>If you have video ideas, send them to me in “challenge”</br>If you have ideas or requests/issues for the website, send them <span id='spanMail'><a target='_blank' href='https://mail.google.com/mail/?view=cm&fs=1&to=oralora.contact@gmail.com&su=Idea / Issue'>here</a><span>"
 }

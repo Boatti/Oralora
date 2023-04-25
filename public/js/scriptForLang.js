@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const currentFlag = document.getElementById('currentFlag');
     const otherFlag = document.getElementById('otherFlag');
     
-    const frLink = "<a href='/fr'><img id='imgOtherFlag' class='imgFlag' src='/assets/Img/FR.png' alt='FR Flag'></a>";
-    const enLink = "<a href='/en'><img id='imgOtherFlag' class='imgFlag' src='/assets/Img/US.png' alt='US Flag'></a>";
+    const frLink = "<a href='/fr'><img id='imgOtherFlag' class='imgFlag' src='/assets/Img/country/FR.png' alt='FR Flag'></a>";
+    const enLink = "<a href='/en'><img id='imgOtherFlag' class='imgFlag' src='/assets/Img/country/US.png' alt='US Flag'></a>";
   
     if (currentLang == 'en') {
       otherFlag.innerHTML = frLink;

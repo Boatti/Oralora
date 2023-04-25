@@ -39,7 +39,7 @@ body {
 
 #imgTranslateExplanation {
     border-radius: 20px;
-    max-width: 317px;
+    max-width: 430px;
     align-self: center;
     width: 27vw;
 }
@@ -123,13 +123,12 @@ body {
     height: 115px;
 }
 
-
-
-#imgCurrentFlag {
+.imgExplain{
+    max-width: 424px;
 }
 
-#otherFlag {
-
+#imgArrowMiddle{
+    max-width: 128px;
 }
 
 #parentGuessButton {
