@@ -108,13 +108,13 @@ app.get('/challenge/:category', async (req, res) => {
   //var i18n = req.i18n;
   try {
     if (req.cookies.filter === "difficulty") {
-      var USVids = await models.find({category: req.params.category}).sort(({difficulty: -1}));
+      var USVids = await models.find({category: req.params.category}).sort(({difficulty: 1}));
       var diff = 'selected';
       var dura = '';
       var popu = '';
       
     } else if (req.cookies.filter === "duration") {
-    var USVids = await models.find({category: req.params.category}).sort(({duration: -1}));
+    var USVids = await models.find({category: req.params.category}).sort(({duration: 1}));
     var dura = 'selected';
     var diff = '';
     var popu = '';
@@ -126,10 +126,10 @@ app.get('/challenge/:category', async (req, res) => {
       var dura = '';
     } // Par default
     else {
-      var USVids = await models.find({category: req.params.category}).sort(({popularity: -1}));
-      var popu = 'selected';
+      var USVids = await models.find({category: req.params.category}).sort(({difficulty: 1}));
+      var diff = 'selected';
       var dura = '';
-      var diff = '';
+      var popu = '';
     }
     var category = req.params.category;
     res.render('challenge', {USVids, category, popu, diff, dura});
@@ -186,22 +186,18 @@ app.post('/popularityCount', async function (req, res) {
   console.log(getBody);
 
   await models.findOne({ id: getBody })
-  .then(vids => {
-    if (vids) {
+  .then(async vids => {
+    if (vids)  {
       vids.popularity += 1;
       // Enregistrez les modifications dans la base de données
-      return vids.save();
+      await vids.save();
+      res.send("Popularity updated");
     } else {
-      throw new Error('Video not found'); // Lève une nouvelle erreur avec un message personnalisé si l'image n'est pas trouvée
+      console.log('No video found');
     }
-  })
-  .then(updatedImage => {
-    // Les modifications ont été enregistrées avec succès
-    console.log('Popularity updated', updatedImage.popularity);
   })
   .catch(error => {
     console.error(error); // Affiche l'erreur dans la console
-    throw new Error('Error'); // Lève une nouvelle erreur avec un message personnalisé
   });
 });
 

@@ -243,14 +243,15 @@ function cleanTranscript(transcriptu) {
   // Enlever tout ce qui n'est pas une lettre de l'alphabet, remplacer les '\n' par des espaces, enlever les "whooah argh aaaah aaah whoa huh" si ce mot est seul dans le text on supprime tout l'objet mais si il est avec du text a coté on supprime que le mot
   const modifiedArr = transcriptu.map(obj => {
     let newText = obj.text ? obj.text
-    .replace(/\[\S+?\]/g, '') // supprimer les mots entre []
+    .replace(/\[[^\]]+\]/g, '') // supprimer les mots entre []
     .replace(/\*[^*]+\*/g, '') // supprimer les mots entre *
     .replace(/\([^)]*\)/g, '') // supprimer les mots entre ()
     .replace(/\n|-/g, ' ') // remplacer les \n par des espaces
-    .replace(/\s+/g, ' ') // remplacer les doubles espaces par des espaces
+    .replace(/\./g, ' ') //remplacer les points par des espaces
+    .replace(/\s+/g, ' ') // remplacer les multiples espaces par des espaces
     .replace(/[^a-z0-9-àâäéèêëîïôöùûüçáíóúñü \n']/gi, '') // enlever tout ce qui n'est pas une lettre ou un chiffre ou un accent
     .replace(/\bwhooah\s*|\bargh\s*|\baaaah\s*|\baaah\s*|\bwhoa\s*|\bhuh\s*/gi, '')
-    .replace(/\s+/g, ' ') : '';
+    .replace(/\s+/g, ' ') : ''; // remplacer les multiples espaces par des espaces
     if (newText.trim() === '') {
       return null; // supprimer l'objet si le texte est vide après avoir enlevé les mots
     }
