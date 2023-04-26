@@ -32,8 +32,10 @@
         <div id="divHeader"> <!-- div header-->
             <span id="spanCategory"><%= i18n.t(category); %></span>
             <select name="filter"  id="selectFilter" onchange="onChangeFilter()"> <!-- select filter-->
+                <option <%= popu %> value="popularity"><%= i18n.t("popularity"); %></option>
                 <option <%= diff %> value="difficulty"><%= i18n.t("difficulty"); %></option>
                 <option <%= dura %> value="duration"><%= i18n.t("duration"); %></option>
+                
             </select>
            <a href="/suggest"><button id="buttonSuggest"><%= i18n.t("suggest"); %></button></a>
         </div> 

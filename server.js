@@ -58,7 +58,7 @@ i18next
 
 app.use('/:falseURl', (req, res, next) => {
     const falseURl = req.params.falseURl;
-    if (falseURl !== 'id' && falseURl !== 'getInfos' && falseURl !== 'en' && falseURl !== 'fr' && falseURl !== 'challenge' && falseURl !== 'suggest' && falseURl !== 'suggestMethod') {
+    if (falseURl !== 'id' && falseURl !== 'getInfos' && falseURl !== 'en' && falseURl !== 'fr' && falseURl !== 'challenge' && falseURl !== 'suggest' && falseURl !== 'suggestMethod' && falseURl !== 'popularityCount') {
       return res.redirect('/'); // Redirige vers la page d'accueil
     }
     next();
@@ -111,21 +111,28 @@ app.get('/challenge/:category', async (req, res) => {
       var USVids = await models.find({category: req.params.category}).sort(({difficulty: -1}));
       var diff = 'selected';
       var dura = '';
+      var popu = '';
       
     } else if (req.cookies.filter === "duration") {
-    var USVids = await models.find({category: req.params.category}).sort(({duration: 1}));
+    var USVids = await models.find({category: req.params.category}).sort(({duration: -1}));
     var dura = 'selected';
     var diff = '';
+    var popu = '';
    
-    } else {
-      var USVids = await models.find({category: req.params.category}).sort(({difficulty: -1}));
-      var diff = 'selected';
+    } else if (req.cookies.filter === "popularity") {
+      var USVids = await models.find({category: req.params.category}).sort(({popularity: -1}));
+      var popu = 'selected';
+      var diff = '';
       var dura = '';
-      
+    } // Par default
+    else {
+      var USVids = await models.find({category: req.params.category}).sort(({popularity: -1}));
+      var popu = 'selected';
+      var dura = '';
+      var diff = '';
     }
     var category = req.params.category;
-    //var categoryUpperCase = category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
-    res.render('challenge', {USVids, category, diff, dura});
+    res.render('challenge', {USVids, category, popu, diff, dura});
   } catch (err) {
     console.log(err);
     res.status(500).send('Internal Server Error');
@@ -146,8 +153,7 @@ app.post('/id', async function (req, res) {
   } catch (err) {
     res.status(500).send('Transcript error');
   }
-}
-);
+});
 
 app.post('/suggestMethod', function (req, res) {
 
@@ -174,40 +180,32 @@ app.post('/suggestMethod', function (req, res) {
   res.render('suggest', {wellSend});
 });
 
-/* app.post('/getInfos', function (req, res) {
-  var infos = req.i18n.t("informations");
-  var infos2 = req.i18n.t("translateInfos");
-  console.log(infos);
+app.post('/popularityCount', async function (req, res) {
 
-  res.json({ infos: infos, infos2: infos2 });
-}); */
+  var getBody = req.body;
+  console.log(getBody);
 
+  await models.findOne({ id: getBody })
+  .then(vids => {
+    if (vids) {
+      vids.popularity += 1;
+      // Enregistrez les modifications dans la base de données
+      return vids.save();
+    } else {
+      throw new Error('Video not found'); // Lève une nouvelle erreur avec un message personnalisé si l'image n'est pas trouvée
+    }
+  })
+  .then(updatedImage => {
+    // Les modifications ont été enregistrées avec succès
+    console.log('Popularity updated', updatedImage.popularity);
+  })
+  .catch(error => {
+    console.error(error); // Affiche l'erreur dans la console
+    throw new Error('Error'); // Lève une nouvelle erreur avec un message personnalisé
+  });
+});
 
 app.listen(8080)
-
-
-
-/* const MongoClient = require('mongodb').MongoClient;
-
-app.get('/challenge/:category', async (req, res) => {
-  // Connection URL et nom de la base de données
-  const url = 'mongodb://localhost:27017';
-  const dbName = 'nom_de_la_base_de_donnees';
-
-  // Connexion au client MongoDB
-  const client = await MongoClient.connect(url);
-  const db = client.db(dbName);
-
-  // Récupération des documents de la collection "challenge"
-  const collection = db.collection('challenge');
-  const documents = await collection.find({ category: req.params.category }).toArray();
-
-  // Transmission des données à la vue EJS
-  res.render('challenge', { documents, category: req.params.category });
-
-  // Fermeture de la connexion au client MongoDB
-  client.close();
-}); */
 
 
 

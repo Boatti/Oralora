@@ -7,7 +7,6 @@ function onChangeFilter() {
 }
 
 function loadingForm() {
-    
     let loading = 'loading';
     let loadingSpinner = 'loadingSpinner';
     let spinner = document.getElementById('loading');

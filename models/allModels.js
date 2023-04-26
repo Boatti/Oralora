@@ -11,7 +11,9 @@ const mongoose = require("mongoose");
     accent: Number,
     cc: Number,
     quality: String,
-    category: String
+    category: String,
+    popularity: Number,
+    date: Date,
 }, { collection: 'US' });
    
   var suggestDB = new mongoose.Schema({

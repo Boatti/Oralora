@@ -402,7 +402,6 @@ section {
     font-family: GolosBold;
     display: flex;
     flex-direction: row;
-    font-size: 1.3em;
     justify-content: center;
     align-items: center;
 
@@ -410,7 +409,6 @@ section {
 
 #divExplainLeft{
     height: 100%;
-
     gap: 30px;
     flex: 0.4;
     display: flex;
@@ -442,6 +440,7 @@ section {
 .spanExplain{
     text-align: center;
     width: 70%;
+    font-size: 1.1em;
 }
 
 #spanOr{
