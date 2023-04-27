@@ -1,0 +1,1 @@
+function onChangeFilter(){var e=document.getElementById("selectFilter"),n=window.location.pathname.split("/").pop();fetch(`/challenge/${n}?filter=`+e.value).then(()=>location.reload())}function loadingForm(){document.getElementById("loading").id="loadingSpinner"}
