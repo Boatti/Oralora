@@ -23,5 +23,11 @@
     "mongoose": "^7.0.3",
     "nodemon": "^2.0.21",
     "youtube-transcript": "^1.0.4"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-replace": "^1.1.4",
+    "gulp-uglify": "^3.0.2"
   }
 }
