@@ -86,7 +86,7 @@ async function vidFromChall(id, loading0, notLoadingDiv, spinner) {
   clean = JSON.stringify(clean);
   clean = JSON.parse(clean);
 
-  loadAPIPls(id);
+  await loadAPIPls(id);
   countScore(clean);
   divLoading.id = notLoadingDiv;
   spinner.id = loading0;
@@ -120,7 +120,7 @@ async function vidFromChall(id, loading0, notLoadingDiv, spinner) {
 function setIframeSource() {
 
   let cutURL = inputUrl.value;
-  console.log(cutURL);
+  //console.log(cutURL);
   let onlyYtId;
   let errorURL = document.getElementById("invalidURL");
 
@@ -152,121 +152,8 @@ function setIframeSource() {
   cross.addEventListener('click', function() {
     document.getElementById('divInformations').style.display = 'none';
   }); 
-
-
-       /*  try {
-        const response = await fetch('/getInfos', {
-          method: 'POST'
-        });
-        var data = await response.json();
-        console.log(data.infos2);
-      } catch (err){
-          console.log(err)
-        };
-
-				var newDiv = document.createElement("div");
-				newDiv.style.display = "block";
-				newDiv.style.backgroundColor = "rgba(0, 0, 0, 0.81)";
-				newDiv.style.position = "fixed";
-				newDiv.style.top = "0";
-				newDiv.style.left = "0";
-				newDiv.style.width = "100%";
-				newDiv.style.height = "100%";
-				newDiv.style.zIndex = "999";
-
-				var newDiv2 = document.createElement("div");
-				newDiv2.style.display = "flex";
-
-				var newImage = document.createElement("img");
-				newImage.src = "assets/Img/parchment.png";
-				newImage.style.height = "88vh";
-				newImage.style.borderRadius = "29px";
-				newDiv2.style.position = "absolute";
-				newDiv2.style.top = "50%";
-				newDiv2.style.left = "50%";
-				newDiv2.style.transform = "translate(-50%, -50%)";
-
-        var paragraph = document.createElement("p");
-				paragraph.setAttribute("id", "paragraph");
-        paragraph.style.position = "absolute";
-				paragraph.style.top = "8%";
-				paragraph.style.left = "20%";
-        paragraph.textContent = data.infos + data.infos2;
-        
-
-				var crossSrc = new Image(33,33);
-				crossSrc.src = 'assets/Img/crossNormal.png';
-				crossSrc.setAttribute("id", "cross");
-				crossSrc.style.position = 'absolute';
-				crossSrc.style.top = "-36px";
-				crossSrc.style.right = "-36px";
-				crossSrc.style.cursor = "pointer";
-				
-				newDiv2.appendChild(newImage);
-        
-				
-				setTimeout(() => {
-          
-					newDiv2.appendChild(crossSrc);
-          newDiv2.appendChild(paragraph);
-				}, 10);
-				newDiv.appendChild(newDiv2);
-
-				document.body.appendChild(newDiv);
-
-				crossSrc.addEventListener('click', function() {
-					newDiv.remove();
-				}); */
 }
-		
 
-  /* const rulesDisplayed = localStorage.getItem('rulesDisplayed');
-
-// si les règles n'ont pas encore été affichées, afficher la div de règles
-if (!rulesDisplayed) {
-  const rulesDiv = document.getElementById('rules');
-  rulesDiv.style.display = 'flex';
-
-  // enregistrer la variable de stockage local pour indiquer que les règles ont été affichées
-  localStorage.setItem('rulesDisplayed', true);
-}  */
-
-
-
-function cleanTranscript(transcriptu) {
-
- // var dam = JSON.stringify(transcriptu);
- // var dam2 = JSON.parse(dam);
-//console.log('voici le transcript de base' + dam2);
-  // Supprimer les objets qui ont pour seul texte [Music] ou [Applause]
-
-  // Enlever tout ce qui n'est pas une lettre de l'alphabet, remplacer les '\n' par des espaces, enlever les "whooah argh aaaah aaah whoa huh" si ce mot est seul dans le text on supprime tout l'objet mais si il est avec du text a coté on supprime que le mot
-  const modifiedArr = transcriptu.map(obj => {
-    let newText = obj.text ? obj.text
-    .replace(/\[[^\]]+\]/g, '') // supprimer les mots entre []
-    .replace(/\*[^*]+\*/g, '') // supprimer les mots entre *
-    .replace(/\([^)]*\)/g, '') // supprimer les mots entre ()
-    .replace(/\n|-/g, ' ') // remplacer les \n par des espaces
-    .replace(/\./g, ' ') //remplacer les points par des espaces
-    .replace(/\s+/g, ' ') // remplacer les multiples espaces par des espaces
-    .replace(/[^a-z0-9-àâäéèêëîïôöùûüçáíóúñü \n']/gi, '') // enlever tout ce qui n'est pas une lettre ou un chiffre ou un accent
-    .replace(/\bwhooah\s*|\bargh\s*|\baaaah\s*|\baaah\s*|\bwhoa\s*|\bhuh\s*/gi, '')
-    .replace(/\s+/g, ' ') : ''; // remplacer les multiples espaces par des espaces
-    if (newText.trim() === '') {
-      return null; // supprimer l'objet si le texte est vide après avoir enlevé les mots
-    }
-    return {
-      ...obj,
-      text: newText.trim().toLowerCase()
-    };
-  }).filter(obj => obj !== null); // filtrer les objets null
-
-  // Si le dernier objet a pour texte "you", le supprimer
-  if (modifiedArr[modifiedArr.length - 1].text === 'you') {
-    modifiedArr.pop();
-  }
-  return modifiedArr;
-}
 
 function countScore(cleanTranscript) {
   var totalWords = cleanTranscript.reduce(function (acc, val) {
@@ -275,7 +162,7 @@ function countScore(cleanTranscript) {
 
   scoreDiv.innerHTML = 0;
   document.getElementById('totalWords').innerHTML = totalWords;
-  console.log(totalWords);
+  //console.log(totalWords);
 }
 
 function scrollToInput() {
@@ -298,8 +185,8 @@ const inputUrl = document.getElementById("urlInput");
 
 ////////////INPUT URL
 
-inputUrl.addEventListener("keydown", async function (event) {
-  if (event.key === "Enter" || event.key === 'NumpadEnter') {
+inputUrl.addEventListener("keydown", async function (mouch) {
+  if (mouch.key == "Enter" || mouch.key == 'NumpadEnter') {
     //event.preventDefault();
     let loading = 'loading';
     let loadingSpinner = 'loadingSpinner';
@@ -308,7 +195,7 @@ inputUrl.addEventListener("keydown", async function (event) {
     let guessSection = document.getElementById("guessSection");
     spinner.id = loadingSpinner;
     getIDYTB2 = setIframeSource();
-    console.log(getIDYTB2);
+    //console.log(getIDYTB2);
     if (getIDYTB2 === "URL Invalid") {
       inputUrl.value = "";
       spinner.id = loading;
@@ -342,20 +229,20 @@ inputUrl.addEventListener("keydown", async function (event) {
     inputUrl.value = "";
     //getHTTPTranscript = JSON.stringify(getHTTPTranscript);
     //getHTTPTranscript = `'${getHTTPTranscript}'`;
-    console.log(transcripto[0].text); 
-    console.log(transcripto[1].duration);
+    //console.log(transcripto[0].text); 
+    //console.log(transcripto[1].duration);
 
-    console.log("étape 1 ", transcripto)
+    //console.log("étape 1 ", transcripto)
     //getHTTPTranscript = JSON.parse(getHTTPTranscript);
     clean = cleanTranscript(transcripto);
-    console.log(clean[0].text); 
+    //console.log(clean[0].text); 
     clean = JSON.stringify(clean);
     clean = JSON.parse(clean);
     //var startBy = clean[0].offset;
-    console.log(getHTTPTranscript);
+    //console.log(getHTTPTranscript);
     loadAPIPls(getIDYTB);
     //toDoOnStart(startBy);
-    console.log("official ", clean);
+    //console.log("official ", clean);
     countScore(clean);
     inputUrl.blur(); //Unfocus the input
     const scrollTo = document.querySelector("#guessSection");
@@ -386,8 +273,38 @@ inputUrl.addEventListener("keydown", async function (event) {
     input.focus();
     //var iframe = document.querySelector("iframe#player");
   } }
-}, { passive: true });
+})
 ////////////INPUT URL
+
+function cleanTranscript(transcriptu) {
+
+   // Enlever tout ce qui n'est pas une lettre de l'alphabet, remplacer les '\n' par des espaces, enlever les "whooah argh aaaah aaah whoa huh" si ce mot est seul dans le text on supprime tout l'objet mais si il est avec du text a coté on supprime que le mot
+   const modifiedArr = transcriptu.map(obj => {
+     let newText = obj.text ? obj.text
+     .replace(/\[[^\]]+\]/g, '') // supprimer les mots entre []
+     .replace(/\*[^*]+\*/g, '') // supprimer les mots entre *
+     .replace(/\([^)]*\)/g, '') // supprimer les mots entre ()
+     .replace(/\n|-/g, ' ') // remplacer les \n par des espaces
+     .replace(/\./g, ' ') //remplacer les points par des espaces
+     .replace(/\s+/g, ' ') // remplacer les multiples espaces par des espaces
+     .replace(/[^a-z0-9-àâäéèêëîïôöùûüçáíóúñü \n']/gi, '') // enlever tout ce qui n'est pas une lettre ou un chiffre ou un accent
+     .replace(/\bwhooah\s*|\bargh\s*|\baaaah\s*|\baaah\s*|\bwhoa\s*|\bhuh\s*/gi, '')
+     .replace(/\s+/g, ' ') : ''; // remplacer les multiples espaces par des espaces
+     if (newText.trim() === '') {
+       return null; // supprimer l'objet si le texte est vide après avoir enlevé les mots
+     }
+     return {
+       ...obj,
+       text: newText.trim().toLowerCase()
+     };
+   }).filter(obj => obj !== null); // filtrer les objets null
+ 
+   // Si le dernier objet a pour texte "you", le supprimer
+   if (modifiedArr[modifiedArr.length - 1].text === 'you') {
+     modifiedArr.pop();
+   }
+   return modifiedArr;
+ }
 
 
 
@@ -448,7 +365,7 @@ function guessButton() {
     stringGuess = clean[indexObject].text; // 'Let's go to a place'
   } catch (e) { console.log(e) }
     let stringListGuess = stringGuess.split(" ");
-    console.log(stringListGuess);
+    //console.log(stringListGuess);
     currentWord = stringListGuess[indexWord];
     cara = cara + " " + currentWord;
     cara = cara.trim();
@@ -476,12 +393,12 @@ indexWord++;
       countLoopInput++;
     } 
     
-    console.log('chat', countLoopInput, ' ', countLoop);
+    //console.log('chat', countLoopInput, ' ', countLoop);
     if (countLoopInput == countLoop) {
       countLoopInput = 0;
-      console.log("c gagné button");
+      //console.log("c gagné button");
       var [startForLoad, endForLoad] = getOffset();
-      console.log("mmm " + startForLoad, endForLoad);
+      //console.log("mmm " + startForLoad, endForLoad);
       changeAll(getIDYTB, startForLoad, endForLoad);
     }
 
@@ -573,7 +490,7 @@ input.addEventListener("input", function (event) {
       
     }
     try {
-      console.log("voici cara " + cara);
+      //console.log("voici cara " + cara);
 
       if (cara === string) {
         cara = "";
@@ -583,14 +500,14 @@ input.addEventListener("input", function (event) {
       } 
       if (countLoopInput == countLoop) {
         countLoopInput = 0;
-        console.log("c gagné");
+        //console.log("c gagné");
         var [startForLoad, endForLoad] = getOffset();
-        console.log("mmm " + startForLoad, endForLoad);
+        //console.log("mmm " + startForLoad, endForLoad);
         changeAll(getIDYTB, startForLoad, endForLoad);
       }
       
 
-      console.log('chat', countLoopInput, ' ', countLoop);
+      //console.log('chat', countLoopInput, ' ', countLoop);
 
     } catch (e) { console.log(e) };
   

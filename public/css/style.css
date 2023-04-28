@@ -485,6 +485,7 @@ section {
 }
 
 #command {
+    width: 15vw;
     display: flex;
     justify-content: center;
 }

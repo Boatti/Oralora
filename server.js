@@ -183,7 +183,7 @@ app.post('/suggestMethod', function (req, res) {
 app.post('/popularityCount', async function (req, res) {
 
   var getBody = req.body;
-  console.log(getBody);
+  //console.log(getBody);
 
   await models.findOne({ id: getBody })
   .then(async vids => {

@@ -26,7 +26,7 @@ function createYouTubePlayer(id) {
             height: '360',
             width: '640',
             videoId: id,
-            playerVars: {'loop': 1, 'autoplay': 0, 'controls': 0, 'disablekb': 1, 'enablejsapi': 1, 'cc_load_policy': 0, 'cc_lang_pref': 'en', 'iv_load_policy': 0, 'modestbranding': 1, 'showinfo':0 },
+            playerVars: {'autoplay': 0, 'controls': 0, 'disablekb': 1, 'enablejsapi': 1, 'cc_load_policy': 0, 'cc_lang_pref': 'en', 'iv_load_policy': 0, 'modestbranding': 1, 'showinfo':0 },
             events: {
                 'onReady': function (event) {
                     onPlayerReady(player, event, id);
@@ -106,7 +106,7 @@ function onPlayerReady(player, event, id) { // quand la video est lancé la prem
             } else {
                 end2 = endOffset;
             }
-            console.log("par pitié " + start2);
+            //console.log("par pitié " + start2);
                 //player.seekTo(start, false);
                 //setTimeout(() => {player.playVideo()}, 1000);
                 player.loadVideoById({
@@ -147,10 +147,10 @@ function getOffset() {
         }
 
     for (i = endOffset; i < (clean.length); i++) {
-        console.log(clean.length);
-        console.log("i vaut : ", i);
+        //console.log(clean.length);
+        //console.log("i vaut : ", i);
         count = count + clean[i].text.split(" ").length;
-        console.log('count is : ', count);
+        //console.log('count is : ', count);
             if(count > 15) {
                 count = 0;
                 endOffset = i;
@@ -172,10 +172,10 @@ function changeAll(id, startOff, endOff) {
     var end = millisToSeconds(clean[endOff].offset);
    } else {
     end = endOff;
-    console.log("essaie " + end);
+    //console.log("essaie " + end);
    }
-    console.log(start,end);
-    console.log(start,end);
+    //console.log(start,end);
+    //console.log(start,end);
     player.loadVideoById({
         videoId: id,
         startSeconds: start,
@@ -189,8 +189,8 @@ function repeatAWord(){
     var currentTime = player.getCurrentTime();
     var add = parseFloat(millisToSeconds(clean[startOffset].offset));
     var img = document.getElementById("play");
-    console.log(add);
-    console.log("current time is : " + currentTime + " et start offset : " + add);
+    //console.log(add);
+    //console.log("current time is : " + currentTime + " et start offset : " + add);
     if (currentTime <= add + 1.5) {
         player.seekTo(add);
     } else {

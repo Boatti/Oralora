@@ -10,7 +10,7 @@ async function redirectYT(id) {
     console.log(response);
   })
   .catch(error => {
-    console.error("Une erreur s'est produite lors de la requête de popularité :", error);
+    console.error("Popularity error", error);
   });
   sessionStorage.setItem("idYtb", id);
   window.location.href = "/";

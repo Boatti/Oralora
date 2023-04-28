@@ -1,1 +1,1 @@
-async function redirectYT(e){await fetch("/popularityCount",{method:"POST",headers:{"Content-Type":"application/json"},body:e}).then(e=>{console.log(e)}).catch(e=>{console.error("Une erreur s'est produite lors de la requête de popularité :",e)}),sessionStorage.setItem("idYtb",e),window.location.href="/"}
+async function redirectYT(o){await fetch("/popularityCount",{method:"POST",headers:{"Content-Type":"application/json"},body:o}).then(o=>{console.log(o)}).catch(o=>{console.error("Popularity error",o)}),sessionStorage.setItem("idYtb",o),window.location.href="/"}
