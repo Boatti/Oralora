@@ -1,29 +1,36 @@
 <div id="header">
     <div id="logo">
-        <a href="http://localhost:8080/">Oralora</a>
+        <a href="/">Oralora</a>
     </div>
 
     <div id="boxForAll">
         <div id="boxForTabs">
-            <div id ='challengeDropdown' href="">Challenge<img src="../assets/Img/dropdownArrowWhite.png"></div>
-                 <div id="challengeDropdownContent">
-     
-                     <a href="/challenge/levels"><%= i18n.t("levels"); %></a>
-                     <a href="/challenge/short"><%= i18n.t("short"); %></a>
-                     <a href="/challenge/movie"><%= i18n.t("movie"); %></a>
-                     <a href="/challenge/songs"><%= i18n.t("songs"); %></a>
-                     
-                     </div>
-             
-            <!-- <a class="tabs" href="">SIGN UP</a>
-             <a class="tabs" href="">SIGN IN</a>-->
-         </div>
+            <div id='challengeDropdown' href="">Challenge<img src="../assets/Img/dropdownArrowWhite.png"></div>
+            <div id="challengeDropdownContent">
+
+                <a href="/challenge/levels">
+                    <%= i18n.t("levels"); %>
+                </a>
+                <a href="/challenge/short">
+                    <%= i18n.t("short"); %>
+                </a>
+                <a href="/challenge/movie">
+                    <%= i18n.t("movie"); %>
+                </a>
+                <a href="/challenge/songs">
+                    <%= i18n.t("songs"); %>
+                </a>
+
+            </div>
+        </div>
 
         <div id="divLang">
-            <div id="currentFlag"><div id="otherFlag"></div></div>
-            
+            <div id="currentFlag">
+                <div id="otherFlag"></div>
+            </div>
+
         </div>
-    
+
 
     </div>
 </div>

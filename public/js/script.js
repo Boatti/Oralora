@@ -401,27 +401,6 @@ indexWord++;
       //console.log("mmm " + startForLoad, endForLoad);
       changeAll(getIDYTB, startForLoad, endForLoad);
     }
-
-    
-    
-//Prend le sous-titre de fin de segment
-   /*  if (endOffset != null || endForLoad != null) { 
-      var p = clean[endOffset - 1].text;
-    } else {
-      var p = clean[clean.length - 1].text;
-    }
-    indexWord++;
-    if (cara === p) { //Si la chaine entrée equivaut au dernier sous-titre du segment, génére un nouveau segment de vidéo
-      console.log("c gagné button");
-      var [startForLoad, endForLoad] = getOffset();
-      console.log("ddd " + startForLoad, endForLoad);
-      changeAll(getIDYTB, startForLoad, endForLoad);
-    }
-    if (cara === stringGuess){
-      cara = "";
-      indexObject++;
-      indexWord = 0;
-    } */
     indexLetter = 0;
     input.value = '';
     input.focus();

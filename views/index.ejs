@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="<%= i18n.t('htmlLang') %>">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/assets/Img/logo3.ico" />
-    <meta
-        content="<%= i18n.t('metaDescription') %>"
-        name="description">
-    <meta content="Oralora - <%= i18n.t('metaOgTitle') %>"
-        property="og:title">
-    <meta
-        content="<%= i18n.t('metaDescription') %>"
-        property="og:description">
+    <meta content="<%= i18n.t('metaDescription') %>" name="description">
+    <meta content="Oralora - <%= i18n.t('metaOgTitle') %>" property="og:title">
+    <meta content="<%= i18n.t('metaDescription') %>" property="og:description">
     <meta content="/static/ogImage2.png" property="og:image">
     <title>Oralora</title>
     <link href="/assets/min-css/style.css" rel="stylesheet">
@@ -19,6 +15,16 @@
     <script src="/assets/min-js/script.js" defer></script>
     <script src="/assets/min-js/youtubeApi.js" defer></script>
     <script src="/assets/min-js/scriptForLang.js" defer></script>
+    <!-- Google tag (gtag.js) -->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TFLVR6ZCNF"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TFLVR6ZCNF');
+    </script>
 
 </head>
 
@@ -26,24 +32,26 @@
 
     <%- include('header.ejs') %>
 
-    <div id="divNotLoading"><div id="loading0"></div></div>
-
-    <div id="divInformations">
-        <div id="divInfoSon">
-            <img id='cross' src="assets/Img/crossNormal.png" alt="Cross">
-            <img id='parchment' src="assets/Img/parchment.png" alt="Informations">
-            <div id="divParagraph">
-                <h2>Informations</h2>
-                <p class='paragraph'><%- i18n.t("informations"); %></p>
-                <p class='paragraph'><%- i18n.t("translateInfos"); %></p>
-                <p class='paragraph'><%- i18n.t("translateExplanation"); %></p>
-                <img id='imgTranslateExplanation' src="assets/Img/translateExplanation.png" alt="How to translate">
-                <p class='paragraph'><%- i18n.t("lastInfo"); %></p>
-            </div>
-            
+        <div id="divNotLoading">
+            <div id="loading0"></div>
         </div>
-    </div>
-    
+
+        <div id="divInformations">
+            <div id="divInfoSon">
+                <img id='cross' src="assets/Img/crossNormal.png" alt="Cross">
+                <img id='parchment' src="assets/Img/parchment.png" alt="Informations">
+                <div id="divParagraph">
+                    <h2>Informations</h2>
+                    <p class='paragraph'><%- i18n.t("informations"); %></p>
+                    <p class='paragraph'><%- i18n.t("translateInfos"); %></p>
+                    <p class='paragraph'><%- i18n.t("translateExplanation"); %></p>
+                    <img id='imgTranslateExplanation' src="assets/Img/translateExplanation.png" alt="How to translate">
+                    <p class='paragraph'><%- i18n.t("lastInfo"); %></p>
+                </div>
+
+            </div>
+        </div>
+
         <div id="globalSection">
 
             <section id="homeSection">
@@ -51,25 +59,35 @@
                 <div id="globalTitle">
 
                     <div id="title">Oralora</div>
-                    <span class="spanExplain"><%= i18n.t("hook"); %><!--The best way to learn a language.--></span>
+                    <span class="spanExplain">
+                        <%= i18n.t("hook"); %><!--The best way to learn a language.-->
+                    </span>
                 </div>
 
                 <div id="divExplain">
                     <div id="divExplainLeft">
-                        <span class="spanExplain"><%= i18n.t("explain1"); %></span>
+                        <span class="spanExplain">
+                            <%= i18n.t("explain1"); %>
+                        </span>
                         <img class="imgExplain" src="assets/Img/youtubeURL.png" alt="How to get a youtube link">
 
-                        <span class="spanExplain"><%= i18n.t("explain2"); %></span>
+                        <span class="spanExplain">
+                            <%= i18n.t("explain2"); %>
+                        </span>
                         <img class="imgExplain" src="assets/Img/pasteIt.png" alt="How to past the link to an input">
-                        
+
 
                     </div>
                     <div id="divExplainCenter">
                         <img class="imgExplain" id='imgArrowMiddle' src="assets/Img/arrowCenter.png" alt="Arrow">
-                        <button onclick="scrollToInput()" id="try"><%= i18n.t("try"); %></button>
+                        <button onclick="scrollToInput()" id="try">
+                            <%= i18n.t("try"); %>
+                        </button>
                     </div>
                     <div id="divExplainRight">
-                        <span class="spanExplain"><%= i18n.t("explain3"); %></span>
+                        <span class="spanExplain">
+                            <%= i18n.t("explain3"); %>
+                        </span>
                         <img class="imgExplain" src="assets/Img/inputWrite.png" alt="How to write down what you ear">
                         <span class="spanExplain"><%- i18n.t("explain4"); %></span>
                     </div>
@@ -81,7 +99,8 @@
             <section id="inputSection">
 
                 <div id="inputLoadingDiv">
-                    <input placeholder="<%= i18n.t('inputUrl'); %>" autocomplete="off" type="text" id="urlInput" name="urlInput">
+                    <input placeholder="<%= i18n.t('inputUrl'); %>" autocomplete="off" type="text" id="urlInput"
+                        name="urlInput">
                     <span id="invalidURL"></span>
                     <div id="loading"></div>
                 </div>
@@ -112,20 +131,29 @@
                     <div id="command">
 
                         <div>
-                            <img class="playRepeat" id="repeat" onclick="repeatAWord()" src="/assets/Img/backSec2.png" alt="Back 1.5sec before button">
-                            <span><%= i18n.t("repeat"); %></span>
+                            <img class="playRepeat" id="repeat" onclick="repeatAWord()" src="/assets/Img/backSec2.png"
+                                alt="Back 1.5sec before button">
+                            <span>
+                                <%= i18n.t("repeat"); %>
+                            </span>
                             <span class="shortcut"></span>
                         </div>
 
                         <div>
-                            <img class="playRepeat" id="replay" onclick="replayVideo()" src="/assets/Img/Repeat3.png" alt="Replay segment button">
-                            <span><%= i18n.t("replay"); %></span>
+                            <img class="playRepeat" id="replay" onclick="replayVideo()" src="/assets/Img/Repeat3.png"
+                                alt="Replay segment button">
+                            <span>
+                                <%= i18n.t("replay"); %>
+                            </span>
                             <span class="shortcut"></span>
                         </div>
 
                         <div>
-                            <img class="playRepeat" id="play" onclick="toggleVideo()" src="/assets/Img/pauseButton2.png" alt="Play/Pause button">
-                            <span><%= i18n.t("pause"); %></span>
+                            <img class="playRepeat" id="play" onclick="toggleVideo()" src="/assets/Img/pauseButton2.png"
+                                alt="Play/Pause button">
+                            <span>
+                                <%= i18n.t("pause"); %>
+                            </span>
                             <span class="shortcut"></span>
                         </div>
 

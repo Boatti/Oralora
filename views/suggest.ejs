@@ -1,59 +1,92 @@
 <!DOCTYPE html>
 <html lang="<%= i18n.t('htmlLang') %>">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/Img/logo3.ico" />
-    <meta name="robots" content="noindex">
-    <meta content="Looking to improve your listening skills in another language? Look no further than our website!"
-        property="og:title">
-    <meta
-        content="Looking to improve your listening skills in another language? Look no further than our website! We offer a wide range of engaging and informative videos that you can transcribe to improve your listening and comprehension abilities. Whether you're a beginner or an advanced learner, we have videos suitable for your level. Let us help you achieve your language learning goals."
-        property="og:description">
-    <meta content="/static/ogImage2.png" property="og:image">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/assets/Img/logo3.ico" />
+  <meta name="robots" content="noindex">
+  <meta content="Oralora - <%= i18n.t('metaOgTitle') %>" property="og:title">
+  <meta content="<%= i18n.t('metaDescription') %>" property="og:description">
+  <meta content="/static/ogImage2.png" property="og:image">
+
+  <title>Oralora | <%= i18n.t("suggest") %>
+  </title>
+  <link href="/assets/min-css/challStyle.css" rel="stylesheet">
+  <link href="/assets/min-css/style.css" rel="stylesheet">
+  <link href="/assets/min-css/suggest.css" rel="stylesheet">
+  <script src="/assets/min-js/youtubeApi.js" defer></script>
+  <script src="/assets/min-js/scriptForLang.js" defer></script>
+  <script src="/assets/min-js/challScript.js" defer></script>
+
+  <!-- Google tag (gtag.js) -->
     
-    <title>Oralora | <%= i18n.t("suggest") %></title>
-    <link href="/assets/min-css/challStyle.css" rel="stylesheet">
-    <link href="/assets/min-css/style.css" rel="stylesheet">
-    <link href="/assets/min-css/suggest.css" rel="stylesheet">
-    <script src="/assets/min-js/youtubeApi.js" defer></script>
-    <script src="/assets/min-js/scriptForLang.js" defer></script>
-    <script src="/assets/min-js/challScript.js" defer></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TFLVR6ZCNF"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TFLVR6ZCNF');
+  </script>
 </head>
+
 <body>
 
-    <%- include('header.ejs') %>
+  <%- include('header.ejs') %>
 
     <div id="divSuggest">
       <div>
         <form action="/suggestMethod" method="post">
-            <div><%= i18n.t("hookSuggest") %></div>
-            <label><%= i18n.t("link") %></label>
-            <input autocomplete="off" id="inputSuggest" type="text" name="link" required/>
-            <br/>
-            <label><%= i18n.t("choose") %></label>
-            <select name="category" class="selectCategory">
-              <option value="levels"><%= i18n.t("levels"); %></option>
-              <option value="short"><%= i18n.t("short"); %></option>
-              <option value="movie"><%= i18n.t("movie"); %></option>
-              <option value="songs"><%= i18n.t("songs"); %></option>
-            </select>
-              <br />
-              <label><%= i18n.t("chooseLang") %></label>
-              <select name="lang" class="selectCategory"> 
-                <option value="fr">FR</option>
-                <option value="en">EN</option>
-                <option value="es">ES</option>
-              </select>
-            <label><%= i18n.t("explain") %></label>
-            <textarea name="explanation" id="textareaSuggest"></textarea>
-            <br/>
-            <button onclick="loadingForm()" id="buttonSuggest" type="submit"><%= i18n.t('sendButton') %></button>
-          </form>
-        </div>
-          <div id="divLoadd"><div id="loading"></div></div>
+          <div>
+            <%= i18n.t("hookSuggest") %>
+          </div>
+          <label>
+            <%= i18n.t("link") %>
+          </label>
+          <input autocomplete="off" id="inputSuggest" type="text" name="link" required />
+          <br />
+          <label>
+            <%= i18n.t("choose") %>
+          </label>
+          <select name="category" class="selectCategory">
+            <option value="levels">
+              <%= i18n.t("levels"); %>
+            </option>
+            <option value="short">
+              <%= i18n.t("short"); %>
+            </option>
+            <option value="movie">
+              <%= i18n.t("movie"); %>
+            </option>
+            <option value="songs">
+              <%= i18n.t("songs"); %>
+            </option>
+          </select>
+          <br />
+          <label>
+            <%= i18n.t("chooseLang") %>
+          </label>
+          <select name="lang" class="selectCategory">
+            <option value="fr">FR</option>
+            <option value="en">EN</option>
+            <option value="es">ES</option>
+          </select>
+          <label>
+            <%= i18n.t("explain") %>
+          </label>
+          <textarea name="explanation" id="textareaSuggest"></textarea>
+          <br />
+          <button onclick="loadingForm()" id="buttonSuggest" type="submit">
+            <%= i18n.t('sendButton') %>
+          </button>
+        </form>
       </div>
-      
+      <div id="divLoadd">
+        <div id="loading"></div>
+      </div>
+    </div>
+
 </body>
 
 </html>
